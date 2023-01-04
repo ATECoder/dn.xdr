@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+
+    <AssemblyName>cc.isr.XDR</AssemblyName>
+    <RootNamespace>cc.isr</RootNamespace>
+
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <OutputType>Library</OutputType>
+    <NoWarn>1591</NoWarn>
+
+    <!-- Display name -->
+    <ApplicationTitle>cc.isr.XDR</ApplicationTitle>
+
+    <!-- App Identifier -->
+    <ApplicationId>cc.isr.xdr</ApplicationId>
+
+    <!-- NuGet -->
+    <IsPackable>true</IsPackable>
+    <PackageId>cc.isr.XDR</PackageId>
+    <Description>A pure C# implementation of the XDR Streaming codec.</Description>
+    <PackageTags>XDR Codec</PackageTags>
+
+    <!-- Documentation -->
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\items\readme.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>

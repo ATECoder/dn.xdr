@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "~items", "~items", "{C57D9B99-54FD-4AB0-9DCC-DBCD77951BB9}"
+	ProjectSection(SolutionItems) = preProject
+		..\CHANGELOG.md = ..\CHANGELOG.md
+		items\readme.md = items\readme.md
+		..\README.md = ..\README.md
+		..\xdr.md = ..\xdr.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "~build", "~build", "{A761A44D-A202-4141-A0D1-309729FA5516}"
+	ProjectSection(SolutionItems) = preProject
+		directory.build.props = directory.build.props
+		items\version.build.bat = items\version.build.bat
+		items\version.build.props = items\version.build.props
+		items\version.build.tt = items\version.build.tt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cc.isr.XDR", "xdr\xdr\cc.isr.XDR.csproj", "{7660712A-CD95-405C-BBA3-C10A2A209D69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cc.isr.XDR.MSTest", "xdr\xdr.MSTest\cc.isr.XDR.MSTest.csproj", "{6DE8F570-0DA7-4E0E-8780-6517D5A17968}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7660712A-CD95-405C-BBA3-C10A2A209D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7660712A-CD95-405C-BBA3-C10A2A209D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7660712A-CD95-405C-BBA3-C10A2A209D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7660712A-CD95-405C-BBA3-C10A2A209D69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DE8F570-0DA7-4E0E-8780-6517D5A17968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DE8F570-0DA7-4E0E-8780-6517D5A17968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DE8F570-0DA7-4E0E-8780-6517D5A17968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DE8F570-0DA7-4E0E-8780-6517D5A17968}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1FF9F56-27F2-4810-A269-6C8703DE53B3}
+	EndGlobalSection
+EndGlobal
