@@ -187,5 +187,46 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
             throw (new XdrException( XdrException.XdrBufferOverflow ));
         }
     }
+
+    #region  " IDisposable Implementation "
+
+    /// <summary>
+    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
+    /// the managed resources.
+    /// </summary>
+    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
+    ///                             release only unmanaged resources. </param>
+    protected override void Dispose( bool disposing )
+    {
+        try
+        {
+            if ( disposing )
+            {
+                // dispose managed state (managed objects)
+            }
+
+            // free unmanaged resources and override finalizer
+
+            this._socket?.Dispose();
+            this._socket = null;
+
+            // set large fields to null
+            this._buffer = null;
+        }
+        finally
+        {
+            base.Dispose( disposing );
+        }
+    }
+
+    /// <summary>   Finalizer. </summary>
+    ~XdrUdpEncodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
+
+    #endregion
+
 }
 

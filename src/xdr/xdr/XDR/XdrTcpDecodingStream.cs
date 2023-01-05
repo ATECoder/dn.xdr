@@ -110,7 +110,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// </remarks>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void BeginDecoding()
     {
         this.Fill();
@@ -233,7 +233,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// </remarks>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void EndDecoding()
     {
         try
@@ -269,7 +269,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// </remarks>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
         this._buffer = null;
@@ -284,7 +284,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <returns>   The decoded int value. </returns>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override int DecodeInt()
     {
 
@@ -327,7 +327,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <returns>   Opaque data as a byte vector. </returns>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override byte[] DecodeOpaque( int length )
     {
         int padding = (4 - (length & 3)) & 3;
@@ -393,7 +393,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <param name="length">   the number of bytes to decode. </param>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void DecodeOpaque( byte[] opaque, int offset, int length )
     {
         int padding = (4 - (length & 3)) & 3;
@@ -435,5 +435,48 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         }
         this._bufferIndex += padding;
     }
+
+    #region  " IDisposable Implementation "
+
+    /// <summary>
+    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
+    /// the managed resources.
+    /// </summary>
+    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
+    ///                             release only unmanaged resources. </param>
+    protected override void Dispose( bool disposing )
+    {
+        try
+        {
+            if ( disposing )
+            {
+                // dispose managed state (managed objects)
+            }
+
+            // free unmanaged resources and override finalizer
+            this._stream?.Dispose();
+            this._stream = null;
+
+            this._socket?.Dispose();
+            this._socket = null;
+
+
+            // set large fields to null
+            this._buffer = null;
+        }
+        finally
+        {
+            base.Dispose( disposing );
+        }
+    }
+
+    /// <summary>   Finalizer. </summary>
+    ~XdrTcpDecodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
+
+    #endregion
 
 }

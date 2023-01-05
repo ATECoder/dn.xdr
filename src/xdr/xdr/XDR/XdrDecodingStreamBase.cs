@@ -8,7 +8,7 @@ namespace cc.isr.XDR;
 /// <see cref="DecodeOpaque(byte[], int, int)"/>. </para> <para>
 /// Remote Tea authors: Harald Albrecht, Jay Walters. </para>
 /// </remarks>
-public abstract class XdrDecodingStreamBase
+public abstract class XdrDecodingStreamBase : IDisposable
 {
     /// <summary>   (Immutable) size of the default buffer. </summary>
     public const int DefaultBufferSize = 8192;
@@ -530,4 +530,57 @@ public abstract class XdrDecodingStreamBase
     /// </summary>
     /// <value> The character encoding. </value>
     public string CharacterEncoding { get; set; }
+
+    #region " IDisposable Implementation "
+
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged
+    /// resources.
+    /// </summary>
+    public void Dispose()
+    {
+        if ( this.IsDisposed ) { return; }
+        try
+        {
+            // dispose of unmanaged resources
+            this.Dispose( true );
+
+            // suppress finalization
+            GC.SuppressFinalize( this );
+        }
+        finally
+        {
+            this.IsDisposed = true;
+        }
+    }
+
+    /// <summary>   Gets or sets a value indicating whether this object is disposed. </summary>
+    /// <value> True if this object is disposed, false if not. </value>
+    protected bool IsDisposed { get; private set; }
+
+    /// <summary>
+    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
+    /// the managed resources.
+    /// </summary>
+    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
+    ///                             release only unmanaged resources. </param>
+    protected virtual void Dispose( bool disposing )
+    {
+        if ( disposing )
+        {
+            // dispose managed state (managed objects)
+        }
+        // free unmanaged resources and override finalizer
+        // set large fields to null
+    }
+
+    /// <summary>   Finalizer. </summary>
+    ~XdrDecodingStreamBase()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
+
+    #endregion
+
 }

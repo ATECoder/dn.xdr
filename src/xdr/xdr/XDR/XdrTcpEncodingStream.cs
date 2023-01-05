@@ -19,7 +19,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     private Socket _socket;
 
     /// <summary>   The output stream used to get rid of bytes going off to the network. </summary>
-    private readonly Stream _stream;
+    private Stream _stream;
 
     /// <summary>
     /// The buffer which will be filled from the datagram socket and then
@@ -101,7 +101,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// <param name="receiverPort">     Port number of the receiver. </param>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void BeginEncoding( IPAddress receiverAddress, int receiverPort )
     {
     }
@@ -127,7 +127,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// should immediately be written to their intended destination. 
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void EndEncoding()
     {
         this.Flush( true, false );
@@ -146,7 +146,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// <param name="flush">    True to flush. </param>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public virtual void EndEncoding( bool flush )
     {
         this.Flush( true, !flush );
@@ -212,7 +212,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// </remarks>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
         this._buffer = null;
@@ -229,7 +229,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// <param name="value">    The int value to be encoded. </param>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void EncodeInt( int value )
     {
         if ( this._bufferIndex > this._bufferHighmark )
@@ -262,7 +262,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// <param name="length">   the number of bytes to encode. </param>
     ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">      Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void EncodeOpaque( byte[] value, int offset, int length )
     {
         int padding = (4 - (length & 3)) & 3;
@@ -298,5 +298,47 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         System.Array.Copy( _paddingZeros, 0, this._buffer, this._bufferIndex, padding );
         this._bufferIndex += padding;
     }
+
+    #region  " IDisposable Implementation "
+
+    /// <summary>
+    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
+    /// the managed resources.
+    /// </summary>
+    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
+    ///                             release only unmanaged resources. </param>
+    protected override void Dispose( bool disposing )
+    {
+        try
+        {
+            if ( disposing )
+            {
+                // dispose managed state (managed objects)
+            }
+
+            // free unmanaged resources and override finalizer
+            this._stream?.Dispose();
+            this._stream = null;
+
+            this._socket?.Dispose();
+            this._socket = null;
+
+            // set large fields to null
+            this._buffer = null;
+        }
+        finally
+        {
+            base.Dispose( disposing );
+        }
+    }
+
+    /// <summary>   Finalizer. </summary>
+    ~XdrTcpEncodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
+
+    #endregion
 
 }
