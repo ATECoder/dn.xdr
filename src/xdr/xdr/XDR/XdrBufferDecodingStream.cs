@@ -281,7 +281,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
 
             // free unmanaged resources and override finalizer
             // set large fields to null
-            this._buffer = null;
+            this.Close();
         }
         finally
         {

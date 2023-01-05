@@ -141,7 +141,29 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     public override void Close()
     {
         this._buffer = null;
-        this._socket = null;
+
+        if ( this._socket != null )
+        {
+            // Since there is a non-zero chance of getting race conditions,
+            // we now first set the socket instance member to null, before
+            // we close the corresponding socket. This avoids null-pointer
+            // exceptions in the method which waits for connections: it is
+            // possible that this method is awakened because the socket has
+            // been closed before we could set the socket instance member to
+            // null. Many thanks to Michael Smith for tracking down this one.
+
+            Socket deadSocket = this._socket;
+            this._socket = null;
+            try
+            {
+                deadSocket.Close();
+                deadSocket.Dispose();
+            }
+            catch ( Exception ex )
+            {
+                Console.Out.WriteLine( $"Failed closing connection: \n{ex} " );
+            }
+        }
     }
 
     /// <summary>   Decodes (aka "deserializes") a "XDR int" value received from an XDR stream. </summary>
@@ -280,12 +302,9 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
             }
 
             // free unmanaged resources and override finalizer
-
-            this._socket?.Dispose();
-            this._socket = null;
+            this.Close();
 
             // set large fields to null
-            this._buffer = null;
         }
         finally
         {

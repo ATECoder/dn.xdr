@@ -216,8 +216,9 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
             }
 
             // free unmanaged resources and override finalizer
+            
             // set large fields to null
-            this._buffer = null;
+            this.Close();
         }
         finally
         {
