@@ -15,14 +15,14 @@ public interface IXdrCodec
     /// </summary>
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    /// <param name="xdr">  XDR stream to which information is sent for encoding. </param>
-    void Encode( XdrEncodingStreamBase xdr );
+    /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
+    void Encode( XdrEncodingStreamBase encoder );
 
     /// <summary>
     /// Decodes -- that is: deserializes -- an object from an XDR stream in compliance to RFC 1832.
     /// </summary>
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    /// <param name="xdr">  XDR stream from which decoded information is retrieved. </param>
-    void Decode( XdrDecodingStreamBase xdr );
+    /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
+    void Decode( XdrDecodingStreamBase decoder );
 }

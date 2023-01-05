@@ -12,14 +12,14 @@ namespace cc.isr.XDR.MSTest
         private static void AssertCodecShouldProcessString( string arg1 )
         {
             StringXdrCodec args = new( arg1 );
-            XdrBufferEncodingStream xdr = new ( 1024 );
-            args.Encode( xdr );
+            XdrBufferEncodingStream encoder = new ( 1024 );
+            args.Encode( encoder );
 
             StringXdrCodec result = new();
-            XdrDecodingStreamBase xdrDecoder = new XdrBufferDecodingStream( xdr.GetXdrData(), xdr.GetXdrLength() );
-            xdrDecoder.BeginDecoding();
-            result.Decode( xdrDecoder );
-            xdrDecoder.EndDecoding();
+            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetXdrData(), encoder.GetXdrLength() );
+            decoder.BeginDecoding();
+            result.Decode( decoder );
+            decoder.EndDecoding();
 
             Assert.AreEqual( args.Value, result.Value );
         }

@@ -48,11 +48,11 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <summary>
     /// Encodes -- that is: serializes -- an object into an XDR stream in compliance to RFC 1832.
     /// </summary>
-    /// <param name="xdr">  XDR stream to which information is sent for encoding. </param>
+    /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     ///
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public virtual void Encode( XdrEncodingStreamBase xdr )
+    public virtual void Encode( XdrEncodingStreamBase encoder )
     {
 
         // For historical reasons (read: "for dumb and pure idiotic reasons")
@@ -60,27 +60,27 @@ public abstract class UnionXdrCodecBase : IXdrCodec
         // encode/decode the variant part *first* before encoding/decoding
         // the common part.
 
-        xdr.EncodeInt( this.GetXdrTypeCode() );
-        this.XdrEncodeVariant( xdr );
-        this.XdrEncodeCommon( xdr );
+        encoder.EncodeInt( this.GetXdrTypeCode() );
+        this.XdrEncodeVariant( encoder );
+        this.XdrEncodeCommon( encoder );
     }
 
     /// <summary>
     /// Decodes -- that is: deserializes -- an object from an XDR stream in compliance to RFC 1832.
     /// </summary>
     /// <exception cref="Exception">    Thrown when an exception error condition occurs. </exception>
-    /// <param name="xdr">  XDR stream from which decoded information is retrieved. </param>
+    /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
     ///
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public virtual void Decode( XdrDecodingStreamBase xdr )
+    public virtual void Decode( XdrDecodingStreamBase decoder )
     {
 
         // Make sure that when deserializing this object's state that
         // the stream provides state information indeed intended for this
         // particular class.
 
-        int xdrTypeCode = xdr.DecodeInt();
+        int xdrTypeCode = decoder.DecodeInt();
         if ( xdrTypeCode != this.GetXdrTypeCode() )
             throw new Exception( $"{this.GetType().Name} non-matching XDR type code received." );
 
@@ -89,8 +89,8 @@ public abstract class UnionXdrCodecBase : IXdrCodec
         // encode/decode the variant part *first* before encoding/decoding
         // the common part.
 
-        this.XdrDecodeVariant( xdr );
-        this.XdrDecodeCommon( xdr );
+        this.XdrDecodeVariant( decoder );
+        this.XdrDecodeCommon( decoder );
     }
 
     /// <summary>
@@ -100,10 +100,10 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <remarks>
     /// Note that the common part is deserialized after the variant part.
     /// </remarks>
-    /// <param name="xdr">  The XDR encoding stream. </param>
+    /// <param name="encoder">  The XDR encoding stream. </param>
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public abstract void XdrEncodeCommon( XdrEncodingStreamBase xdr );
+    public abstract void XdrEncodeCommon( XdrEncodingStreamBase encoder );
 
     /// <summary>
     /// Decodes -- that is: deserializes -- the common part of an object from an XDR stream in
@@ -112,10 +112,10 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <remarks>
     /// Note that the common part is deserialized after the variant part.
     /// </remarks>
-    /// <param name="xdr">  The XDR encoding stream. </param>
+    /// <param name="decoder">  The XDR encoding stream. </param>
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public abstract void XdrDecodeCommon( XdrDecodingStreamBase xdr );
+    public abstract void XdrDecodeCommon( XdrDecodingStreamBase decoder );
 
     /// <summary>
     /// Encodes -- that is: serializes -- the variant part of an object into an XDR stream in
@@ -126,8 +126,8 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// </remarks>
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    /// <param name="xdr">  The XDR encoding stream. </param>
-    public abstract void XdrEncodeVariant( XdrEncodingStreamBase xdr );
+    /// <param name="encoder">  The XDR encoding stream. </param>
+    public abstract void XdrEncodeVariant( XdrEncodingStreamBase encoder );
 
     /// <summary>
     /// Decodes -- that is: deserializes -- the variant part of an object from an XDR stream in
@@ -138,6 +138,6 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// </remarks>
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    /// <param name="xdr">  The XDR encoding stream. </param>
-    public abstract void XdrDecodeVariant( XdrDecodingStreamBase xdr );
+    /// <param name="decoder">  The XDR encoding stream. </param>
+    public abstract void XdrDecodeVariant( XdrDecodingStreamBase decoder );
 }

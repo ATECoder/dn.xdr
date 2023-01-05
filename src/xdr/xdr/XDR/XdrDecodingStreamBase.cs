@@ -2,7 +2,7 @@ namespace cc.isr.XDR;
 
 /// <summary>   Defines the abstract base class for all decoding XDR streams. </summary>
 /// <remarks>
-/// A decoding XDR stream returns data a primitive data types which it reads from 
+/// A decoding XDR stream returns data and primitive data types which it reads from 
 /// a data source (for instance, network or memory buffer) in the platform-independent XDR format. <para>
 /// Derived classes need to implement the <see cref="DecodeInt()"/>, <see cref="DecodeOpaque(int)"/> and
 /// <see cref="DecodeOpaque(byte[], int, int)"/>. </para> <para>

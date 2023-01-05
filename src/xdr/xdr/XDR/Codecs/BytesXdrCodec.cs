@@ -39,26 +39,26 @@ public class BytesXdrCodec : IXdrCodec
     /// Encodes -- that is: serializes -- a XDR bytes value into an XDR stream in compliance to RFC
     /// 1832.
     /// </summary>
-    /// <param name="xdr">  XDR stream to which information is sent for encoding. </param>
+    /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     ///
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public virtual void Encode( XdrEncodingStreamBase xdr )
+    public virtual void Encode( XdrEncodingStreamBase encoder )
     {
-        xdr.EncodeByteVector( this._value );
+        encoder.EncodeByteVector( this._value );
     }
 
     /// <summary>
     /// Decodes -- that is: deserializes -- a XDR bytes value from an XDR stream in compliance to RFC
     /// 1832.
     /// </summary>
-    /// <param name="xdr">  XDR stream from which decoded information is retrieved. </param>
+    /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
     ///
     /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public virtual void Decode( XdrDecodingStreamBase xdr )
+    public virtual void Decode( XdrDecodingStreamBase decoder )
     {
-        this._value = xdr.DecodeByteVector();
+        this._value = decoder.DecodeByteVector();
     }
 
 }

@@ -19,12 +19,12 @@ namespace cc.isr.XDR.MSTest.Codecs
 
         /// <summary>   Constructs a bar, baz,... class from XDR stream. </summary>
         /// <remarks>   2023-01-02. </remarks>
-        /// <param name="xdr">  The XDR decoding stream. </param>
+        /// <param name="decoder">  The XDR decoding stream. </param>
         /// <returns>   A FooCodecBase? </returns>
-        public static FooCodecBase? XdrNew( XdrDecodingStreamBase xdr )
+        public static FooCodecBase? XdrNew( XdrDecodingStreamBase decoder )
         {
             FooCodecBase? obj = null;
-            switch ( xdr.DecodeInt() )
+            switch ( decoder.DecodeInt() )
             {
                 case FooCodecBase.FooBarClass:
                     obj = new FooBarCodec();
@@ -33,13 +33,24 @@ namespace cc.isr.XDR.MSTest.Codecs
                     obj = new FooBazCodec();
                     break;
             }
-            obj?.Decode( xdr );
+            obj?.Decode( decoder );
             return obj;
         }
 
-        public abstract void Decode( XdrDecodingStreamBase xdr );
+        /// <summary>
+        /// Decodes -- that is: deserializes -- an object from an XDR stream in compliance to RFC 1832.
+        /// </summary>
+        /// <remarks>   2023-01-05. </remarks>
+        /// <exception cref="T:cc.isr.XDR.XdrException">    Thrown when an XDR error condition occurs. </exception>
+        /// <exception cref="T:System.IO.IOException">      Thrown when an I/O error condition occurs. </exception>
+        /// <param name="decoder">  The decoder. </param>
+        public abstract void Decode( XdrDecodingStreamBase decoder );
 
-        public abstract void Encode( XdrEncodingStreamBase xdr );
+        /// <summary>
+        /// Encodes -- that is: serializes -- an object into an XDR stream in compliance to RFC 1832.
+        /// </summary>
+        /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
+        public abstract void Encode( XdrEncodingStreamBase encoder );
     }
 }
 
