@@ -152,6 +152,8 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
             // been closed before we could set the socket instance member to
             // null. Many thanks to Michael Smith for tracking down this one.
 
+            // TODO: uncomment this and test:
+            // this._socket.Shutdown( SocketShutdown.Both );
             Socket deadSocket = this._socket;
             this._socket = null;
             try
@@ -161,7 +163,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
             }
             catch ( Exception ex )
             {
-                Console.Out.WriteLine( $"Failed closing connection: \n{ex} " );
+                Console.WriteLine( $"Failed closing connection: \n{ex} " );
             }
         }
     }

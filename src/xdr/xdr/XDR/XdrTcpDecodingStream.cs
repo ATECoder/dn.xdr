@@ -287,6 +287,8 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             // @atecoder: I am assuming that this also releases the stream 
             // resources.
 
+            // TODO: uncomment this and test:
+            // this._socket.Shutdown( SocketShutdown.Both );
             Socket deadSocket = this._socket;
             this._socket = null;
             try
@@ -296,7 +298,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             }
             catch ( Exception ex )
             {
-                Console.Out.WriteLine( $"Failed closing connection: \n{ex} " );
+                Console.WriteLine( $"Failed closing connection: \n{ex} " );
             }
         }
     }
