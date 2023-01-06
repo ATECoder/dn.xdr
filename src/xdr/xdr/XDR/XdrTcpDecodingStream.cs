@@ -287,18 +287,28 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             // @atecoder: I am assuming that this also releases the stream 
             // resources.
 
-            // TODO: uncomment this and test:
-            // this._socket.Shutdown( SocketShutdown.Both );
+            // @atecoder: added shutdown
+            try
+            {
+                if ( this._socket.Connected )
+                    this._socket.Shutdown( SocketShutdown.Both );
+            }
+            catch ( Exception ex )
+            {
+                Console.WriteLine( $"Failed socket shutdown: \n{ex} " );
+            }
             Socket deadSocket = this._socket;
             this._socket = null;
             try
             {
                 deadSocket.Close();
+                // close is a wrapper class around dispose so this 
+                // is superfluous unless the close changes.
                 deadSocket.Dispose();
             }
             catch ( Exception ex )
             {
-                Console.WriteLine( $"Failed closing connection: \n{ex} " );
+                Console.WriteLine( $"Failed closing the socket: \n{ex} " );
             }
         }
     }
