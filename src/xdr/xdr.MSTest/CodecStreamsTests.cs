@@ -16,7 +16,7 @@ namespace cc.isr.XDR.MSTest
             args.Encode( encoder );
 
             StringXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetXdrData(), encoder.GetXdrLength() );
+            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();

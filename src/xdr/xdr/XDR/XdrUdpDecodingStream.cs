@@ -15,10 +15,10 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// The datagram socket to be used when receiving this XDR stream's
     /// buffer contents.
     /// </summary>
-    private Socket _socket;
+    private Socket? _socket;
 
     /// <summary>Sender's address of current buffer contents.</summary>
-    private IPAddress _senderAddress = null;
+    private IPAddress _senderAddress = IPAddress.None;
 
     /// <summary>The senders's port.</summary>
     private int _senderPort = 0;
@@ -100,8 +100,8 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     {
         // Creates an IpEndPoint to capture the identity of the sending host.
         IPEndPoint sender = new( IPAddress.Any, 0 );
-        EndPoint remoteEP = ( EndPoint ) sender;
-        this._socket.ReceiveFrom( this._buffer, ref remoteEP );
+        EndPoint remoteEP = sender;
+        _ = (this._socket?.ReceiveFrom( this._buffer, ref remoteEP ));
         this._senderAddress = (( IPEndPoint ) remoteEP).Address;
         this._senderPort = (( IPEndPoint ) remoteEP).Port;
         this._bufferIndex = 0;
@@ -140,9 +140,9 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
-        this._buffer = null;
+        this._buffer = Array.Empty<byte>();
 
-        if ( this._socket != null )
+        if ( this._socket is not null )
         {
             // Since there is a non-zero chance of getting race conditions,
             // we now first set the socket instance member to null, before

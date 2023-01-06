@@ -40,7 +40,16 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     ///                                         of four. </exception>
     public XdrBufferDecodingStream( byte[] buffer, int encodedLength )
     {
-        this.SetXdrData( buffer, encodedLength );
+        // Make sure that the buffer size is a multiple of four, otherwise
+        // throw an exception.
+        if ( (encodedLength < 0) || (encodedLength & 3) != 0 )
+        {
+            throw (new ArgumentException( "length of encoded data must be a multiple of four and must not be negative" ));
+        }
+        this._buffer = buffer;
+        this._encodedLength = encodedLength;
+        this._bufferIndex = 0;
+        this._bufferHighmark = -4;
     }
 
     /// <summary>
@@ -51,9 +60,8 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     ///
     /// <exception cref="ArgumentException">    if the size of the buffer is not a multiple of
     ///                                         four. </exception>
-    public XdrBufferDecodingStream( byte[] buffer )
+    public XdrBufferDecodingStream( byte[] buffer ) :this( buffer, buffer.Length )
     {
-        this.SetXdrData( buffer, buffer.Length );
     }
 
     /// <summary>
@@ -63,7 +71,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     ///                                         four. </exception>
     /// <param name="buffer">           Buffer containing encoded XDR data. </param>
     /// <param name="encodedLength">    Length of encoded XDR data within the buffer. </param>
-    public virtual void SetXdrData( byte[] buffer, int encodedLength )
+    public virtual void SetEncodedData( byte[] buffer, int encodedLength )
     {
 
         // Make sure that the buffer size is a multiple of four, otherwise
@@ -86,7 +94,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
     public override IPAddress GetSenderAddress()
     {
-        return null;
+        return IPAddress.None;
     }
 
     /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
@@ -141,7 +149,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
-        this._buffer = null;
+        this._buffer = Array.Empty<byte>();
     }
 
     /// <summary>   Decodes (aka "deserializes") a "XDR int" value received from an XDR stream. </summary>

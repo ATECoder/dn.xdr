@@ -81,6 +81,7 @@ public class XdrException : Exception
             case XdrSuccess:
             default:
                 {
+                    this._message = string.Empty;
                     break;
                 }
         }

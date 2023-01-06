@@ -14,9 +14,8 @@ namespace cc.isr.XDR.Codecs;
 public class DynamicOpaqueXdrCodec : IXdrCodec
 {
     /// <summary>   Constructs and initializes a new <see cref="DynamicOpaqueXdrCodec"/> object. </summary>
-    public DynamicOpaqueXdrCodec()
+    public DynamicOpaqueXdrCodec() : this( Array.Empty<byte>() )
     {
-        this._value = null;
     }
 
     /// <summary>   Constructs and initializes a new <see cref="DynamicOpaqueXdrCodec"/> object. </summary>

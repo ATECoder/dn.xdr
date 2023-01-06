@@ -585,7 +585,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// default encoding is to be used.
     /// </summary>
     /// <value> The character encoding. </value>
-    public string CharacterEncoding { get; set; }
+    public string? CharacterEncoding { get; set; }
 
     #region " IDisposable Implementation "
 

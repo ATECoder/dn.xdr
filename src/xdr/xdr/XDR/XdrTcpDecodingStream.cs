@@ -16,7 +16,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// The streaming socket to be used when receiving this XDR stream's
     /// buffer contents.
     /// </summary>
-    private Socket _socket;
+    private Socket? _socket;
 
     /// <summary>   The input stream used to pull the bytes off the network. </summary>
     private Stream _stream;
@@ -84,7 +84,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
     public override IPAddress GetSenderAddress()
     {
-        return (( IPEndPoint ) (this._socket.RemoteEndPoint)).Address;
+        return this._socket== null ? IPAddress.None : ( ( IPEndPoint ) this._socket.RemoteEndPoint ).Address;
     }
 
     /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
@@ -95,7 +95,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <returns>   Port number of the sender of the current XDR data. </returns>
     public override int GetSenderPort()
     {
-        return (( IPEndPoint ) (this._socket.RemoteEndPoint)).Port;
+        return this._socket == null ? 0 : (( IPEndPoint ) this._socket.RemoteEndPoint ).Port;
     }
 
     /// <summary>   Initiates decoding of the next XDR record. </summary>
@@ -272,10 +272,10 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
-        this._buffer = null;
-        this._stream = null;
+        this._buffer = Array.Empty<byte>();
+        this._stream = Stream.Null;
 
-        if ( this._socket != null )
+        if ( this._socket is not null )
         {
             // Since there is a non-zero chance of getting race conditions,
             // we now first set the socket instance member to null, before

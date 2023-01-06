@@ -64,14 +64,14 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
 
     /// <summary>   Returns the amount of encoded data in the buffer. </summary>
     /// <returns>   length of data encoded in buffer. </returns>
-    public virtual int GetXdrLength()
+    public virtual int GetEncodedDataLength()
     {
         return this._bufferIndex;
     }
 
     /// <summary>   Returns the buffer holding encoded data. </summary>
     /// <returns>   Buffer with encoded data. </returns>
-    public virtual byte[] GetXdrData()
+    public virtual byte[] GetEncodedData()
     {
         return this._buffer;
     }
@@ -119,7 +119,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
-        this._buffer = null;
+        this._buffer = Array.Empty<byte>();
     }
 
     /// <summary>

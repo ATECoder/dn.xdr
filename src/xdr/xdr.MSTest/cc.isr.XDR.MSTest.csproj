@@ -7,6 +7,7 @@
 
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    
     <AssemblyName>cc.isr.XDR.MSTest</AssemblyName>
     <RootNamespace>cc.isr.XDR.MSTest</RootNamespace>
     <IsPackable>false</IsPackable>

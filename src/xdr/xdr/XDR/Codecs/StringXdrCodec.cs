@@ -20,9 +20,8 @@ public class StringXdrCodec : IXdrCodec
     }
 
     /// <summary>   Constructs and initializes a new <see cref="StringXdrCodec"/> object. </summary>
-    public StringXdrCodec()
+    public StringXdrCodec() : this( string.Empty )
     {
-        this.Value = null;
     }
 
     /// <summary>   Gets or sets the value of this <see cref="StringXdrCodec"/> object as a <see cref="string"/> primitive. </summary>

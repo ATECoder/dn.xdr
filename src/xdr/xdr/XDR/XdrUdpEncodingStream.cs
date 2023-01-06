@@ -15,10 +15,10 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// The datagram socket to be used when sending this XDR stream's
     /// buffer contents.
     /// </summary>
-    private Socket _socket;
+    private Socket? _socket;
 
     /// <summary>Receiver address of current buffer contents when flushed.</summary>
-    private IPAddress _receiverAddress = null;
+    private IPAddress _receiverAddress = IPAddress.None;
 
     /// <summary>The receiver's port.</summary>
     private int _receiverPort = 0;
@@ -95,7 +95,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     public override void EndEncoding()
     {
         IPEndPoint endPoint = new( this._receiverAddress, this._receiverPort );
-        _ = this._socket.SendTo( this._buffer, this._bufferIndex, SocketFlags.None, endPoint );
+        _ = this._socket?.SendTo( this._buffer, this._bufferIndex, SocketFlags.None, endPoint );
     }
 
     /// <summary>
@@ -110,9 +110,9 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
-        this._buffer = null;
+        this._buffer = Array.Empty<byte>();
 
-        if ( this._socket != null )
+        if ( this._socket is not null )
         {
             // Since there is a non-zero chance of getting race conditions,
             // we now first set the socket instance member to null, before
