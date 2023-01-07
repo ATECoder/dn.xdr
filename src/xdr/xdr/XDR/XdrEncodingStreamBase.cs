@@ -18,6 +18,103 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// <summary>   (Immutable) the minimum size of the buffer. </summary>
     public const int MinBufferSize = 1024;
 
+    #region " construction and cleanup "
+
+    /// <summary>
+    /// Closes this encoding XDR stream and releases any system resources associated with this stream.
+    /// </summary>
+    /// <remarks>
+    /// The general contract of <see cref="Close()"/> is that it closes the encoding XDR stream. A closed 
+    /// XDR stream cannot perform encoding operations and cannot be reopened. <para>
+    /// The <see cref="XdrEncodingStreamBase.Close()"/> method of <see cref="XdrEncodingStreamBase"/>
+    /// does nothing.</para>
+    /// </remarks>
+    ///
+    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    public virtual void Close()
+    {
+    }
+
+    #region " IDisposable Implementation "
+
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged
+    /// resources.
+    /// </summary>
+    /// <remarks> 
+    /// Takes account of and updates <see cref="IsDisposed"/>.
+    /// Encloses <see cref="Dispose(bool)"/> within a try...finaly block.
+    /// </remarks>
+    public void Dispose()
+    {
+        if ( this.IsDisposed ) { return; }
+        try
+        {
+            // Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+            this.Dispose( true );
+
+            // uncomment the following line if Finalize() is overridden above.
+            GC.SuppressFinalize( this );
+        }
+        finally
+        {
+            this.IsDisposed = true;
+        }
+    }
+
+    /// <summary>   Gets or sets a value indicating whether this object is disposed. </summary>
+    /// <value> True if this object is disposed, false if not. </value>
+    protected bool IsDisposed { get; private set; }
+
+    /// <summary>
+    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
+    /// the managed resources.
+    /// </summary>
+    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
+    ///                             release only unmanaged resources. </param>
+    protected virtual void Dispose( bool disposing )
+    {
+        if ( disposing )
+        {
+            // dispose managed state (managed objects)
+        }
+        // free unmanaged resources and override finalizer
+        this.Close();
+
+        // set large fields to null
+    }
+
+    /// <summary>   Finalizer. </summary>
+    ~XdrEncodingStreamBase()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
+
+    #endregion
+
+    #endregion
+
+    #region " settings "
+
+    /// <summary>   Gets or sets the default encoding. </summary>
+    /// <remarks>
+    /// The default encoding for VXI-11 is <see cref="Encoding.ASCII"/>, which is a subset of <see cref="Encoding.UTF8"/>
+    /// </remarks>
+    /// <value> The default encoding. </value>
+    public static Encoding DefaultEncoding { get; set; } = Encoding.UTF8;
+
+    /// <summary>
+    /// Gets or sets the encoding to use when serializing strings. 
+    /// </summary>
+    /// <value> The character encoding. </value>
+    public Encoding CharacterEncoding { get; set; } = XdrDecodingStreamBase.DefaultEncoding;
+
+    #endregion
+
+    #region " operations "
+
     /// <summary>   Begins encoding a new XDR record. </summary>
     /// <remarks>
     /// This typically involves resetting this encoding XDR stream back into a known state.
@@ -50,21 +147,9 @@ public abstract class XdrEncodingStreamBase : IDisposable
     {
     }
 
-    /// <summary>
-    /// Closes this encoding XDR stream and releases any system resources associated with this stream.
-    /// </summary>
-    /// <remarks>
-    /// The general contract of <see cref="Close()"/> is that it closes the encoding XDR stream. A closed 
-    /// XDR stream cannot perform encoding operations and cannot be reopened. <para>
-    /// The <see cref="XdrEncodingStreamBase.Close()"/> method of <see cref="XdrEncodingStreamBase"/>
-    /// does nothing.</para>
-    /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public virtual void Close()
-    {
-    }
+    #endregion
+
+    #region " encoding "
 
     /// <summary>
     /// Encodes (aka "serializes") an <see cref="int"/> value and writes it down an XDR stream.
@@ -293,25 +378,6 @@ public abstract class XdrEncodingStreamBase : IDisposable
         this.EncodeInt( value ? 1 : 0 );
     }
 
-    /// <summary>   Converts this object to a byte array. </summary>
-    /// <param name="str">  The string. </param>
-    /// <returns>   The given data converted to a byte[]. </returns>
-    internal byte[] ToByteArray( string str )
-    {
-        ASCIIEncoding encoding = new();
-        return this.ToByteArray( str, encoding );
-    }
-
-    /// <summary>   Converts this object to a byte array. </summary>
-    /// <param name="str">      The string. </param>
-    /// <param name="encoding"> The encoding. </param>
-    /// <returns>   The given data converted to a byte[]. </returns>
-    internal byte[] ToByteArray( string str, Encoding encoding )
-    {
-        return encoding.GetBytes( str );
-    }
-
-
     /// <summary>   Encodes (aka "serializes") a string and writes it down this XDR stream. </summary>
     /// <param name="value">    String value to be encoded. </param>
     ///
@@ -319,14 +385,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public void EncodeString( string value )
     {
-        if ( this.CharacterEncoding is not null )
-        {
-            this.EncodeDynamicOpaque( this.ToByteArray( value, Encoding.GetEncoding( this.CharacterEncoding ) ) );
-        }
-        else
-        {
-            this.EncodeDynamicOpaque( this.ToByteArray( value ) );
-        }
+        this.EncodeDynamicOpaque( this.CharacterEncoding.GetBytes( value) );
     }
 
     /// <summary>
@@ -578,67 +637,6 @@ public abstract class XdrEncodingStreamBase : IDisposable
         {
             this.EncodeString( value[i] );
         }
-    }
-
-    /// <summary>
-    /// Gets or sets the encoding to use when serializing strings. If <see langword="null"/>, the system's
-    /// default encoding is to be used.
-    /// </summary>
-    /// <value> The character encoding. </value>
-    public string? CharacterEncoding { get; set; }
-
-    #region " IDisposable Implementation "
-
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged
-    /// resources.
-    /// </summary>
-    /// <remarks> 
-    /// Takes account of and updates <see cref="IsDisposed"/>.
-    /// Encloses <see cref="Dispose(bool)"/> within a try...finaly block.
-    /// </remarks>
-    public void Dispose()
-    {
-        if ( this.IsDisposed ) { return; }
-        try
-        {
-            // Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
-            this.Dispose( true );
-
-            // uncomment the following line if Finalize() is overridden above.
-            GC.SuppressFinalize( this );
-        }
-        finally
-        {
-            this.IsDisposed = true;
-        }
-    }
-
-    /// <summary>   Gets or sets a value indicating whether this object is disposed. </summary>
-    /// <value> True if this object is disposed, false if not. </value>
-    protected bool IsDisposed { get; private set; }
-
-    /// <summary>
-    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
-    /// the managed resources.
-    /// </summary>
-    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
-    ///                             release only unmanaged resources. </param>
-    protected virtual void Dispose( bool disposing )
-    {
-        if ( disposing )
-        {
-            // dispose managed state (managed objects)
-        }
-        // free unmanaged resources and override finalizer
-        // set large fields to null
-    }
-
-    /// <summary>   Finalizer. </summary>
-    ~XdrEncodingStreamBase()
-    {
-        if ( this.IsDisposed ) { return; }
-        this.Dispose( false );
     }
 
     #endregion

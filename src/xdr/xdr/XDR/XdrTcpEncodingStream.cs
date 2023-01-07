@@ -231,11 +231,11 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
             // resources.
 
             // @atecoder: added shutdown
-            Socket deadSocket = this._socket;
+            Socket socket = this._socket;
             try
             {
-                if ( deadSocket.Connected )
-                    deadSocket.Shutdown( SocketShutdown.Both );
+                if ( socket.Connected )
+                    socket.Shutdown( SocketShutdown.Both );
             }
             catch ( Exception ex )
             {
@@ -244,10 +244,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
             this._socket = null;
             try
             {
-                deadSocket.Close();
-                // close is a wrapper class around dispose so this 
-                // is superfluous unless the close changes.
-                deadSocket.Dispose();
+                socket.Close();
             }
             catch ( Exception ex )
             {
