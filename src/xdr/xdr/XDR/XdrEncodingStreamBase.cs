@@ -593,15 +593,19 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged
     /// resources.
     /// </summary>
+    /// <remarks> 
+    /// Takes account of and updates <see cref="IsDisposed"/>.
+    /// Encloses <see cref="Dispose(bool)"/> within a try...finaly block.
+    /// </remarks>
     public void Dispose()
     {
         if ( this.IsDisposed ) { return; }
         try
         {
-            // dispose of unmanaged resources
+            // Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
             this.Dispose( true );
 
-            // suppress finalization
+            // uncomment the following line if Finalize() is overridden above.
             GC.SuppressFinalize( this );
         }
         finally
