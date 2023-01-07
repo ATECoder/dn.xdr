@@ -11,7 +11,7 @@ namespace cc.isr.XDR;
 public class XdrUdpEncodingStream : XdrEncodingStreamBase
 {
 
-    #region " Construction and Cleanup "
+    #region " construction and cleanup "
 
     /// <summary>
     /// The datagram socket to be used when sending this XDR stream's
@@ -77,8 +77,6 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
-        this._buffer = Array.Empty<byte>();
-
         if ( this._socket is not null )
         {
             // Since there is a non-zero chance of getting race conditions,
@@ -98,41 +96,16 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
             this._socket = null;
             socket.Close();
         }
+        this._buffer = Array.Empty<byte>();
     }
 
-    #region  " IDisposable Implementation "
-
-    /// <summary>
-    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
-    /// the managed resources.
-    /// </summary>
-    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
-    ///                             release only unmanaged resources. </param>
-    protected override void Dispose( bool disposing )
-    {
-        try
-        {
-            if ( disposing )
-            {
-                // dispose managed state (managed objects)
-            }
-
-            // free unmanaged resources and override finalizer
-            this.Close();
-
-            // this socket is not owned by this class, therefore it is not
-            // disposed in this class
-
-            // set large fields to null
-            this._buffer = Array.Empty<byte>();
-        }
-        finally
-        {
-            base.Dispose( disposing );
-        }
-    }
+    #region  " disposable implementation "
 
     /// <summary>   Finalizer. </summary>
+    /// <remarks>
+    /// Overriding <see cref="XdrEncodingStreamBase.Dispose(bool)"/> is unnecessary because the base
+    /// class already calls <see cref="Close()"/>.
+    /// </remarks>
     ~XdrUdpEncodingStream()
     {
         if ( this.IsDisposed ) { return; }
@@ -211,7 +184,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
         }
         else
         {
-            throw (new XdrException( XdrException.XdrBufferOverflow ));
+            throw (new XdrException( XdrExceptionReason.XdrBufferOverflow ));
         }
     }
 
@@ -254,7 +227,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
         }
         else
         {
-            throw (new XdrException( XdrException.XdrBufferOverflow ));
+            throw (new XdrException( XdrExceptionReason.XdrBufferOverflow ));
         }
     }
 

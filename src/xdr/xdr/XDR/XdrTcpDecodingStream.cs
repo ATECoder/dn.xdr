@@ -11,7 +11,8 @@ namespace cc.isr.XDR;
 /// <remarks>   Remote Tea authors: Harald Albrecht, Jay Walters. </remarks>
 public class XdrTcpDecodingStream : XdrDecodingStreamBase
 {
-    #region " Construction and cleanup "
+
+    #region " construction and cleanup "
 
     /// <summary>
     /// The streaming socket to be used when receiving this XDR stream's
@@ -90,9 +91,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
-        this._buffer = Array.Empty<byte>();
-        this._stream = Stream.Null;
-
         if ( this._socket is not null )
         {
             // Since there is a non-zero chance of getting race conditions,
@@ -112,37 +110,17 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             this._socket = null;
             socket.Close();
         }
+        this._buffer = Array.Empty<byte>();
+        this._stream = Stream.Null;
     }
 
-    #region  " IDisposable Implementation "
-
-    /// <summary>
-    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
-    /// the managed resources.
-    /// </summary>
-    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
-    ///                             release only unmanaged resources. </param>
-    protected override void Dispose( bool disposing )
-    {
-        try
-        {
-            if ( disposing )
-            {
-                // dispose managed state (managed objects)
-            }
-
-            // free unmanaged resources and override finalizer
-            this.Close();
-
-            // set large fields to null
-        }
-        finally
-        {
-            base.Dispose( disposing );
-        }
-    }
+    #region  " disposable implementation "
 
     /// <summary>   Finalizer. </summary>
+    /// <remarks>
+    /// Overriding <see cref="XdrDecodingStreamBase.Dispose(bool)"/> is unnecessary because the base
+    /// class already calls <see cref="Close()"/>.
+    /// </remarks>
     ~XdrTcpDecodingStream()
     {
         if ( this.IsDisposed ) { return; }
@@ -153,7 +131,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
     #endregion
 
-    #region " Settings "
+    #region " settings "
 
     /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
@@ -179,7 +157,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
     #endregion
 
-    #region " Operations "
+    #region " operations "
 
     /// <summary>   Initiates decoding of the next XDR record. </summary>
     /// <remarks>
@@ -212,7 +190,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
                 // Stream is at EOF -- note that bytesRead is not allowed
                 // to be zero here, as we asked for at least one byte...
 
-                throw (new XdrException( XdrException.XdrCannotReceive ));
+                throw (new XdrException( XdrExceptionReason.XdrCannotReceive ));
             }
             bytesToRead -= bytesRead;
             byteOffset += bytesRead;
@@ -242,7 +220,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
                 // In case there is no more data in the current XDR record
                 // (as we already saw the last fragment), throw an exception.
 
-                throw (new XdrException( XdrException.XdrBufferUnderflow ));
+                throw (new XdrException( XdrExceptionReason.XdrBufferUnderflow ));
             }
 
             // First read in the header of the next fragment.

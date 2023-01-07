@@ -181,7 +181,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
         }
         else
         {
-            throw (new XdrException( XdrException.XdrBufferUnderflow ));
+            throw (new XdrException( XdrExceptionReason.XdrBufferUnderflow ));
         }
     }
 
@@ -222,7 +222,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
             }
             else
             {
-                throw (new XdrException( XdrException.XdrBufferUnderflow ));
+                throw (new XdrException( XdrExceptionReason.XdrBufferUnderflow ));
             }
         }
         this._bufferIndex += alignedLength;
@@ -264,13 +264,13 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
             }
             else
             {
-                throw (new XdrException( XdrException.XdrBufferUnderflow ));
+                throw (new XdrException( XdrExceptionReason.XdrBufferUnderflow ));
             }
         }
         this._bufferIndex += alignedLength;
     }
 
-    #region  " IDisposable Implementation "
+    #region  " disposable implementation "
 
     /// <summary>
     /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases

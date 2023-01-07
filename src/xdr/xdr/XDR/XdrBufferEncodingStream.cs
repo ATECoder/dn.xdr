@@ -10,7 +10,7 @@ namespace cc.isr.XDR;
 public class XdrBufferEncodingStream : XdrEncodingStreamBase
 {
 
-    #region " Construction and Cleanup "
+    #region " construction and cleanup "
 
     /// <summary>
     /// The buffer which will receive the encoded information, before it
@@ -82,7 +82,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
 
     #endregion
 
-    #region " Settings "
+    #region " settings "
 
     /// <summary>   Returns the amount of encoded data in the buffer. </summary>
     /// <returns>   length of data encoded in buffer. </returns>
@@ -100,7 +100,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
 
     #endregion
 
-    #region " Operations "
+    #region " operations "
 
     /// <summary>   Begins encoding a new XDR record. </summary>
     /// <remarks>
@@ -165,7 +165,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
         }
         else
         {
-            throw (new XdrException( XdrException.XdrBufferOverflow ));
+            throw (new XdrException( XdrExceptionReason.XdrBufferOverflow ));
         }
     }
 
@@ -209,7 +209,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
         }
         else
         {
-            throw (new XdrException( XdrException.XdrBufferOverflow ));
+            throw (new XdrException( XdrExceptionReason.XdrBufferOverflow ));
         }
     }
 

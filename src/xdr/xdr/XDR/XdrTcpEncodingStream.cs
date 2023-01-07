@@ -12,6 +12,8 @@ namespace cc.isr.XDR;
 public class XdrTcpEncodingStream : XdrEncodingStreamBase
 {
 
+    #region " construction and cleanup "
+
     /// <summary>
     /// The streaming socket to be used when receiving this XDR stream's
     /// buffer contents.
@@ -69,6 +71,60 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         this._bufferHighmark = bufferSize - 4;
     }
 
+    /// <summary>
+    /// Closes this encoding XDR stream and releases any system resources associated with this stream.
+    /// </summary>
+    /// <remarks>
+    /// The general contract of <see cref="XdrEncodingStreamBase.Close()"/> is that it closes the encoding XDR stream. 
+    /// A closed XDR stream cannot perform encoding operations and cannot be reopened.
+    /// </remarks>
+    ///
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
+    public override void Close()
+    {
+        if ( this._socket is not null )
+        {
+            // Since there is a non-zero chance of getting race conditions,
+            // we now first set the socket instance member to null, before
+            // we close the corresponding socket. This avoids null-pointer
+            // exceptions in the method which waits for connections: it is
+            // possible that this method is awakened because the socket has
+            // been closed before we could set the socket instance member to
+            // null. Many thanks to Michael Smith for tracking down this one.
+            // @atecoder: I am assuming that this also releases the stream 
+            // resources.
+
+            // @atecoder: added shutdown
+            Socket socket = this._socket;
+            if ( socket.Connected )
+                socket.Shutdown( SocketShutdown.Both );
+            this._socket = null;
+            socket.Close();
+        }
+        this._buffer = Array.Empty<byte>();
+        this._stream = Stream.Null;
+    }
+
+    #region  " disposable implementation "
+
+    /// <summary>   Finalizer. </summary>
+    /// <remarks>
+    /// Overriding <see cref="XdrEncodingStreamBase.Dispose(bool)"/> is unnecessary because the base
+    /// class already calls <see cref="Close()"/>.
+    /// </remarks>
+    ~XdrTcpEncodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
+
+    #endregion
+
+    #endregion
+
+    #region " settings "
+
     /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
     /// This method should only be called after <see cref="BeginEncoding(IPAddress, int)"/>,
@@ -90,6 +146,10 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     {
         return this._socket is null ? 0 : (( IPEndPoint ) this._socket.RemoteEndPoint ).Port;
     }
+
+    #endregion
+
+    #region " operations "
 
     /// <summary>   Begins encoding a new XDR record. </summary>
     /// <remarks>
@@ -203,41 +263,9 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         }
     }
 
-    /// <summary>
-    /// Closes this encoding XDR stream and releases any system resources associated with this stream.
-    /// </summary>
-    /// <remarks>
-    /// The general contract of <see cref="XdrEncodingStreamBase.Close()"/> is that it closes the encoding XDR stream. 
-    /// A closed XDR stream cannot perform encoding operations and cannot be reopened.
-    /// </remarks>
-    ///
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
-    public override void Close()
-    {
-        this._buffer = Array.Empty<byte>();
-        this._stream = Stream.Null;
+    #endregion
 
-        if ( this._socket is not null )
-        {
-            // Since there is a non-zero chance of getting race conditions,
-            // we now first set the socket instance member to null, before
-            // we close the corresponding socket. This avoids null-pointer
-            // exceptions in the method which waits for connections: it is
-            // possible that this method is awakened because the socket has
-            // been closed before we could set the socket instance member to
-            // null. Many thanks to Michael Smith for tracking down this one.
-            // @atecoder: I am assuming that this also releases the stream 
-            // resources.
-
-            // @atecoder: added shutdown
-            Socket socket = this._socket;
-            if ( socket.Connected )
-                socket.Shutdown( SocketShutdown.Both );
-            this._socket = null;
-            socket.Close();
-        }
-    }
+    #region " encoding "
 
     /// <summary>
     /// Encodes (aka "serializes") a "XDR int" value and writes it down an XDR stream.
@@ -258,7 +286,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         }
 
         // There's enough space in the buffer, so encode this int as
-        // four bytes (french octets) in big endian order (that is, the
+        // four bytes (French octets) in big endian order (that is, the
         // most significant byte comes first.
 
         this._buffer[this._bufferIndex++] = ( byte ) ((value) >> (24 & 0x1f));
@@ -317,41 +345,6 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         }
         System.Array.Copy( _paddingZeros, 0, this._buffer, this._bufferIndex, padding );
         this._bufferIndex += padding;
-    }
-
-    #region  " IDisposable Implementation "
-
-    /// <summary>
-    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
-    /// the managed resources.
-    /// </summary>
-    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
-    ///                             release only unmanaged resources. </param>
-    protected override void Dispose( bool disposing )
-    {
-        try
-        {
-            if ( disposing )
-            {
-                // dispose managed state (managed objects)
-            }
-
-            // free unmanaged resources and override finalizer
-            this.Close();
-
-            // set large fields to null
-        }
-        finally
-        {
-            base.Dispose( disposing );
-        }
-    }
-
-    /// <summary>   Finalizer. </summary>
-    ~XdrTcpEncodingStream()
-    {
-        if ( this.IsDisposed ) { return; }
-        this.Dispose( false );
     }
 
     #endregion

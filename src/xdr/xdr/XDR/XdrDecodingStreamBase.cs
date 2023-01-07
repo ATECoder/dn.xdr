@@ -34,7 +34,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     {
     }
 
-    #region " IDisposable Implementation "
+    #region " disposable implementation "
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged
@@ -94,7 +94,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     #endregion
 
-    #region " Settings "
+    #region " settings "
 
     /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
@@ -158,7 +158,6 @@ public abstract class XdrDecodingStreamBase : IDisposable
     #endregion
 
     #region " decoding "
-
 
     /// <summary>   Decodes (aka "deserializes") a "XDR int" value received from an XDR stream. </summary>
     /// <remarks>

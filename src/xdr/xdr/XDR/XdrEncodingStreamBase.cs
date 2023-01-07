@@ -36,7 +36,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     {
     }
 
-    #region " IDisposable Implementation "
+    #region " disposable implementation "
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged

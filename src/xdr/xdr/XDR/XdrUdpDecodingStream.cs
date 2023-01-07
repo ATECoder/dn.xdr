@@ -11,6 +11,8 @@ namespace cc.isr.XDR;
 public class XdrUdpDecodingStream : XdrDecodingStreamBase
 {
 
+    #region " construction and cleanup "
+
     /// <summary>
     /// The datagram socket to be used when receiving this XDR stream's
     /// buffer contents.
@@ -67,6 +69,58 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
         this._bufferHighmark = -4;
     }
 
+    /// <summary>
+    /// Closes this decoding XDR stream and releases any system resources associated with this stream.
+    /// </summary>
+    /// <remarks>
+    /// A closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
+    /// This implementation frees the allocated buffer but does not close
+    /// the associated datagram socket. It only throws away the reference to this socket. </para>
+    /// </remarks>
+    ///
+    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    public override void Close()
+    {
+        if ( this._socket is not null )
+        {
+            // Since there is a non-zero chance of getting race conditions,
+            // we now first set the socket instance member to null, before
+            // we close the corresponding socket. This avoids null-pointer
+            // exceptions in the method which waits for connections: it is
+            // possible that this method is awakened because the socket has
+            // been closed before we could set the socket instance member to
+            // null. Many thanks to Michael Smith for tracking down this one.
+
+            // @atecoder: added shutdown
+            Socket socket = this._socket;
+            if ( socket.Connected )
+                socket.Shutdown( SocketShutdown.Both );
+            this._socket = null;
+            socket.Close();
+        }
+        this._buffer = Array.Empty<byte>();
+    }
+
+    #region  " disposable implementation "
+
+    /// <summary>   Finalizer. </summary>
+    /// <remarks>
+    /// Overriding <see cref="XdrDecodingStreamBase.Dispose(bool)"/> is unnecessary because the base
+    /// class already calls <see cref="Close()"/>.
+    /// </remarks>
+    ~XdrUdpDecodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
+
+    #endregion
+
+    #endregion
+
+    #region " settings "
+
     /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
     /// This method should only be called after <see cref="BeginDecoding()"/>, otherwise it might return stale
@@ -88,6 +142,10 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     {
         return this._senderPort;
     }
+
+    #endregion
+
+    #region " operations "
 
     /// <summary>   Initiates decoding of the next XDR record. </summary>
     /// <remarks>
@@ -127,39 +185,9 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
         this._bufferHighmark = -4;
     }
 
-    /// <summary>
-    /// Closes this decoding XDR stream and releases any system resources associated with this stream.
-    /// </summary>
-    /// <remarks>
-    /// A closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
-    /// This implementation frees the allocated buffer but does not close
-    /// the associated datagram socket. It only throws away the reference to this socket. </para>
-    /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public override void Close()
-    {
-        this._buffer = Array.Empty<byte>();
+    #endregion
 
-        if ( this._socket is not null )
-        {
-            // Since there is a non-zero chance of getting race conditions,
-            // we now first set the socket instance member to null, before
-            // we close the corresponding socket. This avoids null-pointer
-            // exceptions in the method which waits for connections: it is
-            // possible that this method is awakened because the socket has
-            // been closed before we could set the socket instance member to
-            // null. Many thanks to Michael Smith for tracking down this one.
-
-            // @atecoder: added shutdown
-            Socket socket = this._socket;
-            if ( socket.Connected )
-                socket.Shutdown( SocketShutdown.Both );
-            this._socket = null;
-            socket.Close();
-        }
-    }
+    #region " decoding "
 
     /// <summary>   Decodes (aka "deserializes") a "XDR int" value received from an XDR stream. </summary>
     /// <remarks>
@@ -191,7 +219,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
         }
         else
         {
-            throw (new XdrException( XdrException.XdrBufferUnderflow ));
+            throw (new XdrException( XdrExceptionReason.XdrBufferUnderflow ));
         }
     }
 
@@ -231,7 +259,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
             }
             else
             {
-                throw (new XdrException( XdrException.XdrBufferUnderflow ));
+                throw (new XdrException( XdrExceptionReason.XdrBufferUnderflow ));
             }
         }
         this._bufferIndex += alignedLength;
@@ -273,45 +301,10 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
             }
             else
             {
-                throw (new XdrException( XdrException.XdrBufferUnderflow ));
+                throw (new XdrException( XdrExceptionReason.XdrBufferUnderflow ));
             }
         }
         this._bufferIndex += alignedLength;
-    }
-
-    #region  " IDisposable Implementation "
-
-    /// <summary>
-    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
-    /// the managed resources.
-    /// </summary>
-    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
-    ///                             release only unmanaged resources. </param>
-    protected override void Dispose( bool disposing )
-    {
-        try
-        {
-            if ( disposing )
-            {
-                // dispose managed state (managed objects)
-            }
-
-            // free unmanaged resources and override finalizer
-            this.Close();
-
-            // set large fields to null
-        }
-        finally
-        {
-            base.Dispose( disposing );
-        }
-    }
-
-    /// <summary>   Finalizer. </summary>
-    ~XdrUdpDecodingStream()
-    {
-        if ( this.IsDisposed ) { return; }
-        this.Dispose( false );
     }
 
     #endregion
