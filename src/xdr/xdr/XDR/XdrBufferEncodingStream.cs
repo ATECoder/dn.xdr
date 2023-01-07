@@ -10,6 +10,8 @@ namespace cc.isr.XDR;
 public class XdrBufferEncodingStream : XdrEncodingStreamBase
 {
 
+    #region " Construction and Cleanup "
+
     /// <summary>
     /// The buffer which will receive the encoded information, before it
     /// is sent via a datagram socket.
@@ -62,6 +64,26 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
         this._bufferHighmark = buffer.Length - 4;
     }
 
+    /// <summary>
+    /// Closes this encoding XDR stream and releases any system resources associated with this stream.
+    /// </summary>
+    /// <remarks>
+    /// The general contract of <see cref="XdrEncodingStreamBase.Close()"/> is that it closes the encoding 
+    /// XDR stream. A closed XDR stream cannot perform encoding operations and cannot be reopened.
+    /// </remarks>
+    ///
+    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    public override void Close()
+    {
+        base.Close();
+        this._buffer = Array.Empty<byte>();
+    }
+
+    #endregion
+
+    #region " Settings "
+
     /// <summary>   Returns the amount of encoded data in the buffer. </summary>
     /// <returns>   length of data encoded in buffer. </returns>
     public virtual int GetEncodedDataLength()
@@ -75,6 +97,10 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     {
         return this._buffer;
     }
+
+    #endregion
+
+    #region " Operations "
 
     /// <summary>   Begins encoding a new XDR record. </summary>
     /// <remarks>
@@ -107,20 +133,9 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     {
     }
 
-    /// <summary>
-    /// Closes this encoding XDR stream and releases any system resources associated with this stream.
-    /// </summary>
-    /// <remarks>
-    /// The general contract of <see cref="XdrEncodingStreamBase.Close()"/> is that it closes the encoding 
-    /// XDR stream. A closed XDR stream cannot perform encoding operations and cannot be reopened.
-    /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
-    public override void Close()
-    {
-        this._buffer = Array.Empty<byte>();
-    }
+    #endregion
+
+    #region " Encoding "
 
     /// <summary>
     /// Encodes (aka "serializes") a "XDR int" value and writes it down an XDR stream.
@@ -195,34 +210,6 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
         else
         {
             throw (new XdrException( XdrException.XdrBufferOverflow ));
-        }
-    }
-
-    #region  " IDisposable Implementation "
-
-    /// <summary>
-    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
-    /// the managed resources.
-    /// </summary>
-    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
-    ///                             release only unmanaged resources. </param>
-    protected override void Dispose( bool disposing )
-    {
-        try
-        {
-            if ( disposing )
-            {
-                // dispose managed state (managed objects)
-            }
-
-            // free unmanaged resources and override finalizer
-            
-            // set large fields to null
-            this.Close();
-        }
-        finally
-        {
-            base.Dispose( disposing );
         }
     }
 

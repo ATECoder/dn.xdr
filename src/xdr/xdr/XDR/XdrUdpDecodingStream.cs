@@ -154,24 +154,10 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
 
             // @atecoder: added shutdown
             Socket socket = this._socket;
-            try
-            {
-                if ( socket.Connected )
-                    socket.Shutdown( SocketShutdown.Both );
-            }
-            catch ( Exception ex )
-            {
-                Console.WriteLine( $"Failed socket shutdown: \n{ex} " );
-            }
+            if ( socket.Connected )
+                socket.Shutdown( SocketShutdown.Both );
             this._socket = null;
-            try
-            {
-                socket.Close();
-            }
-            catch ( Exception ex )
-            {
-                Console.WriteLine( $"Failed closing the socket: \n{ex} " );
-            }
+            socket.Close();
         }
     }
 
