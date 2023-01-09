@@ -82,7 +82,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
 
     #endregion
 
-    #region " settings "
+    #region " members "
 
     /// <summary>   Returns the amount of encoded data in the buffer. </summary>
     /// <returns>   length of data encoded in buffer. </returns>

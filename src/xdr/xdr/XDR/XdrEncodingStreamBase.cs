@@ -96,7 +96,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
 
     #endregion
 
-    #region " settings "
+    #region " members "
 
     /// <summary>   Gets or sets the default encoding. </summary>
     /// <remarks>

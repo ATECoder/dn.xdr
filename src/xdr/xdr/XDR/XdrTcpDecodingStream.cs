@@ -131,7 +131,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
     #endregion
 
-    #region " settings "
+    #region " members "
 
     /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
