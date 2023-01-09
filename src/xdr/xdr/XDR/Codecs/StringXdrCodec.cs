@@ -31,10 +31,8 @@ public class StringXdrCodec : IXdrCodec
     /// <summary>
     /// Encodes -- that is: serializes -- a XDR string into an XDR stream in compliance to RFC 1832.
     /// </summary>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public virtual void Encode( XdrEncodingStreamBase encoder )
     {
         encoder.EncodeString( this.Value );
@@ -43,10 +41,8 @@ public class StringXdrCodec : IXdrCodec
     /// <summary>
     /// Decodes -- that is: deserializes -- a XDR string from an XDR stream in compliance to RFC 1832.
     /// </summary>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public virtual void Decode( XdrDecodingStreamBase decoder )
     {
         this.Value = decoder.DecodeString();

@@ -109,9 +109,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>   Initiates decoding of the next XDR record. </summary>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void BeginDecoding()
     {
         this._bufferIndex = 0;
@@ -128,9 +126,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// to the begin of an empty buffer, so attempts to decode data will fail
     /// until the buffer is filled again.</para>
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EndDecoding()
     {
         this._bufferIndex = 0;
@@ -144,9 +140,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// A closed XDR stream cannot perform decoding operations and cannot be reopened.
     /// This implementation frees the allocated buffer.
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void Close()
     {
         this._buffer = Array.Empty<byte>();
@@ -158,8 +152,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <returns>   The decoded int value. </returns>
-    ///
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override int DecodeInt()
     {
         if ( this._bufferIndex <= this._bufferHighmark )
@@ -198,8 +190,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   Length of opaque data to decode. </param>
     /// <returns>   Opaque data as a byte vector. </returns>
-    ///
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override byte[] DecodeOpaque( int length )
     {
 
@@ -241,8 +231,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>
     /// <param name="offset">   Start offset in the byte vector. </param>
     /// <param name="length">   the number of bytes to decode. </param>
-    ///
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override void DecodeOpaque( byte[] opaque, int offset, int length )
     {
 

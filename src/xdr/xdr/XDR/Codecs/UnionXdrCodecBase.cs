@@ -58,10 +58,8 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <summary>
     /// Encodes -- that is: serializes -- an object into an XDR stream in compliance to RFC 1832.
     /// </summary>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public virtual void Encode( XdrEncodingStreamBase encoder )
     {
 
@@ -78,11 +76,8 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <summary>
     /// Decodes -- that is: deserializes -- an object from an XDR stream in compliance to RFC 1832.
     /// </summary>
-    /// <exception cref="Exception">    Thrown when an exception error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public virtual void Decode( XdrDecodingStreamBase decoder )
     {
 
@@ -110,9 +105,8 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <remarks>
     /// Note that the common part is deserialized after the variant part.
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="encoder">  The XDR encoding stream. </param>
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public abstract void XdrEncodeCommon( XdrEncodingStreamBase encoder );
 
     /// <summary>
@@ -122,9 +116,8 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <remarks>
     /// Note that the common part is deserialized after the variant part.
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="decoder">  The XDR encoding stream. </param>
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public abstract void XdrDecodeCommon( XdrDecodingStreamBase decoder );
 
     /// <summary>
@@ -134,8 +127,7 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <remarks>
     /// Note that the variant part is deserialized before the common part.
     /// </remarks>
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="encoder">  The XDR encoding stream. </param>
     public abstract void XdrEncodeVariant( XdrEncodingStreamBase encoder );
 
@@ -146,8 +138,7 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <remarks>
     /// Note that the variant part is deserialized before the common part.
     /// </remarks>
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="decoder">  The XDR encoding stream. </param>
     public abstract void XdrDecodeVariant( XdrDecodingStreamBase decoder );
 }

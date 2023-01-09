@@ -86,9 +86,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// This implementation frees the allocated buffer but does not close
     /// the associated datagram socket. It only throws away the reference to this socket. </para>
     /// </remarks>
-    ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void Close()
     {
         if ( this._socket is not null )
@@ -157,7 +155,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
     #endregion
 
-    #region " operations "
+    #region " actions "
 
     /// <summary>   Initiates decoding of the next XDR record. </summary>
     /// <remarks>
@@ -169,9 +167,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// parts of fragments. In every case, this method ensures that there will be more data available
     /// in the buffer (or else an exception thrown). </para>
     /// </remarks>
-    ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void BeginDecoding()
     {
         this.Fill();
@@ -292,9 +288,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// This method overrides <see cref="XdrDecodingStreamBase.EndDecoding()"/>.
     /// It reads in and throws away fragments until it reaches the last fragment. </para>
     /// </remarks>
-    ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void EndDecoding()
     {
         try
@@ -329,9 +323,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// An XDR int encapsulate a 32 bits <see langword="int"/>.
     /// </remarks>
     /// <returns>   The decoded int value. </returns>
-    ///
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override int DecodeInt()
     {
 
@@ -370,11 +362,9 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <see cref="DecodeOpaque(byte[], int, int)"/>
     /// where first the length of the opaque value is retrieved from the XDR stream.
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   Length of opaque data to decode. </param>
     /// <returns>   Opaque data as a byte vector. </returns>
-    ///
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override byte[] DecodeOpaque( int length )
     {
         int padding = (4 - (length & 3)) & 3;
@@ -435,12 +425,10 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value will be. The
     /// decoded data is always padded to be a multiple of four (because that's what the sender does).
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>
     /// <param name="offset">   Start offset in the byte vector. </param>
     /// <param name="length">   the number of bytes to decode. </param>
-    ///
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IOException">   Thrown when an I/O error condition occurs. </exception>
     public override void DecodeOpaque( byte[] opaque, int offset, int length )
     {
         int padding = (4 - (length & 3)) & 3;

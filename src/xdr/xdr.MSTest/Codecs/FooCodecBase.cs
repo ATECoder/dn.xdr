@@ -40,9 +40,7 @@ namespace cc.isr.XDR.MSTest.Codecs
         /// <summary>
         /// Decodes -- that is: deserializes -- an object from an XDR stream in compliance to RFC 1832.
         /// </summary>
-        /// <remarks>   2023-01-05. </remarks>
-        /// <exception cref="T:cc.isr.XDR.XdrException">    Thrown when an XDR error condition occurs. </exception>
-        /// <exception cref="T:System.IO.IOException">      Thrown when an I/O error condition occurs. </exception>
+        /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
         /// <param name="decoder">  The decoder. </param>
         public abstract void Decode( XdrDecodingStreamBase decoder );
 

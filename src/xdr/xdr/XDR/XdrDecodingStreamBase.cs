@@ -27,9 +27,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// The <see cref="XdrDecodingStreamBase.Close()"/> method of <see cref="XdrDecodingStreamBase"/>
     /// does nothing.</para>
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public virtual void Close()
     {
     }
@@ -127,7 +125,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     #endregion
 
-    #region " operations "
+    #region " actions "
 
     /// <summary>   Initiates decoding of the next XDR record. </summary>
     /// <remarks>
@@ -136,8 +134,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// communication this might involve waiting for some other process to fill the buffer and signal
     /// availability of new XDR data.
     /// </remarks>
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public abstract void BeginDecoding();
 
     /// <summary>   End decoding of the current XDR record. </summary>
@@ -148,9 +145,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// The <see cref="XdrDecodingStreamBase.EndDecoding"/> method of <see cref="XdrDecodingStreamBase"/>
     /// does nothing. </para>
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public virtual void EndDecoding()
     {
     }
@@ -165,8 +160,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// This method is one of the basic methods all other methods can rely on.
     /// Because it's so basic, derived classes have to implement it.
     /// </remarks>
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <returns>   The decoded int value. </returns>
     public abstract int DecodeInt();
 
@@ -179,8 +173,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// Note that this is a basic abstract method, which needs to be
     /// implemented in derived classes.</para>
     /// </remarks>
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   Length of opaque data to decode. </param>
     /// <returns>   Opaque data as a byte vector. </returns>
     public abstract byte[] DecodeOpaque( int length );
@@ -194,8 +187,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// decoded data is always padded to be a multiple of four (because that's what the sender does). <para>
     /// Derived classes must ensure that the proper semantic is maintained.</para>
     /// </remarks>
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="IndexOutOfRangeException"> if the given <paramref name="opaque"/>
     ///                                             byte vector isn't large enough to receive the
     ///                                             result. </exception>
@@ -213,10 +205,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// will be. The decoded data is always padded to be a multiple of four (because that's what the
     /// sender does).
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public void DecodeOpaque( byte[] opaque )
     {
         this.DecodeOpaque( opaque, 0, opaque.Length );
@@ -231,10 +221,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// caller does not need to know the exact length in advance. The decoded data is always padded
     /// to be a multiple of four (because that's what the sender does).
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <returns>   The byte vector containing the decoded data. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public byte[] DecodeDynamicOpaque()
     {
         int length = this.DecodeInt();
@@ -254,10 +242,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// Byte vectors are decoded together with a preceding length value. This way the receiver doesn't need to know
     /// the length of the vector in advance.
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <returns>   The byte vector containing the decoded data. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public byte[] DecodeByteVector()
     {
         int length = this.DecodeInt();
@@ -268,11 +254,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// Decodes (aka "deserializes") a vector of bytes, which is nothing more than a series of octets
     /// (or 8 bits wide bytes), each packed into its very own 4 bytes (XDR int).
     /// </summary>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   of vector to read. </param>
     /// <returns>   The byte vector containing the decoded data. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public byte[] DecodeByteVector( int length )
     {
         if ( length > 0 )
@@ -292,9 +276,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     /// <summary>   Decodes (aka "deserializes") a byte read from this XDR stream. </summary>
     /// <returns>   Decoded byte value. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public byte DecodeByte()
     {
         return ( byte ) this.DecodeInt();
@@ -305,9 +287,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// read from this XDR stream.
     /// </summary>
     /// <returns>   Decoded short value. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public short DecodeShort()
     {
         return ( short ) this.DecodeInt();
@@ -318,9 +298,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// wide) read from an XDR stream.
     /// </summary>
     /// <returns>   Decoded long value. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public long DecodeLong()
     {
 
@@ -335,9 +313,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// from an XDR stream.
     /// </summary>
     /// <returns>   Decoded float value. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public float DecodeFloat()
     {
         return BitConverter.ToSingle( BitConverter.GetBytes( this.DecodeInt() ), 0 );
@@ -348,9 +324,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// from an XDR stream.
     /// </summary>
     /// <returns>   Decoded double value. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public double DecodeDouble()
     {
         return BitConverter.Int64BitsToDouble( this.DecodeLong() );
@@ -358,9 +332,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     /// <summary>   Decodes (aka "deserializes") a boolean read from an XDR stream. </summary>
     /// <returns>   Decoded boolean value. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public bool DecodeBoolean()
     {
         return this.DecodeInt() != 0;
@@ -371,9 +343,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// If a character encoding has been set for this stream, then this will be used for conversion.
     /// </remarks>
     /// <returns>   Decoded String value. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public string DecodeString()
     {
         int length = this.DecodeInt();
@@ -393,9 +363,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// Decodes (aka "deserializes") a vector of short integers read from an XDR stream.
     /// </summary>
     /// <returns>   Decoded vector of short integers. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public short[] DecodeShortVector()
     {
         int length = this.DecodeInt();
@@ -405,11 +373,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <summary>
     /// Decodes (aka "deserializes") a vector of short integers read from an XDR stream.
     /// </summary>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   of vector to read. </param>
     /// <returns>   Decoded vector of short integers. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public short[] DecodeShortVector( int length )
     {
         if ( length == 0 ) return Array.Empty<short>();
@@ -423,9 +389,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     /// <summary>   Decodes (aka "deserializes") a vector of <see cref="int"/>'s read from an XDR stream. </summary>
     /// <returns>   Decoded int vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public int[] DecodeIntVector()
     {
         int length = this.DecodeInt();
@@ -435,9 +399,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <summary>   Decodes (aka "deserializes") a vector of <see cref="int"/>'s read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
     /// <returns>   Decoded int vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public int[] DecodeIntVector( int length )
     {
         if ( length == 0 ) return Array.Empty<int>();
@@ -451,9 +413,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     /// <summary>   Decodes (aka "deserializes") a vector of longs read from an XDR stream. </summary>
     /// <returns>   Decoded long vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public long[] DecodeLongVector()
     {
         int length = this.DecodeInt();
@@ -463,9 +423,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <summary>   Decodes (aka "deserializes") a vector of longs read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
     /// <returns>   Decoded long vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public long[] DecodeLongVector( int length )
     {
         if ( length == 0 ) return Array.Empty<long>();
@@ -479,9 +437,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     /// <summary>   Decodes (aka "deserializes") a vector of floats read from an XDR stream. </summary>
     /// <returns>   Decoded float vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public float[] DecodeFloatVector()
     {
         int length = this.DecodeInt();
@@ -491,9 +447,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <summary>   Decodes (aka "deserializes") a vector of floats read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
     /// <returns>   Decoded float vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public float[] DecodeFloatVector( int length )
     {
         if ( length == 0 ) return Array.Empty<float>();
@@ -507,9 +461,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     /// <summary>   Decodes (aka "deserializes") a vector of doubles read from an XDR stream. </summary>
     /// <returns>   Decoded double vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public double[] DecodeDoubleVector()
     {
         int length = this.DecodeInt();
@@ -519,9 +471,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <summary>   Decodes (aka "deserializes") a vector of doubles read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
     /// <returns>   Decoded double vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public double[] DecodeDoubleVector( int length )
     {
         if ( length == 0 ) return Array.Empty<double>();
@@ -535,9 +485,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     /// <summary>   Decodes (aka "deserializes") a vector of booleans read from an XDR stream. </summary>
     /// <returns>   Decoded boolean vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public bool[] DecodeBooleanVector()
     {
         int length = this.DecodeInt();
@@ -547,9 +495,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <summary>   Decodes (aka "deserializes") a vector of booleans read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
     /// <returns>   Decoded boolean vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public bool[] DecodeBooleanVector( int length )
     {
         if ( length == 0 ) return Array.Empty<bool>();
@@ -563,9 +509,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     /// <summary>   Decodes (aka "deserializes") a vector of strings read from an XDR stream. </summary>
     /// <returns>   Decoded String vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public string[] DecodeStringVector()
     {
         int length = this.DecodeInt();
@@ -575,9 +519,6 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <summary>   Decodes (aka "deserializes") a vector of strings read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
     /// <returns>   Decoded String vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public string[] DecodeStringVector( int length )
     {
         if ( length == 0 ) return Array.Empty<string>();

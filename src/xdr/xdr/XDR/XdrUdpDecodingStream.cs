@@ -77,9 +77,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// This implementation frees the allocated buffer but does not close
     /// the associated datagram socket. It only throws away the reference to this socket. </para>
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void Close()
     {
         if ( this._socket is not null )
@@ -145,15 +143,13 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
 
     #endregion
 
-    #region " operations "
+    #region " actions "
 
     /// <summary>   Initiates decoding of the next XDR record. </summary>
     /// <remarks>
     /// For UDP-based XDR decoding streams this reads in the next datagram from the network socket.
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void BeginDecoding()
     {
         // Creates an IpEndPoint to capture the identity of the sending host.
@@ -176,9 +172,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// It does nothing more than resetting the buffer pointer back to the beginning of an empty
     /// buffer, so attempts to decode data will fail until the buffer is filled again. </para>
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EndDecoding()
     {
         this._bufferIndex = 0;
@@ -195,9 +189,6 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <returns>   The decoded int value. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override int DecodeInt()
     {
         if ( this._bufferIndex <= this._bufferHighmark )
@@ -232,11 +223,9 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// stream. This is different from <see cref="DecodeOpaque(byte[], int, int)"/>
     /// where first the length of the opaque value is retrieved from the XDR stream.
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   Length of opaque data to decode. </param>
     /// <returns>   Opaque data as a byte vector. </returns>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override byte[] DecodeOpaque( int length )
     {
 
@@ -274,12 +263,10 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value will be. The
     /// decoded data is always padded to be a multiple of four (because that's what the sender does).
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>
     /// <param name="offset">   Start offset in the byte vector. </param>
     /// <param name="length">   the number of bytes to decode. </param>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override void DecodeOpaque( byte[] opaque, int offset, int length )
     {
 

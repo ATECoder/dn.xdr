@@ -72,9 +72,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// The general contract of <see cref="XdrEncodingStreamBase.Close()"/> is that it closes the encoding 
     /// XDR stream. A closed XDR stream cannot perform encoding operations and cannot be reopened.
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void Close()
     {
         if ( this._socket is not null )
@@ -116,7 +114,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
 
     #endregion
 
-    #region " operations "
+    #region " actions "
 
     /// <summary>   Begins encoding a new XDR record. </summary>
     /// <remarks>
@@ -126,9 +124,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     ///                                 <see langword="null"/> for XDR streams connected permanently to a
     ///                                 receiver (like in case of TCP/IP based XDR streams). </param>
     /// <param name="receiverPort">     Port number of the receiver. </param>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void BeginEncoding( IPAddress receiverAddress, int receiverPort )
     {
         this._receiverAddress = receiverAddress;
@@ -144,9 +140,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// is an indication that the current record is finished and any bytes previously encoded should 
     /// immediately be written to their intended destination.
     /// </remarks>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EndEncoding()
     {
         IPEndPoint endPoint = new( this._receiverAddress, this._receiverPort );
@@ -165,9 +159,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// This method is one of the basic methods all other methods can rely on.
     /// </remarks>
     /// <param name="value">    The int value to be encoded. </param>
-    /// 
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EncodeInt( int value )
     {
         if ( this._bufferIndex <= this._bufferHighmark )
@@ -198,12 +190,10 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// to be a multiple of four. If the given length is not a multiple of four, zero bytes will be
     /// used for padding.
     /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>
     /// <param name="offset">   Start offset in the data. </param>
     /// <param name="length">   the number of bytes to encode. </param>
-    ///
-    /// <exception cref="XdrException">             Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="System.IO.IOException">    Thrown when an I/O error condition occurs. </exception>
     public override void EncodeOpaque( byte[] value, int offset, int length )
     {
 
