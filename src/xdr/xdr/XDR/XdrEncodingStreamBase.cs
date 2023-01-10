@@ -353,7 +353,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// <param name="value">    String value to be encoded. </param>
     public void EncodeString( string value )
     {
-        this.EncodeDynamicOpaque( this.CharacterEncoding.GetBytes( value) );
+        this.EncodeDynamicOpaque( this.CharacterEncoding.GetBytes( value ) );
     }
 
     /// <summary>

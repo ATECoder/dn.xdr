@@ -113,21 +113,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         base.Close();
     }
 
-    #region  " disposable implementation "
-
-    /// <summary>   Finalizer. </summary>
-    /// <remarks>
-    /// Overriding <see cref="XdrDecodingStreamBase.Dispose(bool)"/> is unnecessary because the base
-    /// class already calls <see cref="Close()"/>.
-    /// </remarks>
-    ~XdrTcpDecodingStream()
-    {
-        if ( this.IsDisposed ) { return; }
-        this.Dispose( false );
-    }
-
-    #endregion
-
     #endregion
 
     #region " members "
@@ -140,7 +125,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
     public override IPAddress GetSenderAddress()
     {
-        return this._socket== null ? IPAddress.None : ( ( IPEndPoint ) this._socket.RemoteEndPoint ).Address;
+        return this._socket == null ? IPAddress.None : (( IPEndPoint ) this._socket.RemoteEndPoint).Address;
     }
 
     /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
@@ -151,7 +136,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <returns>   Port number of the sender of the current XDR data. </returns>
     public override int GetSenderPort()
     {
-        return this._socket == null ? 0 : (( IPEndPoint ) this._socket.RemoteEndPoint ).Port;
+        return this._socket == null ? 0 : (( IPEndPoint ) this._socket.RemoteEndPoint).Port;
     }
 
     #endregion

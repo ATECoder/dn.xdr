@@ -98,21 +98,6 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
         base.Close();
     }
 
-    #region  " disposable implementation "
-
-    /// <summary>   Finalizer. </summary>
-    /// <remarks>
-    /// Overriding <see cref="XdrEncodingStreamBase.Dispose(bool)"/> is unnecessary because the base
-    /// class already calls <see cref="Close()"/>.
-    /// </remarks>
-    ~XdrUdpEncodingStream()
-    {
-        if ( this.IsDisposed ) { return; }
-        this.Dispose( false );
-    }
-
-    #endregion
-
     #endregion
 
     #region " actions "

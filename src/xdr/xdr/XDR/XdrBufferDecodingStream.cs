@@ -61,7 +61,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     ///
     /// <exception cref="ArgumentException">    if the size of the buffer is not a multiple of
     ///                                         four. </exception>
-    public XdrBufferDecodingStream( byte[] buffer ) :this( buffer, buffer.Length )
+    public XdrBufferDecodingStream( byte[] buffer ) : this( buffer, buffer.Length )
     {
     }
 
@@ -78,21 +78,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
         base.Close();
         this._buffer = Array.Empty<byte>();
     }
-
-    #region " disposable implementation "
-
-    /// <summary>   Finalizer. </summary>
-    /// <remarks>
-    /// Overriding <see cref="XdrDecodingStreamBase.Dispose(bool)"/> is unnecessary because the base
-    /// class already calls <see cref="Close()"/>.
-    /// </remarks>
-    ~XdrBufferDecodingStream()
-    {
-        if ( this.IsDisposed ) { return; }
-        this.Dispose( false );
-    }
-
-    #endregion
 
     #endregion
 

@@ -108,7 +108,7 @@ public class XdrException : Exception
     /// The error message string of this <see cref="XdrException"/>
     /// object if it was created either with an error message string or an XDR error code.
     /// </value>
-    public override string Message  => this._message;
+    public override string Message => this._message;
 
 }
 

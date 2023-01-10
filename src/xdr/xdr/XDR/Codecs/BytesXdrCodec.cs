@@ -21,7 +21,7 @@ public class BytesXdrCodec : IXdrCodec
 
     /// <summary>   Constructs and initializes a new <see cref="BytesXdrCodec"/> object. </summary>
     public BytesXdrCodec() : this( Array.Empty<byte>() )
-    {        
+    {
     }
 
     /// <summary>The encapsulated bytes value itself.</summary>

@@ -12,7 +12,7 @@ namespace cc.isr.XDR.MSTest
         private static void AssertCodecShouldProcessString( string arg1 )
         {
             StringXdrCodec args = new( arg1 );
-            XdrBufferEncodingStream encoder = new ( 1024 );
+            XdrBufferEncodingStream encoder = new( 1024 );
             args.Encode( encoder );
 
             StringXdrCodec result = new();

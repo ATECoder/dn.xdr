@@ -78,22 +78,6 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
         this._buffer = Array.Empty<byte>();
     }
 
-    #region " disposable implementation "
-
-    /// <summary>   Finalizer. </summary>
-    /// <remarks>
-    /// Overriding <see cref="XdrEncodingStreamBase.Dispose(bool)"/> is unnecessary because the base
-    /// class already calls <see cref="Close()"/>.
-    /// </remarks>
-    ~XdrBufferEncodingStream()
-    {
-        if ( this.IsDisposed ) { return; }
-        this.Dispose( false );
-    }
-
-    #endregion
-
-
     #endregion
 
     #region " members "

@@ -62,7 +62,7 @@ namespace cc.isr.XDR.MSTest.Codecs
                 }
                 else
                     encoder.EcodeBoolean( false );
-;
+                ;
             }
         }
 
