@@ -98,6 +98,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
             socket.Close();
         }
         this._buffer = Array.Empty<byte>();
+        base.Close();
     }
 
     #region  " disposable implementation "

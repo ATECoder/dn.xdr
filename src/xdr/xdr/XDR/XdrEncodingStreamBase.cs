@@ -143,7 +143,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
 
     #endregion
 
-    #region " encoding "
+    #region " encode actions "
 
     /// <summary>
     /// Encodes (aka "serializes") an <see cref="int"/> value and writes it down an XDR stream.

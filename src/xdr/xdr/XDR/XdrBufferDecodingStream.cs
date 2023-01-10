@@ -10,6 +10,7 @@ namespace cc.isr.XDR;
 /// </remarks>
 public class XdrBufferDecodingStream : XdrDecodingStreamBase
 {
+    #region " construction and cleanup "
 
     /// <summary>
     /// The buffer which will be filled from the datagram socket and then
@@ -65,6 +66,39 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>
+    /// Closes this decoding XDR stream and releases any system resources associated with this stream.
+    /// </summary>
+    /// <remarks>
+    /// A closed XDR stream cannot perform decoding operations and cannot be reopened.
+    /// This implementation frees the allocated buffer.
+    /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    public override void Close()
+    {
+        base.Close();
+        this._buffer = Array.Empty<byte>();
+    }
+
+    #region " disposable implementation "
+
+    /// <summary>   Finalizer. </summary>
+    /// <remarks>
+    /// Overriding <see cref="XdrDecodingStreamBase.Dispose(bool)"/> is unnecessary because the base
+    /// class already calls <see cref="Close()"/>.
+    /// </remarks>
+    ~XdrBufferDecodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
+
+    #endregion
+
+    #endregion
+
+    #region " members "
+
+    /// <summary>
     /// Sets the buffer containing encoded XDR data as well as the length of the encoded data.
     /// </summary>
     /// <exception cref="ArgumentException">    if <paramref name="encodedLength"/> is not a multiple of
@@ -108,6 +142,11 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
         return 0;
     }
 
+    #endregion
+
+    #region " actions "
+
+
     /// <summary>   Initiates decoding of the next XDR record. </summary>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void BeginDecoding()
@@ -133,18 +172,9 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
         this._bufferHighmark = -4;
     }
 
-    /// <summary>
-    /// Closes this decoding XDR stream and releases any system resources associated with this stream.
-    /// </summary>
-    /// <remarks>
-    /// A closed XDR stream cannot perform decoding operations and cannot be reopened.
-    /// This implementation frees the allocated buffer.
-    /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    public override void Close()
-    {
-        this._buffer = Array.Empty<byte>();
-    }
+    #endregion
+
+    #region " decode actions "
 
     /// <summary>   Decodes (aka "deserializes") a "XDR int" value received from an XDR stream. </summary>
     /// <remarks>
@@ -256,33 +286,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
             }
         }
         this._bufferIndex += alignedLength;
-    }
-
-    #region  " disposable implementation "
-
-    /// <summary>
-    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
-    /// the managed resources.
-    /// </summary>
-    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
-    ///                             release only unmanaged resources. </param>
-    protected override void Dispose( bool disposing )
-    {
-        try
-        {
-            if ( disposing )
-            {
-                // dispose managed state (managed objects)
-            }
-
-            // free unmanaged resources and override finalizer
-            // set large fields to null
-            this.Close();
-        }
-        finally
-        {
-            base.Dispose( disposing );
-        }
     }
 
     #endregion

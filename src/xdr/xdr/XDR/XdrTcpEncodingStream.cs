@@ -102,6 +102,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         }
         this._buffer = Array.Empty<byte>();
         this._stream = Stream.Null;
+        base.Close();
     }
 
     #region  " disposable implementation "
@@ -259,7 +260,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
 
     #endregion
 
-    #region " encoding "
+    #region " encode actions "
 
     /// <summary>
     /// Encodes (aka "serializes") a "XDR int" value and writes it down an XDR stream.

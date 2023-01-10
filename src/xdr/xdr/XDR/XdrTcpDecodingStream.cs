@@ -110,6 +110,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         }
         this._buffer = Array.Empty<byte>();
         this._stream = Stream.Null;
+        base.Close();
     }
 
     #region  " disposable implementation "
@@ -316,7 +317,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
     #endregion
 
-    #region " Decoders "
+    #region " decode actions "
 
     /// <summary>   Decodes (aka "deserializes") a "XDR int" value received from an XDR stream. </summary>
     /// <remarks>

@@ -95,6 +95,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
             socket.Close();
         }
         this._buffer = Array.Empty<byte>();
+        base.Close();
     }
 
     #region  " disposable implementation "
@@ -149,7 +150,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
 
     #endregion
 
-    #region " Encoding "
+    #region " encode actions "
 
     /// <summary>
     /// Encodes (aka "serializes") a "XDR int" value and writes it down an XDR stream.
