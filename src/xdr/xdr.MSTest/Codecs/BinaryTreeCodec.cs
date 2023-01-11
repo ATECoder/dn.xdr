@@ -1,10 +1,6 @@
-#nullable disable
-
-
 namespace cc.isr.XDR.MSTest.Codecs;
 
-/// <summary>   (Serializable) a binary tree XBR encoder/decoder. </summary>
-/// <remarks>   2022-12-22. </remarks>
+/// <summary>   (Serializable) a binary tree codec. </summary>
 [Serializable]
 public class BinaryTreeCodec : IXdrCodec
 {
@@ -21,6 +17,20 @@ public class BinaryTreeCodec : IXdrCodec
     [System.Diagnostics.CodeAnalysis.SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "<Pending>" )]
     private const long serialVersionUID = 2403962346676670641L;
 
+    /// <summary>   Default constructor. </summary>
+    public BinaryTreeCodec()
+    {
+        this.Key = string.Empty;
+        this.Value = string.Empty;
+    }
+
+    /// <summary>   Constructor. </summary>
+    /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
+    public BinaryTreeCodec( XdrDecodingStreamBase decoder ): this()
+    {
+        this.Decode( decoder );
+    }
+
     /// <summary>   Gets or sets the key. </summary>
     /// <value> The key. </value>
     public virtual string Key { get; set; }
@@ -31,23 +41,11 @@ public class BinaryTreeCodec : IXdrCodec
 
     /// <summary>   Gets or sets the left. </summary>
     /// <value> The left. </value>
-    public virtual BinaryTreeCodec Left { get; set; }
+    public virtual BinaryTreeCodec? Left { get; set; }
 
     /// <summary>   Gets or sets the right. </summary>
     /// <value> The right. </value>
-    public virtual BinaryTreeCodec Right { get; set; }
-
-    /// <summary>   Default constructor. </summary>
-    public BinaryTreeCodec()
-    {
-    }
-
-    /// <summary>   Constructor. </summary>
-    /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
-    public BinaryTreeCodec( XdrDecodingStreamBase decoder )
-    {
-        this.Decode( decoder );
-    }
+    public virtual BinaryTreeCodec? Right { get; set; }
 
     /// <summary>
     /// Encodes -- that is: serializes -- an object into a XDR stream in compliance to RFC 1832.
@@ -58,7 +56,7 @@ public class BinaryTreeCodec : IXdrCodec
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     public virtual void Encode( XdrEncodingStreamBase encoder )
     {
-        BinaryTreeCodec currentBinaryTree = this;
+        BinaryTreeCodec? currentBinaryTree = this;
         do
         {
             encoder.EncodeString( currentBinaryTree.Key );
@@ -85,8 +83,8 @@ public class BinaryTreeCodec : IXdrCodec
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
     public virtual void Decode( XdrDecodingStreamBase decoder )
     {
-        BinaryTreeCodec currentBinaryTree = this;
-        BinaryTreeCodec nextBinaryTree;
+        BinaryTreeCodec? currentBinaryTree = this;
+        BinaryTreeCodec? nextBinaryTree;
         do
         {
             currentBinaryTree.Key = decoder.DecodeString();

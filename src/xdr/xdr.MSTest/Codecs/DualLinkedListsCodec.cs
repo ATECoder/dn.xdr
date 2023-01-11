@@ -1,18 +1,16 @@
-#nullable disable
 namespace cc.isr.XDR.MSTest.Codecs;
 
 /// <summary>   (Serializable) a dual linked lists XBR encoder/decoder. </summary>
-/// <remarks>   2022-12-30. </remarks>
 [Serializable]
 internal class DualLinkedListsCodec : IXdrCodec
 {
     /// <summary>   Gets or sets the list 1. </summary>
     /// <value> The list 1. </value>
-    public LinkedListCodec List1 { get; set; }
+    public LinkedListCodec? List1 { get; set; }
 
     /// <summary>   Gets or sets the list 2. </summary>
     /// <value> The list 2. </value>
-    public LinkedListCodec List2 { get; set; }
+    public LinkedListCodec? List2 { get; set; }
 
     /// <summary>
     /// Encodes -- that is: serializes -- an object into a XDR stream in compliance to RFC 1832.
@@ -23,8 +21,8 @@ internal class DualLinkedListsCodec : IXdrCodec
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     public void Encode( XdrEncodingStreamBase encoder )
     {
-        this.List1.Encode( encoder );
-        this.List2.Encode( encoder );
+        this.List1?.Encode( encoder );
+        this.List2?.Encode( encoder );
     }
     /// <summary>
     /// Decodes -- that is: deserializes -- an object from a XDR stream in compliance to RFC 1832.

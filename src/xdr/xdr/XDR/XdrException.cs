@@ -1,4 +1,3 @@
-
 namespace cc.isr.XDR;
 
 /// <summary>

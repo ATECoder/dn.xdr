@@ -98,7 +98,15 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
 
         if ( (encodedLength < 0) || (encodedLength & 3) != 0 )
         {
-            throw (new ArgumentException( "length of encoded data must be a multiple of four and must not be negative" ));
+            throw new ArgumentException( $"{nameof( encodedLength )} ({encodedLength}) length of encoded data must be a multiple of four and must not be negative" );
+        }
+        else if ( buffer is null )
+        {
+            throw new ArgumentNullException( nameof(buffer) );
+        }
+        else if ( buffer.Length < encodedLength )
+        {
+            throw new ArgumentException( $"{nameof(buffer)} length is smaller than {nameof(encodedLength)}" );
         }
         this._buffer = buffer;
         this._encodedLength = encodedLength;
@@ -112,7 +120,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// information.
     /// </remarks>
     /// <value> <see cref="IPAddress"/> of the sender of the current XDR data. </value>
-    public override IPAddress? SenderAddress { get { return null; } } 
+    public override IPAddress? SenderAddress => null;
 
     /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
     /// <remarks>
@@ -120,7 +128,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// information.
     /// </remarks>
     /// <value> Port number of the sender of the current XDR data. </value>
-    public override int SenderPort { get { return 0; } }
+    public override int SenderPort => 0;
 
     #endregion
 

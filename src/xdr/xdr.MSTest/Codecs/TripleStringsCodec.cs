@@ -1,11 +1,17 @@
-#nullable disable
 namespace cc.isr.XDR.MSTest.Codecs;
 
 /// <summary>   (Serializable) a triple strings XBR encoder/decoder. </summary>
-/// <remarks>   2022-12-30. </remarks>
-[Serializable]
 internal class TripleStringsCodec : IXdrCodec
 {
+
+    /// <summary>   Default constructor. </summary>
+    public TripleStringsCodec()
+    {
+        this.One = string.Empty;
+        this.Two = string.Empty;
+        this.Three = string.Empty;
+    }
+
     /// <summary>   Gets or sets the one. </summary>
     /// <value> The one. </value>
     public string One { get; set; }
