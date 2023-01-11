@@ -106,26 +106,21 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
         this._bufferHighmark = -4;
     }
 
-    /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
+    /// <summary>   Gets the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
-    /// This method should only be called after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
+    /// information.
     /// </remarks>
-    /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
-    public override IPAddress GetSenderAddress()
-    {
-        return IPAddress.None;
-    }
+    /// <value> <see cref="IPAddress"/> of the sender of the current XDR data. </value>
+    public override IPAddress? SenderAddress { get { return null; } } 
 
-    /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
+    /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
     /// <remarks>
-    /// This method should only be called after
-    /// <see cref="BeginDecoding()"/>, otherwise it might return stale information.
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
+    /// information.
     /// </remarks>
-    /// <returns>   Port number of the sender of the current XDR data. </returns>
-    public override int GetSenderPort()
-    {
-        return 0;
-    }
+    /// <value> Port number of the sender of the current XDR data. </value>
+    public override int SenderPort { get { return 0; } }
 
     #endregion
 

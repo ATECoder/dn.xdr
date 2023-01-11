@@ -20,7 +20,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     private Socket? _socket;
 
     /// <summary>Sender's address of current buffer contents.</summary>
-    private IPAddress _senderAddress = IPAddress.None;
+    private IPAddress? _senderAddress = null;
 
     /// <summary>The senders's port.</summary>
     private int _senderPort = 0;
@@ -105,27 +105,21 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
 
     #region " members "
 
-    /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
+    /// <summary>   Gets the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
-    /// This method should only be called after <see cref="BeginDecoding()"/>, otherwise it might return stale
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
     /// information.
     /// </remarks>
-    /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
-    public override IPAddress GetSenderAddress()
-    {
-        return this._senderAddress;
-    }
+    /// <value> <see cref="IPAddress"/> of the sender of the current XDR data. </value>
+    public override IPAddress? SenderAddress => this._senderAddress;
 
-    /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
+    /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
     /// <remarks>
-    /// This method should only be called after <see cref="BeginDecoding()"/>, otherwise it might return stale
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
     /// information.
     /// </remarks>
-    /// <returns>   Port number of the sender of the current XDR data. </returns>
-    public override int GetSenderPort()
-    {
-        return this._senderPort;
-    }
+    /// <value> Port number of the sender of the current XDR data. </value>
+    public override int SenderPort => this._senderPort;
 
     #endregion
 

@@ -95,21 +95,19 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     #region " members "
 
-    /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
+    /// <summary>   Gets the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
-    /// This method should only be called after
-    /// <see cref="BeginDecoding()"/>, otherwise it might return stale information.
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
     /// </remarks>
-    /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
-    public abstract IPAddress GetSenderAddress();
+    /// <value>   <see cref="IPAddress"/> of the sender of the current XDR data. </value>
+    public abstract IPAddress? SenderAddress { get; }
 
-    /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
+    /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
     /// <remarks>
-    /// This method should only be called after
-    /// <see cref="BeginDecoding()"/>, otherwise it might return stale information.
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
     /// </remarks>
-    /// <returns>   Port number of the sender of the current XDR data. </returns>
-    public abstract int GetSenderPort();
+    /// <value>   Port number of the sender of the current XDR data. </value>
+    public abstract int SenderPort { get; }
 
     /// <summary>   Gets or sets the default encoding. </summary>
     /// <remarks>

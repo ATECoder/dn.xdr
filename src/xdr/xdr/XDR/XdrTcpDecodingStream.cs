@@ -117,27 +117,21 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
     #region " members "
 
-    /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
+    /// <summary>   Gets the Internet address of the sender of the current XDR data. </summary>
     /// <remarks>
-    /// This method should only be called after
-    /// <see cref="BeginDecoding()"/>, otherwise it might return stale information.
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
+    /// information.
     /// </remarks>
-    /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
-    public override IPAddress GetSenderAddress()
-    {
-        return this._socket == null ? IPAddress.None : (( IPEndPoint ) this._socket.RemoteEndPoint).Address;
-    }
+    /// <value> <see cref="IPAddress"/> of the sender of the current XDR data. </value>
+    public override IPAddress? SenderAddress => this._socket == null ? null : (( IPEndPoint ) this._socket.RemoteEndPoint).Address;
 
-    /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
+    /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
     /// <remarks>
-    /// This method should only be called after
-    /// <see cref="BeginDecoding()"/>, otherwise it might return stale information.
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
+    /// information.
     /// </remarks>
-    /// <returns>   Port number of the sender of the current XDR data. </returns>
-    public override int GetSenderPort()
-    {
-        return this._socket == null ? 0 : (( IPEndPoint ) this._socket.RemoteEndPoint).Port;
-    }
+    /// <value> Port number of the sender of the current XDR data. </value>
+    public override int SenderPort => this._socket == null ? 0 : (( IPEndPoint ) this._socket.RemoteEndPoint).Port;
 
     #endregion
 

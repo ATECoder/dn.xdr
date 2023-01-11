@@ -115,9 +115,9 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// otherwise it might return stale information.
     /// </remarks>
     /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
-    public virtual IPAddress GetSenderAddress()
+    public virtual IPAddress? GetSenderAddress()
     {
-        return this._socket is null ? IPAddress.None : (( IPEndPoint ) this._socket.RemoteEndPoint).Address;
+        return this._socket is null ? null : (( IPEndPoint ) this._socket.RemoteEndPoint).Address;
     }
 
     /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
@@ -145,7 +145,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     ///                                 receiver (like in case of TCP/IP based XDR streams). </param>
     /// <param name="receiverPort">     Port number of the receiver. </param>
     ///
-    public override void BeginEncoding( IPAddress receiverAddress, int receiverPort )
+    public override void BeginEncoding( IPAddress? receiverAddress, int receiverPort )
     {
     }
 

@@ -19,8 +19,8 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// </summary>
     private Socket? _socket;
 
-    /// <summary>Receiver address of current buffer contents when flushed.</summary>
-    private IPAddress _receiverAddress = IPAddress.None;
+    /// <summary> Receiver address of current buffer contents when flushed. </summary>
+    private IPAddress? _receiverAddress = null;
 
     /// <summary>The receiver's port.</summary>
     private int _receiverPort = 0;
