@@ -4,8 +4,10 @@ namespace cc.isr.XDR;
 /// <remarks>
 /// A decoding XDR stream returns data and primitive data types which it reads from 
 /// a data source (for instance, network or memory buffer) in the platform-independent XDR format. <para>
+/// 
 /// Derived classes need to implement the <see cref="DecodeInt()"/>, <see cref="DecodeOpaque(int)"/> and
 /// <see cref="DecodeOpaque(byte[], int, int)"/>. </para> <para>
+/// 
 /// Remote Tea authors: Harald Albrecht, Jay Walters. </para>
 /// </remarks>
 public abstract class XdrDecodingStreamBase : IDisposable
@@ -24,6 +26,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <remarks>
     /// The general contract of <see cref="Close()"/> is that it closes the decoding XDR stream. A
     /// closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
+    /// 
     /// The <see cref="XdrDecodingStreamBase.Close()"/> method of <see cref="XdrDecodingStreamBase"/>
     /// does nothing.</para>
     /// </remarks>
@@ -141,6 +144,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// The general contract of <see cref="EndDecoding"/> is that calling it is
     /// an indication that the current record is no more interesting to the caller and any allocated 
     /// data for this record can be freed. <para>
+    /// 
     /// The <see cref="XdrDecodingStreamBase.EndDecoding"/> method of <see cref="XdrDecodingStreamBase"/>
     /// does nothing. </para>
     /// </remarks>
@@ -164,45 +168,49 @@ public abstract class XdrDecodingStreamBase : IDisposable
     public abstract int DecodeInt();
 
     /// <summary>
-    /// Decodes (aka "deserializes") an opaque value, which is nothing more than a series of octets
-    /// (or 8 bits wide bytes).
+    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of bytes
+    /// of length that is a multiple of 4.
     /// </summary>
     /// <remarks>
-    /// Because the length of the opaque value is given, we don't need to retrieve it from the XDR stream. <para>
-    /// Note that this is a basic abstract method, which needs to be
-    /// implemented in derived classes.</para>
+    /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
+    /// 
+    /// Because the length of the opaque value is given, we don't need to retrieve it from the XDR
+    /// stream. This is different from <see cref="XdrDecodingStreamBase.DecodeDynamicOpaque()"/>
+    /// where first the length of the opaque data is retrieved from the XDR stream. </para>
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   Length of opaque data to decode. </param>
     /// <returns>   Opaque data as a byte vector. </returns>
     public abstract byte[] DecodeOpaque( int length );
 
     /// <summary>
-    /// Decodes (aka "deserializes") a XDR opaque value, which is represented by a vector of byte
-    /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
+    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of bytes of length
+    /// that is a multiple of 4 and starts at <paramref name="offset"/> with a length of
+    /// <paramref name="length"/>.
     /// </summary>
     /// <remarks>
-    /// Only the opaque value is decoded, so the caller has to know how long the opaque value will be. The
-    /// decoded data is always padded to be a multiple of four (because that's what the sender does). <para>
-    /// Derived classes must ensure that the proper semantic is maintained.</para>
+    /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
+    /// 
+    /// Only the opaque value is decoded, so the caller has to know how long the opaque value will
+    /// be. The decoded data is always padded to be a multiple of four (because that's what the
+    /// sender does). </para>
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <exception cref="IndexOutOfRangeException"> if the given <paramref name="opaque"/>
-    ///                                             byte vector isn't large enough to receive the
-    ///                                             result. </exception>
+    /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
     /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>
     /// <param name="offset">   Start offset in the byte vector. </param>
     /// <param name="length">   the number of bytes to decode. </param>
     public abstract void DecodeOpaque( byte[] opaque, int offset, int length );
 
     /// <summary>
-    /// Decodes (aka "deserializes") a XDR opaque value, which is represented by a vector of byte
-    /// values.
+    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of bytes
+    /// of length that is a multiple of 4.
     /// </summary>
     /// <remarks>
+    /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
+    /// 
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value
     /// will be. The decoded data is always padded to be a multiple of four (because that's what the
-    /// sender does).
+    /// sender does). </para>
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>
@@ -212,8 +220,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a XDR opaque value, which is represented by a vector of byte
-    /// values.
+    /// Decodes (aka "deserializes") XDR variable length opaque data, which is represented by a vector of byte
+    /// values of length that is a multiple of 4.
     /// </summary>
     /// <remarks>
     /// The length of the opaque value to decode is pulled off of the XDR stream, so the

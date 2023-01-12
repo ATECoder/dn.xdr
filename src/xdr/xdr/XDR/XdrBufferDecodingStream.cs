@@ -102,11 +102,11 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
         }
         else if ( buffer is null )
         {
-            throw new ArgumentNullException( nameof(buffer) );
+            throw new ArgumentNullException( nameof( buffer ) );
         }
         else if ( buffer.Length < encodedLength )
         {
-            throw new ArgumentException( $"{nameof(buffer)} length is smaller than {nameof(encodedLength)}" );
+            throw new ArgumentException( $"{nameof( buffer )} length is smaller than {nameof( encodedLength )}" );
         }
         this._buffer = buffer;
         this._encodedLength = encodedLength;
@@ -148,6 +148,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// The general contract of <see cref="XdrDecodingStreamBase.EndDecoding"/> is that calling it is an indication that
     /// the current record is no more interesting to the caller and any allocated data for this
     /// record can be freed. <para>
+    /// 
     /// This method overrides <see cref="XdrDecodingStreamBase.EndDecoding()"/>.
     /// It does nothing more than resetting the buffer pointer back
     /// to the begin of an empty buffer, so attempts to decode data will fail
@@ -184,9 +185,9 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
             // bits are cut off after sign extension. Sigh.
 
             int value = this._buffer[this._bufferIndex++];
-            value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
-            value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
-            value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
+            value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(0xFF));
+            value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(0xFF));
+            value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(0xFF));
             return value;
         }
         else
@@ -196,16 +197,16 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") an opaque value, which is nothing more than a series of octets
-    /// (or 8 bits wide bytes).
+    /// Decodes (aka "deserializes") XDR opaque data, which are encoded in groups of 4 bytes.
     /// </summary>
     /// <remarks>
-    /// Because the length of the opaque value is given, we don't need to
-    /// retrieve it from the XDR stream. This is different from
-    /// <see cref="DecodeOpaque(byte[], int, int)"/>
-    /// where first the length of the opaque value is retrieved from the XDR stream.
+    /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
+    /// 
+    /// Because the length of the opaque value is given, we don't need to retrieve it from the XDR
+    /// stream. This is different from <see cref="XdrDecodingStreamBase.DecodeDynamicOpaque()"/>
+    /// where first the length of the opaque data is retrieved from the XDR stream. </para>
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   Length of opaque data to decode. </param>
     /// <returns>   Opaque data as a byte vector. </returns>
     public override byte[] DecodeOpaque( int length )
@@ -238,12 +239,14 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a XDR opaque value, which is represented by a vector of byte
+    /// Decodes (aka "deserializes") XDR opaque data, which is represented by a vector of byte
     /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
     /// </summary>
     /// <remarks>
+    /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
+    /// 
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value will be. The
-    /// decoded data is always padded to be a multiple of four (because that's what the sender does).
+    /// decoded data is always padded to be a multiple of four (because that's what the sender does). </para>
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>

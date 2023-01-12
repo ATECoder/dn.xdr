@@ -7,13 +7,17 @@ namespace cc.isr.XDR.Codecs;
 /// <remarks>
 /// This class should not be confused with C unions in general. Instead <see cref="UnionXdrCodecBase"/>
 /// is an object-oriented Constructs which helps in deploying polymorphism. <para>
+/// 
 /// TO_DO: Add unit tests for this class. </para> <para>
+/// 
 /// The original Remote Tea links to code samples are no longer accessible. </para> <para>
+/// 
 /// The serialization scheme implemented by <see cref="UnionXdrCodecBase"/> is only a question of
 /// getting used to it: after serializing the type code of the polymorphic class, the variant
 /// part is serialized first before the common part. This behavior stems from the ACPLT C++
 /// Communication Library and has been retained for compatibility reasons. As it doesn't hurt,
 /// you need not mind anyway. </para> <para>
+/// 
 /// To use polymorphism with XDR streams, you'll have to derive your own base class (let's call
 /// it <c>Foo</c>) from <see cref="UnionXdrCodecBase"/> and implement the two methods
 /// <see cref="XdrEncodeCommon(XdrEncodingStreamBase)"/>
@@ -21,12 +25,14 @@ namespace cc.isr.XDR.Codecs;
 /// <see cref="XdrDecodeCommon(XdrDecodingStreamBase)"/>.
 /// Do not overwrite the methods <see cref="Encode(XdrEncodingStreamBase)"/>
 /// and <see cref="Decode(XdrDecodingStreamBase)"/>!  </para> <para>
+/// 
 /// Then, in your <c>Foo</c>-derived classes, like <c>Bar</c> and <c>FooBar</c>, implement the
 /// other two methods <see cref="XdrEncodeVariant(XdrEncodingStreamBase)"/> and
 /// <see cref="XdrDecodeVariant(XdrDecodingStreamBase)"/>.
 /// In addition, set <see cref="XdrTypeCode"/> when instantiating the derived class to set an <see cref="int"/>
 /// , unique identifier of your class. Note that this identifier only needs to be unique within
 /// the scope of your <c>Foo</c> class. </para><para>
+/// 
 /// Remote Tea authors: Harald Albrecht, Jay Walters.</para>
 /// </remarks>
 public abstract class UnionXdrCodecBase : IXdrCodec

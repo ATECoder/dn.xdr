@@ -7,7 +7,8 @@ namespace cc.isr.XDR.Codecs;
 /// </summary>
 /// <remarks>
 /// The XDR data type wrapper classes wrap their value as read only properties, which are set
-/// upon construction and decoding. <para>
+/// upon construction and decoding. <para> 
+/// 
 /// Remote Tea authors: Harald Albrecht, Jay Walters. </para>
 /// </remarks>
 public class BooleanXdrCodec : IXdrCodec

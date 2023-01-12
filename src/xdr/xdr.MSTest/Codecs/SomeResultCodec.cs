@@ -31,11 +31,11 @@ public class SomeResultCodec : IXdrCodec
 
     /// <summary>   Gets or sets the error. </summary>
     /// <value> The error. </value>
-    public virtual int Error { get; set; } 
+    public virtual int Error { get; set; }
 
     /// <summary>   Gets or sets information describing the type. </summary>
     /// <value> Information describing the type. </value>
-    public virtual string TypeDesc { get; set;  }
+    public virtual string TypeDesc { get; set; }
 
     private byte[] _data;
 

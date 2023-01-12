@@ -6,6 +6,7 @@ namespace cc.isr.XDR;
 /// into and from XDR streams.
 /// </summary>
 /// <remarks> <para>
+/// 
 /// Remote Tea authors: Harald Albrecht, Jay Walters.</para>
 /// </remarks>
 public interface IXdrCodec

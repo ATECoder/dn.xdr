@@ -5,6 +5,7 @@ namespace cc.isr.XDR;
 /// The <see cref="XdrBufferEncodingStream"/> class provides a buffer-based XDR stream.
 /// </summary>
 /// <remarks> <para>
+/// 
 /// Remote Tea authors: Harald Albrecht, Jay Walters.</para>
 /// </remarks>
 public class XdrBufferEncodingStream : XdrEncodingStreamBase
@@ -132,7 +133,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     #region " encode actions "
 
     /// <summary>
-    /// Encodes (aka "serializes") a "XDR int" value and writes it down an XDR stream.
+    /// Encodes (aka "serializes") an XDR integer value into an XDR stream.
     /// </summary>
     /// <remarks>
     /// An XDR int encapsulate a 32 bits <see langword="int"/>.
@@ -165,10 +166,13 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
     /// </summary>
     /// <remarks>
+    /// This just copies the input values, padded with zeros to a length that is multiple of 4,
+    /// into the internal buffer starting at the current buffer index. <para> 
+    /// 
     /// Only the opaque value is encoded, but no length indication is preceding the opaque value, so the
     /// receiver has to know how long the opaque value will be. The encoded data is always padded to
     /// be a multiple of four. If the given length is not a multiple of four, zero bytes will be used
-    /// for padding.
+    /// for padding. </para>
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>

@@ -19,7 +19,7 @@ public class SillyStructCodec : IXdrCodec
     public SillyStructCodec()
     {
         this._buffer = Array.Empty<byte>();
-        this._fixedBuffer= Array.Empty<byte>();
+        this._fixedBuffer = Array.Empty<byte>();
         this._fixedBytes = Array.Empty<byte>();
         this._bytes = Array.Empty<byte>();
         this.Nonsense = string.Empty;
@@ -46,7 +46,7 @@ public class SillyStructCodec : IXdrCodec
     /// <param name="x">    The x coordinate. </param>
     public virtual void SetFixedBuffer( byte[] x )
     {
-        this._fixedBuffer = x ?? Array.Empty<byte>() ;
+        this._fixedBuffer = x ?? Array.Empty<byte>();
     }
     /// <summary>   Sets fixed buffer. </summary>
     /// <param name="index">    Zero-based index of the. </param>

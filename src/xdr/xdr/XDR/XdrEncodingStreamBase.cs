@@ -5,8 +5,10 @@ namespace cc.isr.XDR;
 /// <remarks>
 /// An encoding XDR stream receives data consisting of primitive data types and writes it to a 
 /// data sink (for instance, network or memory buffer) in the platform-independent XDR format. <para>
+/// 
 /// Derived classes need to implement the <see cref="EncodeInt(int)"/>,
 /// <see cref="EncodeOpaque(byte[])"/> and <see cref="EncodeOpaque(byte[], int, int)"/>. </para><para>
+/// 
 /// Remote Tea authors: Harald Albrecht, Jay Walters.</para>
 /// </remarks>
 public abstract class XdrEncodingStreamBase : IDisposable
@@ -26,6 +28,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// <remarks>
     /// The general contract of <see cref="Close()"/> is that it closes the encoding XDR stream. A closed 
     /// XDR stream cannot perform encoding operations and cannot be reopened. <para>
+    /// 
     /// The <see cref="XdrEncodingStreamBase.Close()"/> method of <see cref="XdrEncodingStreamBase"/>
     /// does nothing.</para>
     /// </remarks>
@@ -134,6 +137,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// The general contract of <see cref="EndEncoding"/> is that calling it is an indication that the
     /// current record is finished and any bytes previously encoded should immediately be written to
     /// their intended destination. <para>
+    /// 
     /// The <see cref="XdrEncodingStreamBase.EndEncoding"/> method of <see cref="XdrEncodingStreamBase"/>
     /// does nothing.</para>
     /// </remarks>
@@ -159,48 +163,33 @@ public abstract class XdrEncodingStreamBase : IDisposable
     public abstract void EncodeInt( int value );
 
     /// <summary>
-    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of byte
-    /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
+    /// Encodes (aka "serializes") fixed length XDR opaque data, which are represented by a vector of
+    /// byte values of length that is a multiple or 4, and starts at <paramref name="offset"/> with a
+    /// length of <paramref name="length"/>.
     /// </summary>
     /// <remarks>
-    /// Only the opaque value is encoded, but no length indication is preceding the opaque value, so the
-    /// receiver has to know how long the opaque value will be. The encoded data is always padded to
-    /// be a multiple of four. If the given length is not a multiple of four, zero bytes will be used
-    /// for padding. <para>
+    /// Only the opaque value is encoded, but no length indication is preceding the opaque value, so
+    /// the receiver has to know how long the opaque value will be. The encoded data is always padded
+    /// to be a multiple of four. If the given length is not a multiple of four, zero bytes will be
+    /// used for padding. <para>
+    /// 
     /// Derived classes must ensure that the proper semantic is maintained.</para>
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
     /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>
     /// <param name="offset">   Start offset in the data. </param>
     /// <param name="length">   the number of bytes to encode. </param>
     public abstract void EncodeOpaque( byte[] value, int offset, int length );
 
     /// <summary>
-    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of byte
-    /// values.
+    /// Encodes (aka "serializes") XDR fixed length opaque data, which are represented by a vector of
+    /// byte values of length that is a multiple or 4.
     /// </summary>
     /// <remarks>
-    /// The length of the opaque value is written to the XDR stream, so the receiver does not
-    /// need to know the exact length in advance. The encoded data is always padded to be a multiple
-    /// of four to maintain XDR alignment.
-    /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>
-    public void EncodeDynamicOpaque( byte[] value )
-    {
-        this.EncodeInt( value.Length );
-        this.EncodeOpaque( value );
-    }
-
-    /// <summary>
-    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of byte
-    /// values.
-    /// </summary>
-    /// <remarks>
-    /// Only the opaque value is encoded, but no length indication is preceding the opaque
-    /// value, so the receiver has to know how long the opaque value will be. The encoded data is
-    /// always padded to be a multiple of four. If the length of the given byte vector is not a
-    /// multiple of four, zero bytes will be used for padding.
+    /// Only the opaque value is encoded, but no length indication is preceding the opaque value, so
+    /// the receiver has to know how long the opaque value will be. The encoded data is always padded
+    /// to be a multiple of four. If the length of the given byte vector is not a multiple of four,
+    /// zero bytes will be used for padding.
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>
@@ -210,17 +199,17 @@ public abstract class XdrEncodingStreamBase : IDisposable
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of byte
-    /// values.
+    /// Encodes (aka "serializes") XDR fixed length opaque data, which are represented by a vector of
+    /// byte values of length that is a multiple or 4.
     /// </summary>
     /// <remarks>
-    /// Only the opaque value is encoded, but no length indication is preceding the opaque
-    /// value, so the receiver has to know how long the opaque value will be. The encoded data is
-    /// always padded to be a multiple of four. If the length of the given byte vector is not a
-    /// multiple of four, zero bytes will be used for padding.
+    /// Only the opaque value is encoded, but no length indication is preceding the opaque value, so
+    /// the receiver has to know how long the opaque value will be. The encoded data is always padded
+    /// to be a multiple of four. If the length of the given byte vector is not a multiple of four,
+    /// zero bytes will be used for padding.
     /// </remarks>
-    /// <exception cref="ArgumentException">    Thrown if the length of the vector does not match the
-    ///                                         specified length. </exception>
+    /// <exception cref="ArgumentException">    Thrown when one or more arguments have unsupported or
+    ///                                         illegal values. </exception>
     /// <exception cref="XdrException">         Thrown when an XDR error condition occurs. </exception>
     /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>
     /// <param name="length">   of vector to write. This parameter is used as a sanity check. </param>
@@ -231,6 +220,23 @@ public abstract class XdrEncodingStreamBase : IDisposable
             throw (new ArgumentException( "array size does not match protocol specification" ));
         }
         this.EncodeOpaque( value, 0, value.Length );
+    }
+
+    /// <summary>
+    /// Encodes (aka "serializes") variable length XDR opaque data, which are represented by a vector
+    /// of byte values of length that is a multiple of 4.
+    /// </summary>
+    /// <remarks>
+    /// The length of the opaque value is written to the XDR stream, so the receiver does not need to
+    /// know the exact length in advance. The encoded data is always padded to be a multiple of four
+    /// to maintain XDR alignment.
+    /// </remarks>
+    /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
+    /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>
+    public void EncodeDynamicOpaque( byte[] value )
+    {
+        this.EncodeInt( value.Length );
+        this.EncodeOpaque( value );
     }
 
     /// <summary>

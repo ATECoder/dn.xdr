@@ -83,6 +83,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// </summary>
     /// <remarks>
     /// A closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
+    /// 
     /// This implementation frees the allocated buffer but does not close
     /// the associated datagram socket. It only throws away the reference to this socket. </para>
     /// </remarks>
@@ -142,12 +143,14 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// For TCP-based XDR decoding streams this reads in the next chunk of data from the network 
     /// socket (a chunk of data is not necessary the same as a fragment, just enough to fill the 
     /// internal buffer or receive the remaining part of a fragment). <para>
+    /// 
     /// Read in the next bunch of bytes. This can be either a complete fragment,
     /// or if the fragments sent by the communication partner are too large for our buffer, only
     /// parts of fragments. In every case, this method ensures that there will be more data available
     /// in the buffer (or else an exception thrown). </para>
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="IOException">   Thrown when an buffer fragment error condition occurs. </exception>
     public override void BeginDecoding()
     {
         this.Fill();
@@ -173,6 +176,10 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         }
     }
 
+    /// <summary>   Reads the buffer if there are still bytes left to read. </summary>
+    /// <remarks>   2023-01-12. </remarks>
+    /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
+    /// <exception cref="IOException">  Thrown when an I/O failure occurred. </exception>
     private void Fill()
     {
 
@@ -265,6 +272,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// The general contract of <see cref="XdrDecodingStreamBase.EndDecoding"/> is that calling it is an indication that
     /// the current record is no more interesting to the caller and any allocated data for this 
     /// record can be freed. <para>
+    /// 
     /// This method overrides <see cref="XdrDecodingStreamBase.EndDecoding()"/>.
     /// It reads in and throws away fragments until it reaches the last fragment. </para>
     /// </remarks>

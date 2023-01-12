@@ -24,7 +24,7 @@ public class BinaryTreeCodec : IXdrCodec
 
     /// <summary>   Constructor. </summary>
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
-    public BinaryTreeCodec( XdrDecodingStreamBase decoder ): this()
+    public BinaryTreeCodec( XdrDecodingStreamBase decoder ) : this()
     {
         this.Decode( decoder );
     }

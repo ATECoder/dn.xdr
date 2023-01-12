@@ -74,6 +74,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// </summary>
     /// <remarks>
     /// A closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
+    /// 
     /// This implementation frees the allocated buffer but does not close
     /// the associated datagram socket. It only throws away the reference to this socket. </para>
     /// </remarks>
@@ -147,6 +148,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// The general contract of <see cref="XdrDecodingStreamBase.EndDecoding"/> is that calling it is
     /// an indication that the current record is no more interesting to the caller and any allocated
     /// data for this record can be freed. <para>
+    /// 
     /// This method overrides
     /// <see cref="XdrDecodingStreamBase.EndDecoding()"/>.
     /// It does nothing more than resetting the buffer pointer back to the beginning of an empty
