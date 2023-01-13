@@ -1,7 +1,5 @@
 using System.Text;
 
-using cc.isr.XDR.Codecs;
-
 namespace cc.isr.XDR.MSTest
 {
     [TestClass]
