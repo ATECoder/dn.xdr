@@ -162,7 +162,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of byte
+    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of <see langword="byte"/>
     /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
     /// </summary>
     /// <remarks>

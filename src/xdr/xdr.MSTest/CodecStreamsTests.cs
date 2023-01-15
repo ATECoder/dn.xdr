@@ -32,7 +32,7 @@ namespace cc.isr.XDR.MSTest
             AssertCodecShouldProcessBoolean( false );
         }
 
-        /// <summary>   Assert codec should process Byte. </summary>
+        /// <summary>   Assert codec should process <see langword="byte"/>. </summary>
         /// <param name="arg1"> The first argument. </param>
         private static void AssertCodecShouldProcessByte( byte arg1 )
         {
@@ -49,7 +49,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( args.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Byte. </summary>
+        /// <summary>   (Unit Test Method) codec should process <see langword="byte"/>. </summary>
         [TestMethod]
         public void CodecShouldProcessByte()
         {
@@ -58,7 +58,7 @@ namespace cc.isr.XDR.MSTest
             AssertCodecShouldProcessByte( ( byte ) 0 );
         }
 
-        /// <summary>   Assert codec should process Bytes. </summary>
+        /// <summary>   Assert codec should process <see langword="byte"/>s. </summary>
         /// <param name="arg1"> The first argument. </param>
         private static void AssertCodecShouldProcessBytes( byte[] arg1 )
         {
@@ -75,7 +75,7 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( args.GetValue(), result.GetValue() ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Bytes. </summary>
+        /// <summary>   (Unit Test Method) codec should process <see langword="byte"/>s. </summary>
         [TestMethod]
         public void CodecShouldProcessBytes()
         {

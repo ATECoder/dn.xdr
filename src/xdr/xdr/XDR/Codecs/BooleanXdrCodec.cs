@@ -39,7 +39,7 @@ public class BooleanXdrCodec : IXdrCodec
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     public virtual void Encode( XdrEncodingStreamBase encoder )
     {
-        encoder.EcodeBoolean( this.Value );
+        encoder.EncodeBoolean( this.Value );
     }
 
     /// <summary>

@@ -37,7 +37,7 @@ public class CharXdrCodec : IXdrCodec
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     public virtual void Encode( XdrEncodingStreamBase encoder )
     {
-        encoder.EncodeByte( ( byte ) this.Value );
+        encoder.EncodeChar( this.Value );
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public class CharXdrCodec : IXdrCodec
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
     public virtual void Decode( XdrDecodingStreamBase decoder )
     {
-        this.Value = ( char ) decoder.DecodeByte();
+        this.Value = decoder.DecodeChar();
     }
 
 }

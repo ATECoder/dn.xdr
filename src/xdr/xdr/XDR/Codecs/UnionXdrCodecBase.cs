@@ -29,7 +29,7 @@ namespace cc.isr.XDR.Codecs;
 /// Then, in your <c>Foo</c>-derived classes, like <c>Bar</c> and <c>FooBar</c>, implement the
 /// other two methods <see cref="XdrEncodeVariant(XdrEncodingStreamBase)"/> and
 /// <see cref="XdrDecodeVariant(XdrDecodingStreamBase)"/>.
-/// In addition, set <see cref="XdrTypeCode"/> when instantiating the derived class to set an <see cref="int"/>
+/// In addition, set <see cref="XdrTypeCode"/> when instantiating the derived class to set an <see langword="int"/>
 /// , unique identifier of your class. Note that this identifier only needs to be unique within
 /// the scope of your <c>Foo</c> class. </para><para>
 /// 

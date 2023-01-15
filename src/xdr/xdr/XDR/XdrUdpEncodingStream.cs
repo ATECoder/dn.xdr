@@ -138,7 +138,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     #region " encode actions "
 
     /// <summary>
-    /// Encodes (aka "serializes") a "XDR int" value and writes it down an XDR stream.
+    /// Encodes (aka "serializes") an <see langword="int"/> value into an XDR stream.
     /// </summary>
     /// <remarks>
     /// An XDR int encapsulate a 32 bits <see langword="int"/>.
@@ -167,17 +167,20 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of byte
-    /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
+    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
+    /// array of <see langword="byte"/> values, and starts at <paramref name="offset"/> with a 
+    /// length of <paramref name="length"/> into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Only the opaque value is encoded, but no length indication is preceding the opaque value, so
-    /// the receiver has to know how long the opaque value will be. The encoded data is always padded
-    /// to be a multiple of four. If the given length is not a multiple of four, zero bytes will be
-    /// used for padding.
+    /// <paramref name="length"/> array elements starting at <paramref name="offset"/> are
+    /// copied into the XDR stream. <para>
+    /// 
+    /// Because the opaque data are encoded without its length information, the receiver has to know 
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    /// If the given length is not a multiple of four, zero bytes are used for padding. </para>
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>
+    /// <param name="value">    The opaque data to be encoded in the form of a series of bytes. </param>
     /// <param name="offset">   Start offset in the data. </param>
     /// <param name="length">   the number of bytes to encode. </param>
     public override void EncodeOpaque( byte[] value, int offset, int length )

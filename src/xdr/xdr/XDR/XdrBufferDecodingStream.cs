@@ -239,7 +239,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") XDR opaque data, which is represented by a vector of byte
+    /// Decodes (aka "deserializes") XDR opaque data, which is represented by a vector of <see langword="byte"/>
     /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
     /// </summary>
     /// <remarks>

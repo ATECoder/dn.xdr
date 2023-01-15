@@ -168,11 +168,11 @@ public abstract class XdrDecodingStreamBase : IDisposable
     public abstract int DecodeInt();
 
     /// <summary>
-    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of bytes
+    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of <see langword="byte"/>s
     /// of length that is a multiple of 4.
     /// </summary>
     /// <remarks>
-    /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
+    /// Allocates sufficient <see langword="byte"/>s to copy and return a subset of the internal <see cref="Buffer"/> <para>
     /// 
     /// Because the length of the opaque value is given, we don't need to retrieve it from the XDR
     /// stream. This is different from <see cref="XdrDecodingStreamBase.DecodeDynamicOpaque()"/>
@@ -180,56 +180,56 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   Length of opaque data to decode. </param>
-    /// <returns>   Opaque data as a byte vector. </returns>
+    /// <returns>   Opaque data as a <see langword="byte"/> vector. </returns>
     public abstract byte[] DecodeOpaque( int length );
 
     /// <summary>
-    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of bytes of length
+    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of <see langword="byte"/>s of length
     /// that is a multiple of 4 and starts at <paramref name="offset"/> with a length of
     /// <paramref name="length"/>.
     /// </summary>
     /// <remarks>
-    /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
+    /// Allocates sufficient <see langword="byte"/>s to copy and return a subset of the internal <see cref="Buffer"/> <para>
     /// 
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value will
     /// be. The decoded data is always padded to be a multiple of four (because that's what the
     /// sender does). </para>
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>
-    /// <param name="offset">   Start offset in the byte vector. </param>
-    /// <param name="length">   the number of bytes to decode. </param>
+    /// <param name="opaque">   <see langword="byte"/> vector which will receive the decoded opaque value. </param>
+    /// <param name="offset">   Start offset in the <see langword="byte"/> vector. </param>
+    /// <param name="length">   the number of <see langword="byte"/>s to decode. </param>
     public abstract void DecodeOpaque( byte[] opaque, int offset, int length );
 
     /// <summary>
-    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of bytes
+    /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of <see langword="byte"/>s
     /// of length that is a multiple of 4.
     /// </summary>
     /// <remarks>
-    /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
+    /// Allocates sufficient <see langword="byte"/>s to copy and return a subset of the internal <see cref="Buffer"/> <para>
     /// 
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value
     /// will be. The decoded data is always padded to be a multiple of four (because that's what the
     /// sender does). </para>
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <param name="opaque">   Byte vector which will receive the decoded opaque value. </param>
+    /// <param name="opaque">   <see langword="byte"/> vector which will receive the decoded opaque value. </param>
     public void DecodeOpaque( byte[] opaque )
     {
         this.DecodeOpaque( opaque, 0, opaque.Length );
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") XDR variable length opaque data, which is represented by a vector of byte
-    /// values of length that is a multiple of 4.
+    /// Decodes (aka "deserializes") XDR variable length opaque data, which is represented by a
+    /// vector of <see langword="byte"/> values of length that is a multiple of 4.
     /// </summary>
     /// <remarks>
-    /// The length of the opaque value to decode is pulled off of the XDR stream, so the
-    /// caller does not need to know the exact length in advance. The decoded data is always padded
-    /// to be a multiple of four (because that's what the sender does).
+    /// The length of the opaque value to decode is pulled off of the XDR stream, so the caller does
+    /// not need to know the exact length in advance. The decoded data is always padded to be a
+    /// multiple of four (because that's what the sender does).
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <returns>   The byte vector containing the decoded data. </returns>
+    /// <returns>   The <see langword="byte"/> vector containing the decoded data. </returns>
     public byte[] DecodeDynamicOpaque()
     {
         int length = this.DecodeInt();
@@ -242,15 +242,37 @@ public abstract class XdrDecodingStreamBase : IDisposable
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a vector of bytes, which is nothing more than a series of octets
-    /// (or 8 bits wide bytes), each packed into its very own 4 bytes (XDR int).
+    /// Decodes (aka "deserializes") XDR variable length opaque data, which is represented by a
+    /// vector of <see langword="char"/> values of length that is a multiple of 4.
     /// </summary>
     /// <remarks>
-    /// Byte vectors are decoded together with a preceding length value. This way the receiver doesn't need to know
+    /// The length of the opaque value to decode is pulled off of the XDR stream, so the caller does
+    /// not need to know the exact length in advance. The decoded data is always padded to be a
+    /// multiple of four (because that's what the sender does).
+    /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    /// <returns>   The <see langword="char"/> vector containing the decoded data. </returns>
+    public char[] DecodeDynamicOpaqueChar()
+    {
+        int length = this.DecodeInt();
+        byte[] opaque = new byte[length];
+        if ( length != 0 )
+        {
+            this.DecodeOpaque( opaque );
+        }
+        return this.CharacterEncoding.GetChars( opaque );
+    }
+
+    /// <summary>
+    /// Decodes (aka "deserializes") a vector of <see langword="byte"/>s, which is nothing more than a series of octets
+    /// (or 8 bits wide <see langword="byte"/>s), each packed into its very own 4 <see langword="byte"/>s (XDR int).
+    /// </summary>
+    /// <remarks>
+    /// <see langword="byte"/> vectors are decoded together with a preceding length value. This way the receiver doesn't need to know
     /// the length of the vector in advance.
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <returns>   The byte vector containing the decoded data. </returns>
+    /// <returns>   The <see langword="byte"/> vector containing the decoded data. </returns>
     public byte[] DecodeByteVector()
     {
         int length = this.DecodeInt();
@@ -258,12 +280,12 @@ public abstract class XdrDecodingStreamBase : IDisposable
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a vector of bytes, which is nothing more than a series of octets
-    /// (or 8 bits wide bytes), each packed into its very own 4 bytes (XDR int).
+    /// Decodes (aka "deserializes") a vector of <see langword="byte"/>s, which is nothing more than a series of octets
+    /// (or 8 bits wide <see langword="byte"/>s), each packed into its very own 4 <see langword="byte"/>s (XDR int).
     /// </summary>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   of vector to read. </param>
-    /// <returns>   The byte vector containing the decoded data. </returns>
+    /// <returns>   The <see langword="byte"/> vector containing the decoded data. </returns>
     public byte[] DecodeByteVector( int length )
     {
         if ( length > 0 )
@@ -281,19 +303,27 @@ public abstract class XdrDecodingStreamBase : IDisposable
         }
     }
 
-    /// <summary>   Decodes (aka "deserializes") a byte read from this XDR stream. </summary>
-    /// <returns>   Decoded byte value. </returns>
+    /// <summary>   Decodes (aka "deserializes") a <see langword="byte"/> read from this XDR stream. </summary>
+    /// <returns>   Decoded <see langword="byte"/> value. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public byte DecodeByte()
     {
         return ( byte ) this.DecodeInt();
     }
 
+    /// <summary>   Decodes (aka "deserializes") a <see langword="char"/> read from this XDR stream. </summary>
+    /// <returns>   Decoded <see langword="char"/> value. </returns>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    public char DecodeChar()
+    {
+        return ( char ) this.DecodeByte();
+    }
+
     /// <summary>
-    /// Decodes (aka "deserializes") a short (which is a 16 bit quantity)
+    /// Decodes (aka "deserializes") a <see langword="short"/> (which is a 16 bit quantity)
     /// read from this XDR stream.
     /// </summary>
-    /// <returns>   Decoded short value. </returns>
+    /// <returns>   Decoded <see langword="short"/> value. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public short DecodeShort()
     {
@@ -301,25 +331,25 @@ public abstract class XdrDecodingStreamBase : IDisposable
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a long (which is called a "hyper" in XDR babble and is 64 bits
+    /// Decodes (aka "deserializes") a <see langword="long"/> (which is called a "hyper" in XDR babble and is 64 bits
     /// wide) read from an XDR stream.
     /// </summary>
-    /// <returns>   Decoded long value. </returns>
+    /// <returns>   Decoded <see langword="long"/> value. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public long DecodeLong()
     {
 
-        // Similar to xdrEncodeLong: just read in two <see cref="int"/>'s in network order.  We
+        // Similar to xdrEncodeLong: just read in two <see langword="int"/>'s in network order.  We
         // OR the int's together rather than adding them...
 
         return (( long ) this.DecodeInt() << 32) | (( long ) this.DecodeInt() & 0xffffffff);
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a float (which is a 32 bits wide floating point entity) read
+    /// Decodes (aka "deserializes") a <see langword="float"/> (which is a 32 bits wide floating point entity) read
     /// from an XDR stream.
     /// </summary>
-    /// <returns>   Decoded float value. </returns>
+    /// <returns>   Decoded <see langword="float"/> value. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public float DecodeFloat()
     {
@@ -327,10 +357,10 @@ public abstract class XdrDecodingStreamBase : IDisposable
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a double (which is a 64 bits wide floating point entity) read
+    /// Decodes (aka "deserializes") a <see langword="double"/> (which is a 64 bits wide floating point entity) read
     /// from an XDR stream.
     /// </summary>
-    /// <returns>   Decoded double value. </returns>
+    /// <returns>   Decoded <see langword="double"/> value. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public double DecodeDouble()
     {
@@ -345,11 +375,11 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return this.DecodeInt() != 0;
     }
 
-    /// <summary>   Decodes (aka "deserializes") a string read from an XDR stream. </summary>
+    /// <summary>   Decodes (aka "deserializes") a <see langword="string"/> read from an XDR stream. </summary>
     /// <remarks>
     /// If a character encoding has been set for this stream, then this will be used for conversion.
     /// </remarks>
-    /// <returns>   Decoded String value. </returns>
+    /// <returns>   Decoded <see langword="string"/> value. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public string DecodeString()
     {
@@ -367,9 +397,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a vector of short integers read from an XDR stream.
+    /// Decodes (aka "deserializes") a vector of <see langword="short"/> integers read from an XDR stream.
     /// </summary>
-    /// <returns>   Decoded vector of short integers. </returns>
+    /// <returns>   Decoded vector of <see langword="short"/> integers. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public short[] DecodeShortVector()
     {
@@ -378,11 +408,11 @@ public abstract class XdrDecodingStreamBase : IDisposable
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") a vector of short integers read from an XDR stream.
+    /// Decodes (aka "deserializes") a vector of <see langword="short"/> integers read from an XDR stream.
     /// </summary>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="length">   of vector to read. </param>
-    /// <returns>   Decoded vector of short integers. </returns>
+    /// <returns>   Decoded vector of <see langword="short"/> integers. </returns>
     public short[] DecodeShortVector( int length )
     {
         if ( length == 0 ) return Array.Empty<short>();
@@ -394,8 +424,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return value;
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of <see cref="int"/>'s read from an XDR stream. </summary>
-    /// <returns>   Decoded int vector. </returns>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="int"/>'s read from an XDR stream. </summary>
+    /// <returns>   Decoded <see langword="int"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public int[] DecodeIntVector()
     {
@@ -403,9 +433,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return this.DecodeIntVector( length );
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of <see cref="int"/>'s read from an XDR stream. </summary>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="int"/>'s read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
-    /// <returns>   Decoded int vector. </returns>
+    /// <returns>   Decoded <see langword="int"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public int[] DecodeIntVector( int length )
     {
@@ -418,8 +448,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return value;
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of longs read from an XDR stream. </summary>
-    /// <returns>   Decoded long vector. </returns>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="long"/>s read from an XDR stream. </summary>
+    /// <returns>   Decoded <see langword="long"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public long[] DecodeLongVector()
     {
@@ -427,9 +457,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return this.DecodeLongVector( length );
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of longs read from an XDR stream. </summary>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="long"/>s read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
-    /// <returns>   Decoded long vector. </returns>
+    /// <returns>   Decoded <see langword="long"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public long[] DecodeLongVector( int length )
     {
@@ -442,8 +472,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return value;
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of floats read from an XDR stream. </summary>
-    /// <returns>   Decoded float vector. </returns>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="float"/>s read from an XDR stream. </summary>
+    /// <returns>   Decoded <see langword="float"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public float[] DecodeFloatVector()
     {
@@ -451,9 +481,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return this.DecodeFloatVector( length );
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of floats read from an XDR stream. </summary>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="float"/>s read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
-    /// <returns>   Decoded float vector. </returns>
+    /// <returns>   Decoded <see langword="float"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public float[] DecodeFloatVector( int length )
     {
@@ -466,8 +496,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return value;
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of doubles read from an XDR stream. </summary>
-    /// <returns>   Decoded double vector. </returns>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="double"/>s read from an XDR stream. </summary>
+    /// <returns>   Decoded <see langword="double"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public double[] DecodeDoubleVector()
     {
@@ -475,9 +505,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return this.DecodeDoubleVector( length );
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of doubles read from an XDR stream. </summary>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="double"/>s read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
-    /// <returns>   Decoded double vector. </returns>
+    /// <returns>   Decoded <see langword="double"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public double[] DecodeDoubleVector( int length )
     {
@@ -490,8 +520,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return value;
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of booleans read from an XDR stream. </summary>
-    /// <returns>   Decoded boolean vector. </returns>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="bool"/>s read from an XDR stream. </summary>
+    /// <returns>   Decoded <see langword="bool"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public bool[] DecodeBooleanVector()
     {
@@ -499,9 +529,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return this.DecodeBooleanVector( length );
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of booleans read from an XDR stream. </summary>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="bool"/>s read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
-    /// <returns>   Decoded boolean vector. </returns>
+    /// <returns>   Decoded <see langword="bool"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public bool[] DecodeBooleanVector( int length )
     {
@@ -514,8 +544,8 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return value;
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of strings read from an XDR stream. </summary>
-    /// <returns>   Decoded String vector. </returns>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="bool"/>s read from an XDR stream. </summary>
+    /// <returns>   Decoded <see langword="bool"/> vector. </returns>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public string[] DecodeStringVector()
     {
@@ -523,9 +553,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return this.DecodeStringVector( length );
     }
 
-    /// <summary>   Decodes (aka "deserializes") a vector of strings read from an XDR stream. </summary>
+    /// <summary>   Decodes (aka "deserializes") a vector of <see langword="bool"/>s read from an XDR stream. </summary>
     /// <param name="length">   of vector to read. </param>
-    /// <returns>   Decoded String vector. </returns>
+    /// <returns>   Decoded <see langword="bool"/> vector. </returns>
     public string[] DecodeStringVector( int length )
     {
         if ( length == 0 ) return Array.Empty<string>();
