@@ -58,7 +58,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
         // size. Next, if bufferSize is not a multiple of four, round it up to
         // the next multiple of four.
 
-        if ( bufferSize < XdrDecodingStreamBase.MinBufferSize ) bufferSize = XdrDecodingStreamBase.MinBufferSize;
+        if ( bufferSize < XdrDecodingStreamBase.MinBufferSizeDefault ) bufferSize = XdrDecodingStreamBase.MinBufferSizeDefault;
 
         if ( (bufferSize & 3) != 0 )
         {

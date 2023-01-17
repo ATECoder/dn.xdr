@@ -14,12 +14,6 @@ namespace cc.isr.XDR;
 public abstract class XdrEncodingStreamBase : IDisposable
 {
 
-    /// <summary>   (Immutable) size of the default buffer. </summary>
-    public const int DefaultBufferSize = 8192;
-
-    /// <summary>   (Immutable) the minimum size of the buffer. </summary>
-    public const int MinBufferSize = 1024;
-
     #region " construction and cleanup "
 
     /// <summary>
@@ -98,20 +92,30 @@ public abstract class XdrEncodingStreamBase : IDisposable
 
     #endregion
 
-    #region " members "
+    #region " defaults "
+
+    /// <summary>   Gets or sets the default size of the buffer. </summary>
+    public static int BufferSizeDefault { get; set; } = 8192;
+
+    /// <summary>   Gets or sets the default minimum size of the buffer. </summary>
+    public static int MinBufferSizeDefault { get; set; } = 1024;
 
     /// <summary>   Gets or sets the default encoding. </summary>
     /// <remarks>
     /// The default encoding for VXI-11 is <see cref="Encoding.ASCII"/>, which is a subset of <see cref="Encoding.UTF8"/>
     /// </remarks>
     /// <value> The default encoding. </value>
-    public static Encoding DefaultEncoding { get; set; } = Encoding.UTF8;
+    public static Encoding EncodingDefault { get; set; } = Encoding.UTF8;
+
+    #endregion
+
+    #region " members "
 
     /// <summary>
     /// Gets or sets the encoding to use when serializing strings. 
     /// </summary>
     /// <value> The character encoding. </value>
-    public Encoding CharacterEncoding { get; set; } = XdrDecodingStreamBase.DefaultEncoding;
+    public Encoding CharacterEncoding { get; set; } = XdrDecodingStreamBase.EncodingDefault;
 
     #endregion
 
