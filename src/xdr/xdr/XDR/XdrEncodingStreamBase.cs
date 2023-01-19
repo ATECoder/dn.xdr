@@ -125,12 +125,11 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// <remarks>
     /// This typically involves resetting this encoding XDR stream back into a known state.
     /// </remarks>
-    /// <param name="receiverAddress">  Indicates the receiver of the XDR data. This can be 
-    ///                                 <see langword="null"/> for XDR streams connected permanently to a
-    ///                                 receiver (like in case of TCP/IP based XDR streams). </param>
-    /// <param name="receiverPort">     Port number of the receiver. </param>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    public virtual void BeginEncoding( IPAddress receiverAddress, int receiverPort )
+    /// <param name="remoteEndPoint">   Indicates the remote end point of the receiver of the XDR
+    ///                                 data. This can be<see langword="null"/> for XDR streams
+    ///                                 connected permanently to a receiver (like in case of TCP/IP
+    ///                                 based XDR streams). </param>
+    public virtual void BeginEncoding( IPEndPoint remoteEndPoint )
     {
     }
 
@@ -145,7 +144,6 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// The <see cref="XdrEncodingStreamBase.EndEncoding"/> method of <see cref="XdrEncodingStreamBase"/>
     /// does nothing.</para>
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public virtual void EndEncoding()
     {
     }
@@ -250,7 +248,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     ///                         of <see langword="char"/>s. </param>
     public void EncodeDynamicOpaqueChar( char[] value )
     {
-        this.EncodeDynamicOpaque( CharacterEncoding.GetBytes( value  ) );
+        this.EncodeDynamicOpaque( this.CharacterEncoding.GetBytes( value  ) );
     }
 
     /// <summary>
@@ -272,8 +270,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// <param name="length">   the number of <see langword="byte"/>s to encode. </param>
     public void EncodeOpaque( char[] value, int offset, int length )
     {
-        this.EncodeOpaque( CharacterEncoding.GetBytes( value ), offset, length );
-
+        this.EncodeOpaque( this.CharacterEncoding.GetBytes( value ), offset, length );
     }
 
     /// <summary>

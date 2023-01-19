@@ -72,7 +72,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// A closed XDR stream cannot perform decoding operations and cannot be reopened.
     /// This implementation frees the allocated buffer.
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void Close()
     {
         base.Close();
@@ -81,13 +80,15 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
 
     #endregion
 
-    #region " members "
+    #region " actions "
 
     /// <summary>
     /// Sets the buffer containing encoded XDR data as well as the length of the encoded data.
     /// </summary>
-    /// <exception cref="ArgumentException">    if <paramref name="encodedLength"/> is not a multiple of
-    ///                                         four. </exception>
+    /// <exception cref="ArgumentException">        if <paramref name="encodedLength"/> is not a
+    ///                                             multiple of four. </exception>
+    /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
+    ///                                             null. </exception>
     /// <param name="buffer">           Buffer containing encoded XDR data. </param>
     /// <param name="encodedLength">    Length of encoded XDR data within the buffer. </param>
     public virtual void SetEncodedData( byte[] buffer, int encodedLength )
@@ -114,29 +115,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
         this._bufferHighmark = -4;
     }
 
-    /// <summary>   Gets the Internet address of the sender of the current XDR data. </summary>
-    /// <remarks>
-    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
-    /// information.
-    /// </remarks>
-    /// <value> <see cref="IPAddress"/> of the sender of the current XDR data. </value>
-    public override IPAddress? SenderAddress => null;
-
-    /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
-    /// <remarks>
-    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
-    /// information.
-    /// </remarks>
-    /// <value> Port number of the sender of the current XDR data. </value>
-    public override int SenderPort => 0;
-
-    #endregion
-
-    #region " actions "
-
-
     /// <summary>   Initiates decoding of the next XDR record. </summary>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void BeginDecoding()
     {
         this._bufferIndex = 0;
@@ -154,7 +133,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// to the begin of an empty buffer, so attempts to decode data will fail
     /// until the buffer is filled again.</para>
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EndDecoding()
     {
         this._bufferIndex = 0;

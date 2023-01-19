@@ -27,11 +27,14 @@
 * Interface names are prefixed with 'I';
 * Base class names are suffixes with Base;
 * the xdrAble interface was renamed to IXdrCodec;
-* The xdr prefixes were removed from the codec methods;
+* The XDR prefixes were removed from the codec methods;
 * Uppercase constant names were converted to Pascal casing while retaining the original constant names in the code documentation. 
-* The namespace of the ONC/REPC client classes was changed fro isr.cc.ONC.RPC.Clients;
+* The namespace of the ONC/REPC client classes was changed to isr.cc.ONC.RPC.Clients;
 * Getters and setters, such as Get and Set Character Encoding, where changed to properties where possible.
 * Static constant classes were converted to Enum constructs.
+* Streaming Base: Replace sender address and port with an abstract read only IPEndPoint RemoteEndPoint property.
+* TCP and UDP streams: Add Remote and Local endpoints and remove the sender and receiver addresses. 
+* Add timeout argument to the OncRpcUdpClient.BroadcastCall method.
 
 ## Feedback
 

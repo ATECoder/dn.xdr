@@ -102,15 +102,12 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     #region " actions "
 
     /// <summary>   Begins encoding a new XDR record. </summary>
-    /// <remarks>
-    /// This involves resetting this encoding XDR stream back into a known state.
-    /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <param name="receiverAddress">  Indicates the receiver of the XDR data. This can be
-    ///                                 <see langword="null"/> for XDR streams connected permanently to a
-    ///                                 receiver (like in case of TCP/IP based XDR streams). </param>
-    /// <param name="receiverPort">     Port number of the receiver. </param>
-    public override void BeginEncoding( IPAddress receiverAddress, int receiverPort )
+    /// <remarks>   This involves resetting this encoding XDR stream back into a known state. </remarks>
+    /// <param name="remoteEndPoint">   Indicates the remote end point of the receiver of the XDR
+    ///                                 data. This can be<see langword="null"/> for XDR streams
+    ///                                 connected permanently to a receiver (like in case of TCP/IP
+    ///                                 based XDR streams). </param>
+    public override void BeginEncoding( IPEndPoint remoteEndPoint )
     {
         this._bufferIndex = 0;
     }

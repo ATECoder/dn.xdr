@@ -19,12 +19,6 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// </summary>
     private Socket? _socket;
 
-    /// <summary> Receiver address of current buffer contents when flushed. </summary>
-    private IPAddress? _receiverAddress = null;
-
-    /// <summary>The receiver's port.</summary>
-    private int _receiverPort = 0;
-
     /// <summary>
     /// The buffer which will receive the encoded information, before it
     /// is sent via a datagram socket.
@@ -100,21 +94,31 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
 
     #endregion
 
+    #region " members "
+
+    /// <summary>
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// </summary>
+    /// <remarks>
+    /// This value is valid only after <see cref="BeginEncoding"/>, otherwise it might return stale information.
+    /// </remarks>
+    /// <value> The remote endpoint. </value>
+    public IPEndPoint RemoteEndpoint { get; private set; } = new IPEndPoint( IPAddress.None, 0 );
+
+    /// <summary>   Gets the local <see cref="IPEndPoint"/> that the <see cref="Socket"/> is using for communications.. </summary>
+    public IPEndPoint LocalEndpoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.LocalEndPoint;
+
+    #endregion
+
     #region " actions "
 
-    /// <summary>   Begins encoding a new XDR record. </summary>
-    /// <remarks>
-    /// This involves resetting this encoding XDR stream back into a known state.
-    /// </remarks>
-    /// <param name="receiverAddress">  Indicates the receiver of the XDR data. This can be
-    ///                                 <see langword="null"/> for XDR streams connected permanently to a
-    ///                                 receiver (like in case of TCP/IP based XDR streams). </param>
-    /// <param name="receiverPort">     Port number of the receiver. </param>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    public override void BeginEncoding( IPAddress receiverAddress, int receiverPort )
+    /// <summary>   Begins an encoding. </summary>
+    /// <remarks>   This resets this encoding XDR stream back into a known initial state. </remarks>
+    /// <param name="remoteEndPoint">   Indicates the remote end point of the receiver of the XDR
+    ///                                 data. </param>
+    public override void BeginEncoding( IPEndPoint remoteEndPoint )
     {
-        this._receiverAddress = receiverAddress;
-        this._receiverPort = receiverPort;
+        this.RemoteEndpoint = new IPEndPoint( remoteEndPoint.Address, remoteEndPoint.Port );
         this._bufferIndex = 0;
     }
 
@@ -126,11 +130,9 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// is an indication that the current record is finished and any bytes previously encoded should 
     /// immediately be written to their intended destination.
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EndEncoding()
     {
-        IPEndPoint endPoint = new( this._receiverAddress, this._receiverPort );
-        _ = this._socket?.SendTo( this._buffer, this._bufferIndex, SocketFlags.None, endPoint );
+        _ = this._socket?.SendTo( this._buffer, this._bufferIndex, SocketFlags.None, this.RemoteEndpoint );
     }
 
     #endregion

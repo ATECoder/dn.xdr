@@ -118,21 +118,14 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
     #region " members "
 
-    /// <summary>   Gets the Internet address of the sender of the current XDR data. </summary>
-    /// <remarks>
-    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
-    /// information.
-    /// </remarks>
-    /// <value> <see cref="IPAddress"/> of the sender of the current XDR data. </value>
-    public override IPAddress? SenderAddress => this._socket == null ? null : (( IPEndPoint ) this._socket.RemoteEndPoint).Address;
+    /// <summary>
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// </summary>
+    /// <value> The remote endpoint. </value>
+    public override IPEndPoint RemoteEndPoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.RemoteEndPoint;
 
-    /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
-    /// <remarks>
-    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
-    /// information.
-    /// </remarks>
-    /// <value> Port number of the sender of the current XDR data. </value>
-    public override int SenderPort => this._socket == null ? 0 : (( IPEndPoint ) this._socket.RemoteEndPoint).Port;
+    /// <summary>   Gets the local <see cref="IPEndPoint"/> that the <see cref="Socket"/> is using for communications.. </summary>
+    public IPEndPoint? LocalEndpoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.LocalEndPoint;
 
     #endregion
 
@@ -156,6 +149,12 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         this.Fill();
     }
 
+    /// <summary>   Reads a buffer. </summary>
+    /// <remarks>   2023-01-18. </remarks>
+    /// <exception cref="XdrException"> Thrown when an Xdr error condition occurs. </exception>
+    /// <param name="stream">       The input stream used to pull the bytes off the network. </param>
+    /// <param name="bytes">        The bytes. </param>
+    /// <param name="bytesToRead">  The bytes to read. </param>
     private void ReadBuffer( Stream stream, byte[] bytes, int bytesToRead )
     {
         int bytesRead;

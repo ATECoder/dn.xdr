@@ -25,7 +25,6 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// The <see cref="XdrDecodingStreamBase.Close()"/> method of <see cref="XdrDecodingStreamBase"/>
     /// does nothing.</para>
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public virtual void Close()
     {
     }
@@ -114,19 +113,14 @@ public abstract class XdrDecodingStreamBase : IDisposable
 
     #region " members "
 
-    /// <summary>   Gets the Internet address of the sender of the current XDR data. </summary>
+    /// <summary>
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// </summary>
     /// <remarks>
-    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
+    /// With UDP decoding, this value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
     /// </remarks>
-    /// <value>   <see cref="IPAddress"/> of the sender of the current XDR data. </value>
-    public abstract IPAddress? SenderAddress { get; }
-
-    /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
-    /// <remarks>
-    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
-    /// </remarks>
-    /// <value>   Port number of the sender of the current XDR data. </value>
-    public abstract int SenderPort { get; }
+    /// <value> The remote endpoint. </value>
+    public virtual IPEndPoint RemoteEndPoint => new( IPAddress.None, 0 );
 
     /// <summary>
     /// Gets or sets the character encoding for deserializing strings. 
@@ -145,7 +139,6 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// communication this might involve waiting for some other process to fill the buffer and signal
     /// availability of new XDR data.
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public abstract void BeginDecoding();
 
     /// <summary>   End decoding of the current XDR record. </summary>
@@ -157,7 +150,6 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// The <see cref="XdrDecodingStreamBase.EndDecoding"/> method of <see cref="XdrDecodingStreamBase"/>
     /// does nothing. </para>
     /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public virtual void EndDecoding()
     {
     }

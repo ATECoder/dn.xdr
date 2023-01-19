@@ -19,12 +19,6 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// </summary>
     private Socket? _socket;
 
-    /// <summary>Sender's address of current buffer contents.</summary>
-    private IPAddress? _senderAddress = null;
-
-    /// <summary>The senders's port.</summary>
-    private int _senderPort = 0;
-
     /// <summary>
     /// The buffer which will be filled from the datagram socket and then
     /// be used to supply the information when decoding data.
@@ -106,21 +100,22 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
 
     #region " members "
 
-    /// <summary>   Gets the Internet address of the sender of the current XDR data. </summary>
+    private IPEndPoint _remoteEndPoint = new IPEndPoint( IPAddress.None, 0 );
+    /// <summary>
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// </summary>
     /// <remarks>
-    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
-    /// information.
+    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
     /// </remarks>
-    /// <value> <see cref="IPAddress"/> of the sender of the current XDR data. </value>
-    public override IPAddress? SenderAddress => this._senderAddress;
+    /// <value> The remote endpoint. </value>
+    public override IPEndPoint RemoteEndPoint => this._socket == null
+                                                    ? new IPEndPoint( IPAddress.None, 0)
+                                                    : this._socket.RemoteEndPoint is null
+                                                        ? this._remoteEndPoint
+                                                        : ( IPEndPoint ) this._socket.RemoteEndPoint;
 
-    /// <summary>   Gets the port number of the sender of the current XDR data. </summary>
-    /// <remarks>
-    /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale
-    /// information.
-    /// </remarks>
-    /// <value> Port number of the sender of the current XDR data. </value>
-    public override int SenderPort => this._senderPort;
+    /// <summary>   Gets the local <see cref="IPEndPoint"/> that the <see cref="Socket"/> is using for communications.. </summary>
+    public IPEndPoint LocalEndpoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.LocalEndPoint;
 
     #endregion
 
@@ -134,11 +129,10 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     public override void BeginDecoding()
     {
         // Creates an IpEndPoint to capture the identity of the sending host.
-        IPEndPoint sender = new( IPAddress.Any, 0 );
+        IPEndPoint sender = new( IPAddress.Any, 0 ); 
         EndPoint remoteEP = sender;
         _ = (this._socket?.ReceiveFrom( this._buffer, ref remoteEP ));
-        this._senderAddress = (( IPEndPoint ) remoteEP).Address;
-        this._senderPort = (( IPEndPoint ) remoteEP).Port;
+        this._remoteEndPoint = ( IPEndPoint ) remoteEP;
         this._bufferIndex = 0;
         this._bufferHighmark = this._buffer.Length - 4;
     }

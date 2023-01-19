@@ -109,57 +109,18 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
 
     #region " members "
 
-    /// <summary>   Returns the Internet address of the sender of the current XDR data. </summary>
-    /// <remarks>
-    /// This method should only be called after <see cref="BeginEncoding(IPAddress, int)"/>,
-    /// otherwise it might return stale information.
-    /// </remarks>
-    /// <returns>   <see cref="IPAddress"/> of the sender of the current XDR data. </returns>
-    public virtual IPAddress? GetSenderAddress()
-    {
-        return this._socket is null ? null : (( IPEndPoint ) this._socket.RemoteEndPoint).Address;
-    }
+    /// <summary>
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// </summary>
+    /// <value> The remote endpoint. </value>
+    public IPEndPoint RemoteEndpoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.RemoteEndPoint;
 
-    /// <summary>   Returns the port number of the sender of the current XDR data. </summary>
-    /// <remarks>
-    /// This method should only be called after <see cref="BeginEncoding(IPAddress, int)"/>,
-    /// otherwise it might return stale information.
-    /// </remarks>
-    /// <returns>   Port number of the sender of the current XDR data. </returns>
-    public virtual int GetSenderPort()
-    {
-        return this._socket is null ? 0 : (( IPEndPoint ) this._socket.RemoteEndPoint).Port;
-    }
+    /// <summary>   Gets the local <see cref="IPEndPoint"/> that the <see cref="Socket"/> is using for communications.. </summary>
+    public IPEndPoint? LocalEndpoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.LocalEndPoint;
 
     #endregion
 
     #region " actions "
-
-    /// <summary>   Begins encoding a new XDR record. </summary>
-    /// <remarks>
-    /// This typically involves resetting this encoding XDR stream back into a known state.
-    /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <param name="receiverAddress">  Indicates the receiver of the XDR data. This can be
-    ///                                 <see langword="null"/> for XDR streams connected permanently to a
-    ///                                 receiver (like in case of TCP/IP based XDR streams). </param>
-    /// <param name="receiverPort">     Port number of the receiver. </param>
-    ///
-    public override void BeginEncoding( IPAddress? receiverAddress, int receiverPort )
-    {
-    }
-
-#if false
-    /// <summary>
-    /// Begin encoding with the four byte word after the fragment header,
-    /// which also four bytes wide. We have to remember where we can find the fragment header as we
-    /// support batching/pipelining calls, so several requests (each in its own fragment) can be
-    /// simultaneously in the write buffer.
-    /// 
-    /// bufferFragmentHeaderIndex = bufferIndex;
-    /// bufferIndex += 4;
-    /// </summary>
-#endif
 
     /// <summary>
     /// Flushes this encoding XDR stream and forces any buffered output bytes to be written out.
