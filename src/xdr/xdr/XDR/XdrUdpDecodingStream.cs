@@ -7,7 +7,9 @@ namespace cc.isr.XDR;
 /// <see cref="XdrDecodingStreamBase"/> to receive XDR packets from the network using the
 /// datagram-oriented UDP/IP.
 /// </summary>
-/// <remarks>   Remote Tea authors: Harald Albrecht, Jay Walters. </remarks>
+/// <remarks>   <para>
+///
+/// Remote Tea authors: Harald Albrecht, Jay Walters. </para></remarks>
 public class XdrUdpDecodingStream : XdrDecodingStreamBase
 {
 
