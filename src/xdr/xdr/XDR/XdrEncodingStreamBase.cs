@@ -248,7 +248,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     ///                         of <see langword="char"/>s. </param>
     public void EncodeDynamicOpaqueChar( char[] value )
     {
-        this.EncodeDynamicOpaque( this.CharacterEncoding.GetBytes( value  ) );
+        this.EncodeDynamicOpaque( this.CharacterEncoding.GetBytes( value ) );
     }
 
     /// <summary>
@@ -356,7 +356,6 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// Encodes (aka "serializes") a <see langword="long"/> (which is called a "hyper" in XDR babble
     /// and is 64 bits wide) and write it down this XDR stream.
     /// </summary>
-    /// <remarks>   2023-01-14. </remarks>
     /// <param name="value">    <see langword="long"/> value to encode. </param>
     public void EncodeLong( long value )
     {
@@ -532,7 +531,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// <param name="value">    <see langword="double"/> vector to be encoded. </param>
     /// <param name="offset">   Start offset in the data. </param>
     /// <param name="length">   of vector to write. This parameter is used as a sanity check. </param>
-    public void EncodeDoubleVector( double[] value, int offset,  int length )
+    public void EncodeDoubleVector( double[] value, int offset, int length )
     {
         this.EncodeInt( length );
         for ( int i = offset; i < length; i++ )

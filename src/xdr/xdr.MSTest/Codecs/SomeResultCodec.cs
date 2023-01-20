@@ -61,7 +61,6 @@ public class SomeResultCodec : IXdrCodec
     }
 
     /// <summary>   Gets a data. </summary>
-    /// <remarks>   2023-01-11. </remarks>
     /// <returns>   The data. </returns>
     public virtual byte[] GetData()
     {

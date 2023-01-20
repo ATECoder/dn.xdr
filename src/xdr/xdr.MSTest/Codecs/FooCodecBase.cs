@@ -18,7 +18,6 @@ namespace cc.isr.XDR.MSTest.Codecs
         public const int FooBazClass = 2;
 
         /// <summary>   Constructs a bar, baz,... class from XDR stream. </summary>
-        /// <remarks>   2023-01-02. </remarks>
         /// <param name="decoder">  The XDR decoding stream. </param>
         /// <returns>   A FooCodecBase? </returns>
         public static FooCodecBase? XdrNew( XdrDecodingStreamBase decoder )

@@ -103,9 +103,9 @@ namespace cc.isr.XDR.MSTest
         [TestMethod]
         public void CodecShouldProcessCharacter()
         {
-            for ( int i = 0;i < byte.MaxValue ; i++ )
+            for ( int i = 0; i < byte.MaxValue; i++ )
             {
-                AssertCodecShouldProcessCharacter( Encoding.ASCII.GetString( new byte[] { (byte) i } )[0] );
+                AssertCodecShouldProcessCharacter( Encoding.ASCII.GetString( new byte[] { ( byte ) i } )[0] );
             }
         }
 

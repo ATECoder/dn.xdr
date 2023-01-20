@@ -5,11 +5,10 @@ using System.Reflection;
 namespace cc.isr.XDR.EnumExtensions;
 
 /// <summary>   A support class for enum extensions. </summary>
-public static class Support
+public static class XdrEnumExtensions
 {
 
     /// <summary>   Gets a description from an Enum. </summary>
-    /// <remarks>   2023-01-07. </remarks>
     /// <param name="value">    An enum constant representing the value option. </param>
     /// <returns>   The description. </returns>
     public static string GetDescription( this Enum value )
@@ -32,7 +31,7 @@ public static class Support
     {
         return Enum.IsDefined( typeof( XdrExceptionReason ), value )
             ? ( XdrExceptionReason ) value
-            : throw new ArgumentException($"{typeof( int )} value of {value} cannot be cast to {nameof( XdrExceptionReason )}" );
+            : throw new ArgumentException( $"{typeof( int )} value of {value} cannot be cast to {nameof( XdrExceptionReason )}" );
     }
 
 }

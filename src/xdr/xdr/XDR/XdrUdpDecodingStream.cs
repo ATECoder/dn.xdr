@@ -111,7 +111,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// </remarks>
     /// <value> The remote endpoint. </value>
     public override IPEndPoint RemoteEndPoint => this._socket == null
-                                                    ? new IPEndPoint( IPAddress.None, 0)
+                                                    ? new IPEndPoint( IPAddress.None, 0 )
                                                     : this._socket.RemoteEndPoint is null
                                                         ? this._remoteEndPoint
                                                         : ( IPEndPoint ) this._socket.RemoteEndPoint;
@@ -131,7 +131,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     public override void BeginDecoding()
     {
         // Creates an IpEndPoint to capture the identity of the sending host.
-        IPEndPoint sender = new( IPAddress.Any, 0 ); 
+        IPEndPoint sender = new( IPAddress.Any, 0 );
         EndPoint remoteEP = sender;
         _ = (this._socket?.ReceiveFrom( this._buffer, ref remoteEP ));
         this._remoteEndPoint = ( IPEndPoint ) remoteEP;

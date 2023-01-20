@@ -91,9 +91,9 @@ namespace cc.isr.XDR.MSTest
         [TestMethod]
         public void StreamsShouldProcessCharacter()
         {
-            for ( int i = 0;i < byte.MaxValue ; i++ )
+            for ( int i = 0; i < byte.MaxValue; i++ )
             {
-                AssertStreamsShouldProcessCharacter( Encoding.ASCII.GetString( new byte[] { (byte) i } )[0] );
+                AssertStreamsShouldProcessCharacter( Encoding.ASCII.GetString( new byte[] { ( byte ) i } )[0] );
             }
         }
 
@@ -113,7 +113,7 @@ namespace cc.isr.XDR.MSTest
         [TestMethod]
         public void StreamsShouldProcessChars()
         {
-            AssertStreamsShouldProcess( new char[] { ( char) byte.MinValue, ( char ) 0, ( char ) byte.MaxValue } );
+            AssertStreamsShouldProcess( new char[] { ( char ) byte.MinValue, ( char ) 0, ( char ) byte.MaxValue } );
         }
 
         /// <summary>   Assert codec should process Double. </summary>
@@ -327,7 +327,7 @@ namespace cc.isr.XDR.MSTest
             arg1.EncodeOpaque( encoder );
 
             XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
-            decoder.BeginDecoding(); 
+            decoder.BeginDecoding();
             byte[] actual = decoder.DecodeOpaque( arg1.Length );
             decoder.EndDecoding();
 

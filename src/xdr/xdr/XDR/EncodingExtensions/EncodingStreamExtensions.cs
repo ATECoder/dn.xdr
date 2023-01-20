@@ -163,7 +163,7 @@ public static class EncodingStreamExtensions
     /// <param name="length">   of vector to write. </param>
     /// <param name="encoder">  The encoder. </param>
     ///
-    public static void Encode( this byte[] value, int offset,  int length, XdrEncodingStreamBase encoder )
+    public static void Encode( this byte[] value, int offset, int length, XdrEncodingStreamBase encoder )
     {
         encoder.EncodeByteVector( value, offset, length );
     }

@@ -114,7 +114,6 @@ public class XdrException : Exception
 }
 
 /// <summary>   Values that represent reasons for <see cref="XdrException"/>. </summary>
-/// <remarks>   2023-01-07. </remarks>
 public enum XdrExceptionReason
 {
     /// <summary>   The remote procedure call was carried out successfully. <para>

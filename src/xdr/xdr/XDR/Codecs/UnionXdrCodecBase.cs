@@ -47,7 +47,7 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     }
 
     /// <summary>
-    /// Gets or set (private) the so-called type code which identifies a derived class when encoded or decoded.
+    /// Gets or set (<see langword="private"/>) the so-called type code which identifies a derived class when encoded or decoded.
     /// </summary>
     /// <remarks>
     /// Note that the type code is not globally unique, but rather it is only unique within the

@@ -152,7 +152,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>   Reads a buffer. </summary>
-    /// <remarks>   2023-01-18. </remarks>
     /// <exception cref="XdrException"> Thrown when an Xdr error condition occurs. </exception>
     /// <param name="stream">       The input stream used to pull the bytes off the network. </param>
     /// <param name="bytes">        The bytes. </param>
@@ -178,7 +177,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>   Reads the buffer if there are still bytes left to read. </summary>
-    /// <remarks>   2023-01-12. </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
     /// <exception cref="IOException">  Thrown when an I/O failure occurred. </exception>
     private void Fill()
