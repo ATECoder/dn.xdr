@@ -14,7 +14,7 @@ namespace cc.isr.XDR.Codecs;
 public class ByteXdrCodec : IXdrCodec
 {
     /// <summary>   Constructs and initializes a new <see cref="ByteXdrCodec"/> object. </summary>
-    /// <param name="value">    <see langword="byte"/> value. </param>
+    /// <param name="value">    <see cref="byte"/> value. </param>
     public ByteXdrCodec( byte value )
     {
         this.Value = value;

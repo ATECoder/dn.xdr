@@ -18,14 +18,14 @@ public class StringVectorCodec : IXdrCodec
     /// <summary>   Default constructor. </summary>
     public StringVectorCodec()
     {
-        this.Value = Array.Empty<StringCodec>();
+        this._values = Array.Empty<StringCodec>();
     }
 
     /// <summary>   Constructor. </summary>
     /// <param name="value">    The value. </param>
     public StringVectorCodec( StringCodec[] value ) : this()
     {
-        this.Value = value;
+        this._values = value;
     }
 
     /// <summary>   Constructor. </summary>
@@ -35,9 +35,21 @@ public class StringVectorCodec : IXdrCodec
         this.Decode( decoder );
     }
 
-    /// <summary>   Gets or sets the value. </summary>
-    /// <value> The value. </value>
-    public StringCodec[] Value { get; set; }
+    private StringCodec[] _values;
+
+    /// <summary>   Gets the values. </summary>
+    /// <returns>   An array of string codec. </returns>
+    public StringCodec[] GetValues()
+    {
+        return this._values;
+    }
+
+    /// <summary>   Sets the values. </summary>
+    /// <param name="values">   The values. </param>
+    public void SetValues( StringCodec[] values )
+    {
+        this._values = values;
+    }
 
     /// <summary>
     /// Encodes -- that is: serializes -- an object into a XDR stream in compliance to RFC 1832.
@@ -49,10 +61,10 @@ public class StringVectorCodec : IXdrCodec
     public virtual void Encode( XdrEncodingStreamBase encoder )
     {
         {
-            int size = this.Value.Length;
+            int size = this._values.Length;
             encoder.EncodeInt( size );
             for ( int idx = 0; idx < size; ++idx )
-                this.Value[idx].Encode( encoder );
+                this._values[idx].Encode( encoder );
         }
     }
 
@@ -67,9 +79,9 @@ public class StringVectorCodec : IXdrCodec
     {
         {
             int size = decoder.DecodeInt();
-            this.Value = new StringCodec[size];
+            this._values = new StringCodec[size];
             for ( int idx = 0; idx < size; ++idx )
-                this.Value[idx] = new StringCodec( decoder );
+                this._values[idx] = new StringCodec( decoder );
         }
     }
 

@@ -17,8 +17,8 @@ public class SupportTests
     {
         try
         {
-            Logger.Writer.LogInformation( $"{context.FullyQualifiedTestClassName}.{System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name}" );
             _classTestContext = context;
+            Logger.Writer.LogInformation( $"{_classTestContext.FullyQualifiedTestClassName}.{System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name}" );
         }
         catch ( Exception ex )
         {
@@ -57,7 +57,7 @@ public class SupportTests
         AssertShouldGetDescription( XdrExceptionReason.XdrSuccess, "The remote procedure call was carried out successfully." );
     }
 
-    /// <summary>   Assert <see langword="int"/> should cast to <see cref="XdrExceptionReason"/>. </summary>
+    /// <summary>   Assert <see cref="int"/> should cast to <see cref="XdrExceptionReason"/>. </summary>
     /// <param name="expected"> The expected value. </param>
     private static void AssertIntShouldCastToExceptionReason( int expected )
     {
@@ -65,7 +65,7 @@ public class SupportTests
         Assert.AreEqual( expected, ( int ) actual );
     }
 
-    /// <summary>   (Unit Test Method) <see langword="int"/> should cast to <see cref="XdrExceptionReason"/>. </summary>
+    /// <summary>   (Unit Test Method) <see cref="int"/> should cast to <see cref="XdrExceptionReason"/>. </summary>
     [TestMethod]
     public void IntShouldCastToExceptionReason()
     {

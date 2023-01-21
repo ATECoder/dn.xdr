@@ -142,10 +142,10 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     #region " encode actions "
 
     /// <summary>
-    /// Encodes (aka "serializes") an <see langword="int"/> value into an XDR stream.
+    /// Encodes (aka "serializes") an <see cref="int"/> value into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// An XDR int encapsulate a 32 bits <see langword="int"/>.
+    /// An XDR int encapsulate a 32 bits <see cref="int"/>.
     /// This method is one of the basic methods all other methods can rely on.
     /// </remarks>
     /// <param name="value">    The int value to be encoded. </param>
@@ -172,7 +172,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
 
     /// <summary>
     /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
-    /// array of <see langword="byte"/> values, and starts at <paramref name="offset"/> with a 
+    /// array of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a 
     /// length of <paramref name="length"/> into an XDR stream.
     /// </summary>
     /// <remarks>

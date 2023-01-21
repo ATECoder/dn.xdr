@@ -145,7 +145,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
 
     /// <summary>   Decodes (aka "deserializes") a "XDR int" value received from an XDR stream. </summary>
     /// <remarks>
-    /// An XDR int encapsulate a 32 bits <see langword="int"/>.
+    /// An XDR int encapsulate a 32 bits <see cref="int"/>.
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <returns>   The decoded int value. </returns>
@@ -217,7 +217,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>
-    /// Decodes (aka "deserializes") XDR opaque data, which is represented by a vector of <see langword="byte"/>
+    /// Decodes (aka "deserializes") XDR opaque data, which is represented by a vector of <see cref="byte"/>
     /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
     /// </summary>
     /// <remarks>

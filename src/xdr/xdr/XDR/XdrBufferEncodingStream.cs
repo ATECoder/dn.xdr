@@ -103,13 +103,20 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
 
     /// <summary>   Begins encoding a new XDR record. </summary>
     /// <remarks>   This involves resetting this encoding XDR stream back into a known state. </remarks>
+    public void BeginEncoding()
+    {
+        this._bufferIndex = 0;
+    }
+
+    /// <summary>   Begins encoding a new XDR record. </summary>
+    /// <remarks>   This involves resetting this encoding XDR stream back into a known state. </remarks>
     /// <param name="remoteEndPoint">   Indicates the remote end point of the receiver of the XDR
-    ///                                 data. This can be<see langword="null"/> for XDR streams
+    ///                                 data. This can be (<see langword="null"/>) for XDR streams
     ///                                 connected permanently to a receiver (like in case of TCP/IP
     ///                                 based XDR streams). </param>
     public override void BeginEncoding( IPEndPoint remoteEndPoint )
     {
-        this._bufferIndex = 0;
+        this.BeginEncoding();
     }
 
     /// <summary>
@@ -133,7 +140,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// Encodes (aka "serializes") an XDR integer value into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// An XDR int encapsulate a 32 bits <see langword="int"/>.
+    /// An XDR int encapsulate a 32 bits <see cref="int"/>.
     /// This method is one of the basic methods all other methods can rely on.
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
@@ -159,7 +166,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of <see langword="byte"/>
+    /// Encodes (aka "serializes") a XDR opaque value, which is represented by a vector of <see cref="byte"/>
     /// values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>.
     /// </summary>
     /// <remarks>

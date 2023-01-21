@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Text;
+using System.Xml.Linq;
+
 namespace cc.isr.XDR.MSTest.Codecs;
 /// <summary>   (Serializable) linked list  XBR encoder/decoder. </summary>
 [Serializable]
@@ -14,17 +18,22 @@ public class LinkedListCodec : IXdrCodec
      private long serialVersionUID = -9187504517170663946L;
     */
 
-    /// <summary>   Gets or sets the foo. </summary>
-    /// <value> The foo. </value>
-    public virtual int Foo { get; set; }
-
-    /// <summary>   Gets or sets the next. </summary>
-    /// <value> The next. </value>
-    public virtual LinkedListCodec? Next { get; set; }
-
     /// <summary>   Default constructor. </summary>
     public LinkedListCodec()
     {
+    }
+
+    /// <summary>   Copy constructor. </summary>
+    /// <param name="linkedListCodec">  The linked list codec. </param>
+    public LinkedListCodec( LinkedListCodec linkedListCodec )
+    {
+        LinkedListCodec? expected = linkedListCodec;
+        while ( expected != null )
+        {
+            this.Foo = expected.Foo;
+            this.Next = expected.Next;
+            expected = expected.Next;
+        }
     }
 
     /// <summary>   Constructor. </summary>
@@ -33,6 +42,14 @@ public class LinkedListCodec : IXdrCodec
     {
         this.Decode( decoder );
     }
+
+    /// <summary>   Gets or sets the foo. </summary>
+    /// <value> The foo. </value>
+    public virtual int Foo { get; set; }
+
+    /// <summary>   Gets or sets the next. </summary>
+    /// <value> The next. </value>
+    public virtual LinkedListCodec? Next { get; set; }
 
     /// <summary>
     /// Encodes -- that is: serializes -- an object into a XDR stream in compliance to RFC 1832.

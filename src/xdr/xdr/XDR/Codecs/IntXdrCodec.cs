@@ -26,8 +26,8 @@ public class IntXdrCodec : IXdrCodec
         this.Value = 0;
     }
 
-    /// <summary>   Gets or sets the value of this <see cref="IntXdrCodec"/> object as an <see langword="int"/> primitive. </summary>
-    /// <value> The primitive <see langword="int"/> value of this object. </value>
+    /// <summary>   Gets or sets the value of this <see cref="IntXdrCodec"/> object as an <see cref="int"/> primitive. </summary>
+    /// <value> The primitive <see cref="int"/> value of this object. </value>
     public int Value { get; private set; }
 
     /// <summary>
