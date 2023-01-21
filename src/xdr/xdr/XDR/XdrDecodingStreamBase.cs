@@ -1,3 +1,4 @@
+using cc.isr.XDR.Logging;
 namespace cc.isr.XDR;
 
 /// <summary>   Defines the abstract base class for all decoding XDR streams. </summary>
@@ -50,7 +51,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
             // uncomment the following line if Finalize() is overridden above.
             GC.SuppressFinalize( this );
         }
-        catch ( Exception ex ) { Console.WriteLine( ex.ToString() ); }
+        catch ( Exception ex ) { Logger.Writer.LogMemberError("Exception disposing", ex ); }
         finally
         {
             this.IsDisposed = true;
