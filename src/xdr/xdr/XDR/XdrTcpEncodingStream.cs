@@ -140,9 +140,9 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
 
     /// <summary>   Ends the current record for this encoding XDR stream. </summary>
     /// <remarks>
-    /// If the <paramref name="flush"/> is <see cref="T:true"/> any buffered output bytes 
+    /// If the <paramref name="flush"/> is <see langword="true"/> any buffered output bytes 
     /// are immediately written to their intended destination. If <paramref name="flush"/>
-    /// is <see cref="T:false"/>, then more than one record can be pipelined, for
+    /// is <see langword="false"/>, then more than one record can be pipelined, for
     /// instance, to batch several ONC/RPC calls. In this case the ONC/RPC
     /// server <b>must not</b> send a reply (with the exception for the last
     /// call in a batch, which might be trigger a reply). Otherwise, you will
