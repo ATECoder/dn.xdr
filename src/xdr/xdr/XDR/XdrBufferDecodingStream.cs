@@ -80,6 +80,31 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
 
     #endregion
 
+    #region " members "
+
+    /// <summary>   Returns the amount of data already decoded in the buffer. </summary>
+    /// <returns>   length of data decoded in buffer. </returns>
+    public virtual int GetDecodedDataLength()
+    {
+        return this._bufferIndex;
+    }
+
+    /// <summary>   Returns the amount of encoded data in the buffer. </summary>
+    /// <returns>   length of data encoded in buffer. </returns>
+    public virtual int GetEncodedDataLength()
+    {
+        return this._encodedLength;
+    }
+
+    /// <summary>   Returns the buffer holding encoded data. </summary>
+    /// <returns>   Buffer with encoded data. </returns>
+    public virtual byte[] GetEncodedData()
+    {
+        return this._buffer;
+    }
+
+    #endregion
+
     #region " actions "
 
     /// <summary>
