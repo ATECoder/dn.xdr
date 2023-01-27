@@ -235,6 +235,7 @@ namespace cc.isr.XDR.MSTest
             AssertCodecShouldProcess( uint.MinValue );
             AssertCodecShouldProcess( uint.MaxValue );
             AssertCodecShouldProcess( ( uint ) 0 );
+            AssertCodecShouldProcess( unchecked ( ( uint ) ( int ) -24 ) );
         }
 
         /// <summary>   Assert codec should process <see cref="long"/>. </summary>
