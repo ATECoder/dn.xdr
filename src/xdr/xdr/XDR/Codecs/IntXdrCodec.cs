@@ -1,9 +1,9 @@
 namespace cc.isr.XDR.Codecs;
 
 /// <summary>
-/// Instances of the class <see cref="IntXdrCodec"/> represent serializable integers, which are
-/// especially useful in cases where a result with only a single int is expected from a remote
-/// function call or only a single int parameter needs to be supplied.
+/// Instances of the class <see cref="IntXdrCodec"/> represent serializable <see cref="int"/>s, which are
+/// especially useful in cases where a result with only a single <see cref="int"/> is expected from a remote
+/// function call or only a single <see cref="int"/> parameter needs to be supplied.
 /// </summary>
 /// <remarks>
 /// The XDR data type wrapper classes wrap their value as read only properties, which are set

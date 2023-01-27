@@ -340,6 +340,41 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     }
 
     /// <summary>
+    /// Decodes (aka "deserializes") a XDR <see cref="uint"/> value received from an XDR stream.
+    /// </summary>
+    /// <remarks>
+    /// An XDR <see cref="uint"/> encapsulate a 32 bits <see cref="uint"/> in 4 bytes.
+    /// </remarks>
+    /// <returns>   The decoded <see cref="uint"/> value. </returns>
+    public override uint DecodeUInt()
+    {
+
+        // This might look funny in the first place, but this way we can
+        // properly handle trailing empty XDR record fragments. In this
+        // case fill() will return without any now data the first time
+        // and on the second time a buffer underflow exception is thrown.
+
+        while ( this._bufferIndex > this._bufferHighmark )
+        {
+            this.Fill();
+        }
+
+        // There's enough space in the buffer to hold at least one
+        // XDR unsigned int. So let's retrieve it now.
+        // Note: buffer[...] gives a byte, which is signed. So if we
+        // add it to the value (which is int), it has to be widened
+        // to 32 bit, so its sign is propagated. To avoid this sign
+        // madness, we have to "and" it with 0xFF, so all unwanted
+        // bits are cut off after sign extension. Sigh.
+
+        uint value = ( uint ) ( this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
+        value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF))));
+        value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF))));
+        value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF))));
+        return value;
+    }
+
+    /// <summary>
     /// Decodes (aka "deserializes") an opaque value, which is nothing more than a series of octets
     /// (or 8 bits wide bytes).
     /// </summary>

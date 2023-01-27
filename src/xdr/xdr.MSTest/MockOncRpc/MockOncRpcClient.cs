@@ -26,7 +26,7 @@ public class MockOncRpcClient
 
         MockOncRpcServer.DispatchOncRpcCall( new MockOncRpcCallHandler( transport ), versionNumber, procedureNumber );
 
-        XdrBufferDecodingStream replyDecoder = new ( transportEncoder.GetEncodedData(), 1024 );
+        XdrBufferDecodingStream replyDecoder = new( transportEncoder.GetEncodedData(), 1024 );
 
         replyDecoder.BeginDecoding();
         reply.Decode( replyDecoder );
@@ -50,7 +50,7 @@ public class MockOncRpcClient
     public virtual string CallRemoteProcedureEcho( string value )
     {
         StringXdrCodec request = new( value );
-        StringXdrCodec reply =  new();
+        StringXdrCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion1.Echo, RpcProgramConstants.Version1, request, reply );
         return reply.Value;
     }
@@ -63,7 +63,7 @@ public class MockOncRpcClient
     /// <returns>   Result from remote procedure call (of type <see cref="string"/>). </returns>
     public virtual string CallRemoteProcedureConcatenateInputParameters( StringVectorCodec request )
     {
-        StringXdrCodec reply =  new();
+        StringXdrCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion1.ConcatenateInputParameters, RpcProgramConstants.Version1, request, reply );
         return reply.Value;
     }
@@ -77,7 +77,7 @@ public class MockOncRpcClient
     public virtual bool CallRemoteProcedureCompareInputToFoo( EnumFoo value )
     {
         IntXdrCodec request = new( ( int ) value );
-        BooleanXdrCodec reply =  new();
+        BooleanXdrCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion1.CompareInputToFoo, RpcProgramConstants.Version1, request, reply );
         return reply.Value;
     }
@@ -89,7 +89,7 @@ public class MockOncRpcClient
     public virtual int CallRemoteProcedureReturnEnumFooValue()
     {
         VoidXdrCodec request = VoidXdrCodec.VoidXdrCodecInstance;
-        IntXdrCodec reply =  new();
+        IntXdrCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion1.ReturnEnumFooValue, RpcProgramConstants.Version1, request, reply );
         return reply.Value;
     }
@@ -102,7 +102,7 @@ public class MockOncRpcClient
     /// <returns>   Result from remote procedure call (of type <see cref="LinkedListCodec"/>). </returns>
     public virtual LinkedListCodec CallRemoteProcedurePrependLinkedList( LinkedListCodec request )
     {
-        LinkedListCodec reply =  new();
+        LinkedListCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion1.PrepentLinkedList, RpcProgramConstants.Version1, request, reply );
         return reply;
     }
@@ -116,26 +116,25 @@ public class MockOncRpcClient
     public virtual SomeResultCodec CallRemoteProcedureReadSomeResult()
     {
         VoidXdrCodec request = VoidXdrCodec.VoidXdrCodecInstance;
-        SomeResultCodec reply =  new();
+        SomeResultCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion1.Nop, RpcProgramConstants.Version1, request, reply );
         return reply;
     }
 
-    /// <summary>
-    /// Emulates calling remote procedure `ConcatenateTwoValues`.
-    /// </summary>
-    /// <param name="arg1"> parameter of type <see cref="string"/> to concatenate and send to the
-    ///                     remote procedure call. </param>
-    /// <param name="arg2"> parameter of type <see cref="string"/> to concatenate and send to the
-    ///                     remote procedure call. </param>
+    /// <summary>   Emulates calling remote procedure `ConcatenateTwoValues`. </summary>
+    /// <remarks>   2023-01-26. </remarks>
+    /// <param name="firstValue">   parameter of type <see cref="string"/> to concatenate and send to
+    ///                             the remote procedure call. </param>
+    /// <param name="secondValue">  parameter of type <see cref="string"/> to concatenate and send to
+    ///                             the remote procedure call. </param>
     /// <returns>   Result from remote procedure call (of type <see cref="string"/>). </returns>
-    public virtual string CallRemoteProcedureConcatenateTwoValues( string arg1, string arg2 )
+    public virtual string CallRemoteProcedureConcatenateTwoValues( string firstValue, string secondValue )
     {
         DualStringsCodec request = new() {
-            Arg1 = arg1,
-            Arg2 = arg2
+            FirstValue = firstValue,
+            SecondValue = secondValue
         };
-        StringXdrCodec reply =  new();
+        StringXdrCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion2.ConcatenateTwoValues, RpcProgramConstants.Version2, request, reply );
         return reply.Value;
     }
@@ -157,7 +156,7 @@ public class MockOncRpcClient
             Two = two,
             Three = three
         };
-        StringXdrCodec reply =  new();
+        StringXdrCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion2.ConcatenateThreeItems, RpcProgramConstants.Version2, request, reply );
         return reply.Value;
     }
@@ -171,7 +170,7 @@ public class MockOncRpcClient
     public virtual string CallRemoteProcedureReturnYouAreFooValue( EnumFoo value )
     {
         IntXdrCodec request = new( ( int ) value );
-        StringXdrCodec reply =  new();
+        StringXdrCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion2.ReturnYouAreFooValue, RpcProgramConstants.Version2, request, reply );
         return reply.Value;
     }
@@ -190,7 +189,7 @@ public class MockOncRpcClient
             List1 = list1,
             List2 = list2
         };
-        LinkedListCodec reply =  new();
+        LinkedListCodec reply = new();
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion2.LinkListItems, RpcProgramConstants.Version2, request, reply );
         return reply;
     }
@@ -208,7 +207,7 @@ public class MockOncRpcClient
             C = c,
             D = d
         };
-        VoidXdrCodec reply =  VoidXdrCodec.VoidXdrCodecInstance;
+        VoidXdrCodec reply = VoidXdrCodec.VoidXdrCodecInstance;
         MockOncRpcClient.Call( ( int ) RemoteProceduresVersion2.ProcessFourArguments, RpcProgramConstants.Version2, request, reply );
     }
 

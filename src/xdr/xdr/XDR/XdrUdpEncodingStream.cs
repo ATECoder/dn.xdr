@@ -170,6 +170,33 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
         }
     }
 
+    /// <summary>   Encodes (aka "serializes") an <see cref="uint"/> value into an XDR stream. </summary>
+    /// <remarks>
+    /// An XDR <see cref="uint"/> encapsulates a 32 bits <see cref="uint"/>
+    /// in 4 bytes in big endian order.
+    /// </remarks>
+    /// <exception cref="XdrException"> Thrown when an Xdr error condition occurs. </exception>
+    /// <param name="value">    The value. </param>
+    public override void EncodeUInt( uint value )
+    {
+        if ( this._bufferIndex <= this._bufferHighmark )
+        {
+
+            // There's enough space in the buffer, so encode this unsigned int as
+            // four bytes (French octets) in big endian order (that is, the
+            // most significant byte comes first.
+
+            this._buffer[this._bufferIndex++] = ( byte ) ((value) >> (24 & 0x1f));
+            this._buffer[this._bufferIndex++] = ( byte ) ((value) >> (16 & 0x1f));
+            this._buffer[this._bufferIndex++] = ( byte ) ((value) >> (8 & 0x1f));
+            this._buffer[this._bufferIndex++] = ( byte ) value;
+        }
+        else
+        {
+            throw (new XdrException( XdrExceptionReason.XdrBufferOverflow ));
+        }
+    }
+
     /// <summary>
     /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
     /// array of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a 

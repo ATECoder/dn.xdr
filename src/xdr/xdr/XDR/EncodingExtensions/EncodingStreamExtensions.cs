@@ -14,6 +14,14 @@ public static class EncodingStreamExtensions
         encoder.EncodeInt( value );
     }
 
+    /// <summary>   Encodes (aka "serializes") an <see cref="uint"/> value into an XDR stream. </summary>
+    /// <param name="value">    The value to be encoded. </param>
+    /// <param name="encoder">  The encoder. </param>
+    public static void Encode( this uint value, XdrEncodingStreamBase encoder )
+    {
+        encoder.EncodeUInt( value );
+    }
+
     /// <summary>
     /// Encodes (aka "serializes") a fixed length XDR opaque data, which are represented by an array
     /// of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a length of <paramref name="length"/>

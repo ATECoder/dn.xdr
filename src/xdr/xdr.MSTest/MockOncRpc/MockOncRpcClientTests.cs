@@ -136,10 +136,10 @@ public class MockOncRpcClientTests
     private static void AssertClientShouldConcatenateExactly( MockOncRpcClient client )
     {
         Logger.Writer.LogInformation( "About to concatenating exactly three strings: " );
-        string expected = "(arg1:Hello )(arg2:Remote )(arg3:Tea!)";
-        string actual = client.CallRemoteProcedureConcatenatedThreeItems( "(arg1:Hello )", "(arg2:Remote )", "(arg3:Tea!)" );
+        string expected = "(1:Hello )(2:Remote )(3:Tea!)";
+        string actual = client.CallRemoteProcedureConcatenatedThreeItems( "(1:Hello )", "(2:Remote )", "(3:Tea!)" );
         Assert.AreEqual( expected, actual );
-        Logger.Writer.LogInformation( $"    Okay. Echo: '{actual}'" );
+        Logger.Writer.LogInformation( $"The three arguments concatenated: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should concatenate exactly. </summary>

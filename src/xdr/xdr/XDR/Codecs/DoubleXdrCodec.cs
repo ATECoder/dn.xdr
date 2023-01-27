@@ -1,9 +1,9 @@
 namespace cc.isr.XDR.Codecs;
 
 /// <summary>
-/// Instances of the class <see cref="DoubleXdrCodec"/> represent serializable doubles, which are
-/// especially useful in cases where a result with only a single double is expected from a remote
-/// function call or only a single double parameter needs to be supplied.
+/// Instances of the class <see cref="DoubleXdrCodec"/> represent serializable <see cref="double"/>s, which are
+/// especially useful in cases where a result with only a single <see cref="double"/> is expected from a remote
+/// function call or only a single <see cref="double"/> parameter needs to be supplied.
 /// </summary>
 /// <remarks>
 /// The XDR data type wrapper classes wrap their value as read only properties, which are set

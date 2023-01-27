@@ -1,9 +1,9 @@
 namespace cc.isr.XDR.Codecs;
 
 /// <summary>
-/// Instances of the class <see cref="StringXdrCodec"/> represent serializable strings, which are
-/// especially useful in cases where a result with only a single string is expected from a remote
-/// function call or only a single string parameter needs to be supplied.
+/// Instances of the class <see cref="StringXdrCodec"/> represent serializable <see cref="string"/>s, which are
+/// especially useful in cases where a result with only a single <see cref="string"/> is expected from a remote
+/// function call or only a single <see cref="string"/> parameter needs to be supplied.
 /// </summary>
 /// <remarks>
 /// The XDR data type wrapper classes wrap their value as read only properties, which are set

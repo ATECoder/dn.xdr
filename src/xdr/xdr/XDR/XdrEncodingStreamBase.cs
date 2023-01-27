@@ -52,7 +52,7 @@ public abstract class XdrEncodingStreamBase : IDisposable
             // uncomment the following line if Finalize() is overridden above.
             GC.SuppressFinalize( this );
         }
-        catch ( Exception ex ) { Logger.Writer.LogMemberError("Exception disposing", ex ); }
+        catch ( Exception ex ) { Logger.Writer.LogMemberError( "Exception disposing", ex ); }
         finally
         {
             this.IsDisposed = true;
@@ -163,6 +163,15 @@ public abstract class XdrEncodingStreamBase : IDisposable
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="value">    The <see cref="int"/> value to be encoded. </param>
     public abstract void EncodeInt( int value );
+
+    /// <summary>
+    /// Encodes (aka "serializes") an <see cref="uint"/> value into an XDR stream.
+    /// </summary>
+    /// <remarks>
+    /// An XDR <see cref="uint"/> encapsulates a 32 bits <see cref="uint"/>
+    /// in 4 bytes in big endian order.
+    /// </remarks>
+    public abstract void EncodeUInt( uint value );
 
     /// <summary>
     /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 

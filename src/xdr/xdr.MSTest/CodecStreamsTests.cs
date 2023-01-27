@@ -211,6 +211,32 @@ namespace cc.isr.XDR.MSTest
             AssertCodecShouldProcessInteger( ( int ) 0 );
         }
 
+        /// <summary>   Assert codec should process <see cref="uint"/>. </summary>
+        /// <param name="value">    parameter of type <see cref="uint"/> to encode and decode. </param>
+        private static void AssertCodecShouldProcess( uint value )
+        {
+            UIntXdrCodec request = new( value );
+            XdrBufferEncodingStream encoder = new( 1024 );
+            request.Encode( encoder );
+
+            UIntXdrCodec result = new();
+            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            decoder.BeginDecoding();
+            result.Decode( decoder );
+            decoder.EndDecoding();
+
+            Assert.AreEqual( request.Value, result.Value );
+        }
+
+        /// <summary>   (Unit Test Method) codec should process unsigned integer. </summary>
+        [TestMethod]
+        public void CodecShouldProcessUnsignedInteger()
+        {
+            AssertCodecShouldProcess( uint.MinValue );
+            AssertCodecShouldProcess( uint.MaxValue );
+            AssertCodecShouldProcess( ( uint ) 0 );
+        }
+
         /// <summary>   Assert codec should process <see cref="long"/>. </summary>
         /// <param name="value">    parameter of type <see cref="long"/> to encode and decode. </param>
         private static void AssertCodecShouldProcessLong( long value )
@@ -238,10 +264,11 @@ namespace cc.isr.XDR.MSTest
         }
 
         /// <summary>   Assert codec should process Opaque. </summary>
-        /// <param name="value">    parameter of type <see cref="byte[]"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessOpaque( byte[] arg1 )
+        /// <remarks>   2023-01-26. </remarks>
+        /// <param name="values">   parameter of type <see cref="byte[]"/> to encode and decode. </param>
+        private static void AssertCodecShouldProcessOpaque( byte[] values )
         {
-            OpaqueXdrCodec request = new( arg1 );
+            OpaqueXdrCodec request = new( values );
             XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 

@@ -111,7 +111,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// </remarks>
     /// <value> The remote endpoint. </value>
     public override IPEndPoint RemoteEndPoint => this._socket == null
-                                                    ? new IPEndPoint( IPAddress.None, 0 )
+                                                    ? new ( IPAddress.None, 0 )
                                                     : this._socket.RemoteEndPoint is null
                                                         ? this._remoteEndPoint
                                                         : ( IPEndPoint ) this._socket.RemoteEndPoint;
@@ -180,10 +180,43 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
             // madness, we have to "and" it with 0xFF, so all unwanted
             // bits are cut off after sign extension. Sigh.
 
-            int value = this._buffer[this._bufferIndex++];
+            int value = this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF));
             value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
             value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
             value = (value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
+            return value;
+        }
+        else
+        {
+            throw (new XdrException( XdrExceptionReason.XdrBufferUnderflow ));
+        }
+    }
+
+    /// <summary>
+    /// Decodes (aka "deserializes") a XDR <see cref="uint"/> value received from an XDR stream.
+    /// </summary>
+    /// <remarks>
+    /// An XDR <see cref="uint"/> encapsulate a 32 bits <see cref="uint"/> in 4 bytes.
+    /// </remarks>
+    /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
+    /// <returns>   The decoded <see cref="uint"/> value. </returns>
+    public override uint DecodeUInt()
+    {
+        if ( this._bufferIndex <= this._bufferHighmark )
+        {
+
+            // There's enough space in the buffer to hold at least one
+            // XDR unsigned int. So let's retrieve it now.
+            // Note: buffer[...] gives a byte, which is signed. So if we
+            // add it to the value (which is int), it has to be widened
+            // to 32 bit, so its sign is propagated. To avoid this sign
+            // madness, we have to "and" it with 0xFF, so all unwanted
+            // bits are cut off after sign extension. Sigh.
+
+            uint value = ( uint ) (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
+            value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF))));
+            value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF))));
+            value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF))));
             return value;
         }
         else

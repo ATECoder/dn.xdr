@@ -3,7 +3,7 @@ namespace cc.isr.XDR.Codecs;
 /// <summary>
 /// Instances of the class <see cref="BytesXdrCodec"/> represent serializable bytes values, which
 /// are especially useful in cases where a result with only a single bytes value is expected from
-/// a remote function call or only a single bytes value parameter needs to be supplied.
+/// a remote function call or only a single <see cref="byte"/>[] parameter  needs to be supplied.
 /// </summary>
 /// <remarks>
 /// The XDR data type wrapper classes wrap their value as read only properties, which are set

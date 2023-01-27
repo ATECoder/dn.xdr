@@ -71,7 +71,7 @@ public class MockOncRpcTransport
     internal void Reply( IXdrCodec reply )
     {
         if ( this.Encoder is null || reply is null ) return;
-        this.Encoder.BeginEncoding( );
+        this.Encoder.BeginEncoding();
         reply.Encode( this.Encoder );
         this.Encoder.EndEncoding();
     }

@@ -51,7 +51,7 @@ public abstract class XdrDecodingStreamBase : IDisposable
             // uncomment the following line if Finalize() is overridden above.
             GC.SuppressFinalize( this );
         }
-        catch ( Exception ex ) { Logger.Writer.LogMemberError("Exception disposing", ex ); }
+        catch ( Exception ex ) { Logger.Writer.LogMemberError( "Exception disposing", ex ); }
         finally
         {
             this.IsDisposed = true;
@@ -90,7 +90,6 @@ public abstract class XdrDecodingStreamBase : IDisposable
     #endregion
 
     #endregion
-
 
     #region " defaults "
 
@@ -168,6 +167,14 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <returns>   The decoded int value. </returns>
     public abstract int DecodeInt();
+
+    /// <summary>   Decodes (aka "deserializes") a XDR <see cref="uint"/> value received from an XDR stream. </summary>
+    /// <remarks>
+    /// An XDR <see cref="uint"/> encapsulate a 32 bits <see cref="uint"/> in 4 bytes.
+    /// </remarks>
+    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
+    /// <returns>   The decoded <see cref="uint"/> value. </returns>
+    public abstract uint DecodeUInt();
 
     /// <summary>
     /// Decodes (aka "deserializes") XDR opaque data, which consists of an array of <see cref="byte"/>s

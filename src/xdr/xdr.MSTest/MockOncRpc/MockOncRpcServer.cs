@@ -4,7 +4,7 @@ using cc.isr.XDR.MSTest.Codecs;
 
 namespace cc.isr.XDR.MSTest.MockOncRpc;
 
-public partial class MockOncRpcServer 
+public partial class MockOncRpcServer
 {
 
     #region " Handle Procedure calls "
@@ -125,7 +125,7 @@ public partial class MockOncRpcServer
                 {
                     DualStringsCodec request = new();
                     call.RetrieveCall( request );
-                    StringXdrCodec result = new( MockOncRpcServer.ConcatenateTwoValues( request.Arg1, request.Arg2 ) );
+                    StringXdrCodec result = new( MockOncRpcServer.ConcatenateTwoValues( request.FirstValue, request.SecondValue ) );
                     call.Reply( result );
                     break;
                 }
@@ -208,14 +208,6 @@ public partial class MockOncRpcServer
         StringBuilder reply = new();
         foreach ( StringCodec stringCodec in inputCodec.GetValues() )
             _ = reply.Append( stringCodec.Value );
-
-#if false
-        int size = inputCodec.GetValues().Length;
-        for ( int idx = 0; idx < size; ++idx )
-        {
-            _ = result.Append( inputCodec.GetValues()[idx].Value );
-        }
-#endif
         return reply.ToString();
     }
 
@@ -250,14 +242,14 @@ public partial class MockOncRpcServer
     }
 
     /// <summary>   Concatenate two values. </summary>
-    /// <param name="arg1"> The first parameter of type <see cref="string"/> to concatenate and to
+    /// <param name="firstValue"> The first parameter of type <see cref="string"/> to concatenate and to
     ///                     encode and decode. </param>
-    /// <param name="arg2"> The second parameter of type <see cref="string"/> to concatenate and to
+    /// <param name="secondValue"> The second parameter of type <see cref="string"/> to concatenate and to
     ///                     encode and decode. </param>
     /// <returns>   A string. </returns>
-    public static string ConcatenateTwoValues( string arg1, string arg2 )
+    public static string ConcatenateTwoValues( string firstValue, string secondValue )
     {
-        return $"{arg1}{arg2}";
+        return $"{firstValue}{secondValue}";
     }
 
     /// <summary>   Concatenate three items. </summary>

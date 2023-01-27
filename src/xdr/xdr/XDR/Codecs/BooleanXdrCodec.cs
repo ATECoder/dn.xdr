@@ -2,12 +2,13 @@ namespace cc.isr.XDR.Codecs;
 
 /// <summary>
 /// Instances of the class <see cref="BooleanXdrCodec"/> represent a <see cref="bool"/> <see cref="IXdrCodec"/>
-/// , which are especially useful in cases where a result with only a single boolean is expected
-/// from a remote function call or only a single boolean parameter needs to be supplied.
+/// , which are especially useful in cases where a result with only a single <see cref="bool"/>
+/// is expected from a remote function call or only a single <see cref="bool"/> parameter  needs
+/// to be supplied.
 /// </summary>
 /// <remarks>
 /// The XDR data type wrapper classes wrap their value as read only properties, which are set
-/// upon construction and decoding. <para> 
+/// upon construction and decoding. <para>
 /// 
 /// Remote Tea authors: Harald Albrecht, Jay Walters. </para>
 /// </remarks>
