@@ -3,6 +3,15 @@ namespace cc.isr.XDR.EncodingExtensions;
 public static class EncodingStreamExtensions
 {
 
+    /// <summary>   Encodes (aka "serializes") an <see cref="int"/> value into an XDR stream. </summary>
+    /// <typeparam name="T">    Generic type parameter. </typeparam>
+    /// <param name="value">    The value to be encoded. </param>
+    /// <param name="encoder">  The encoder. </param>
+    public static void Encode<T>( this T value, XdrEncodingStreamBase encoder ) where T : struct, IConvertible
+    {
+        encoder.EncodeInt( Convert.ToInt32 ( value ) );
+    }
+
     /// <summary>
     /// Encodes (aka "serializes") an <see cref="int"/> value into an XDR stream.
     /// </summary>

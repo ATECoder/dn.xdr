@@ -344,5 +344,27 @@ namespace cc.isr.XDR.MSTest
         {
             AssertCodecShouldProcessString( "XDR serialized string" );
         }
+
+        private static void AssertShouldEncodeEnum( System.Diagnostics.TraceEventType value )
+        {
+            XdrBufferEncodingStream encoder = new( 1024 );
+            value.Encode( encoder );
+
+            System.Diagnostics.TraceEventType result;
+            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            decoder.BeginDecoding();
+            result = ( System.Diagnostics.TraceEventType ) decoder.DecodeInt();
+            decoder.EndDecoding();
+
+            Assert.AreEqual( value, result, $"{nameof(System.Diagnostics.TraceEventType)}.{value}({(int) value }) should decode" );
+        }
+
+        [TestMethod]
+        public void ShouldEncodeEnum()
+        {
+            AssertShouldEncodeEnum( System.Diagnostics.TraceEventType.Warning );
+            AssertShouldEncodeEnum( System.Diagnostics.TraceEventType.Error );
+        }
+
     }
 }
