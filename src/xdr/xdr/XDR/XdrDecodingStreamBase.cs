@@ -576,6 +576,20 @@ public abstract class XdrDecodingStreamBase : IDisposable
         return value;
     }
 
+    /// <summary>   Decodes the IP address. </summary>
+    /// <returns>   The IPAddress. </returns>
+    public IPAddress DecodeIPAddress( )
+    {
+        byte[] bytes = new byte[4];
+        this.DecodeOpaque( bytes );
+        // flip little-endian to big-endian(network order)
+        if ( BitConverter.IsLittleEndian )
+        {
+            Array.Reverse( bytes );
+        }
+        return new IPAddress( bytes );
+    }
+
     #endregion
 
 }

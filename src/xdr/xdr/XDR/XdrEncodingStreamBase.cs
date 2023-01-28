@@ -1,3 +1,5 @@
+using System.Net;
+
 using cc.isr.XDR.Logging;
 namespace cc.isr.XDR;
 
@@ -603,6 +605,20 @@ public abstract class XdrEncodingStreamBase : IDisposable
         {
             this.EncodeString( value[i] );
         }
+    }
+
+    /// <summary>   Encode IP address. </summary>
+    /// <param name="address">  The address. </param>
+    public void EncodeIPAddress( IPAddress address)
+    {
+        byte[] bytes = address.GetAddressBytes();
+
+        // flip big-endian(network order) to little-endian
+        if ( BitConverter.IsLittleEndian )
+        {
+            Array.Reverse( bytes );
+        }
+        this.EncodeOpaque( bytes );
     }
 
     #endregion

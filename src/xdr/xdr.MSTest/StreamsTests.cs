@@ -21,7 +21,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Boolean. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Boolean. </summary>
         [TestMethod]
         public void StreamsShouldProcessBoolean()
         {
@@ -29,7 +29,7 @@ namespace cc.isr.XDR.MSTest
             AssertStreamsShouldProcess( false );
         }
 
-        /// <summary>   Assert codec should process <see cref="byte"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="byte"/>. </summary>
         /// <param name="value">    parameter of type <see cref="byte"/> to encode and decode.
         private static void AssertStreamsShouldProcess( byte value )
         {
@@ -43,7 +43,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="byte"/>. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="byte"/>. </summary>
         [TestMethod]
         public void StreamsShouldProcessByte()
         {
@@ -52,7 +52,7 @@ namespace cc.isr.XDR.MSTest
             AssertStreamsShouldProcess( ( byte ) 0 );
         }
 
-        /// <summary>   Assert codec should process <see cref="byte"/>s. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="byte"/>s. </summary>
         /// <param name="value">    parameter of type <see cref="byte[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessBytes( byte[] value )
         {
@@ -66,14 +66,14 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="byte"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="byte"/>s. </summary>
         [TestMethod]
         public void StreamsShouldProcessBytes()
         {
             AssertStreamsShouldProcessBytes( new byte[] { byte.MinValue, 0, byte.MaxValue } );
         }
 
-        /// <summary>   Assert codec should process Character. </summary>
+        /// <summary>   Assert codecs should encode and decode Character. </summary>
         /// <param name="value">    parameter of type <see cref="char"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessCharacter( char value )
         {
@@ -87,7 +87,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Character. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Character. </summary>
         [TestMethod]
         public void StreamsShouldProcessCharacter()
         {
@@ -109,14 +109,14 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="char"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="char"/>s. </summary>
         [TestMethod]
         public void StreamsShouldProcessChars()
         {
             AssertStreamsShouldProcess( new char[] { ( char ) byte.MinValue, ( char ) 0, ( char ) byte.MaxValue } );
         }
 
-        /// <summary>   Assert codec should process Double. </summary>
+        /// <summary>   Assert codecs should encode and decode Double. </summary>
         /// <param name="value">    parameter of type <see cref="double"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessDouble( double value )
         {
@@ -130,7 +130,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Double. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Double. </summary>
         [TestMethod]
         public void StreamsShouldProcessDouble()
         {
@@ -139,7 +139,7 @@ namespace cc.isr.XDR.MSTest
             AssertStreamsShouldProcessDouble( ( double ) 0 );
         }
 
-        /// <summary>   Assert codec should process <see cref="double"/>s. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="double"/>s. </summary>
         /// <param name="value">    parameter of type <see cref="double[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( double[] value )
         {
@@ -153,14 +153,14 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="double"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="double"/>s. </summary>
         [TestMethod]
         public void StreamsShouldProcessDoubles()
         {
             AssertStreamsShouldProcess( new double[] { double.MinValue, 0, double.MaxValue } );
         }
 
-        /// <summary>   Assert codec should process DynamicOpaque. </summary>
+        /// <summary>   Assert codecs should encode and decode DynamicOpaque. </summary>
         /// <param name="value">    parameter of type <see cref="byte[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessDynamicOpaque( byte[] value )
         {
@@ -175,14 +175,14 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process DynamicOpaque. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode DynamicOpaque. </summary>
         [TestMethod]
         public void StreamsShouldProcessDynamicOpaque()
         {
             AssertStreamsShouldProcessDynamicOpaque( new byte[] { byte.MinValue, 0, byte.MaxValue } );
         }
 
-        /// <summary>   Assert codec should process Float. </summary>
+        /// <summary>   Assert codecs should encode and decode Float. </summary>
         /// <param name="value">    parameter of type <see cref="float"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( float value )
         {
@@ -196,7 +196,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Float. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Float. </summary>
         [TestMethod]
         public void StreamsShouldProcessFloat()
         {
@@ -206,7 +206,7 @@ namespace cc.isr.XDR.MSTest
         }
 
 
-        /// <summary>   Assert codec should process <see cref="float"/>s. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="float"/>s. </summary>
         /// <param name="value">    parameter of type <see cref="float[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( float[] value )
         {
@@ -220,7 +220,7 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="float"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="float"/>s. </summary>
         [TestMethod]
         public void StreamsShouldProcessFloats()
         {
@@ -228,7 +228,7 @@ namespace cc.isr.XDR.MSTest
         }
 
 
-        /// <summary>   Assert codec should process Integer. </summary>
+        /// <summary>   Assert codecs should encode and decode Integer. </summary>
         /// <param name="value">    parameter of type <see cref="int"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessInteger( int value )
         {
@@ -242,7 +242,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Integer. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Integer. </summary>
         [TestMethod]
         public void StreamsShouldProcessInteger()
         {
@@ -251,7 +251,7 @@ namespace cc.isr.XDR.MSTest
             AssertStreamsShouldProcessInteger( ( int ) 0 );
         }
 
-        /// <summary>   Assert codec should process Long. </summary>
+        /// <summary>   Assert codecs should encode and decode Long. </summary>
         /// <param name="value">    parameter of type <see cref="long"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessLong( long value )
         {
@@ -265,7 +265,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   Assert codec should process <see cref="int"/>s. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="int"/>s. </summary>
         /// <param name="value">    parameter of type <see cref="int[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( int[] value )
         {
@@ -279,7 +279,7 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="int"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="int"/>s. </summary>
         [TestMethod]
         public void StreamsShouldProcessInts()
         {
@@ -287,7 +287,7 @@ namespace cc.isr.XDR.MSTest
         }
 
 
-        /// <summary>   (Unit Test Method) codec should process Long. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Long. </summary>
         [TestMethod]
         public void StreamsShouldProcessLong()
         {
@@ -296,7 +296,7 @@ namespace cc.isr.XDR.MSTest
             AssertStreamsShouldProcessLong( ( long ) 0 );
         }
 
-        /// <summary>   Assert codec should process <see cref="long"/>s. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="long"/>s. </summary>
         /// <param name="value">    parameter of type <see cref="long[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( long[] value )
         {
@@ -310,7 +310,7 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="long"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="long"/>s. </summary>
         [TestMethod]
         public void StreamsShouldProcessLongs()
         {
@@ -318,7 +318,7 @@ namespace cc.isr.XDR.MSTest
         }
 
 
-        /// <summary>   Assert codec should process Opaque. </summary>
+        /// <summary>   Assert codecs should encode and decode Opaque. </summary>
         /// <param name="value">    parameter of type <see cref="[]byte"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessOpaque( byte[] value )
         {
@@ -334,7 +334,7 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Opaque. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Opaque. </summary>
         [TestMethod]
         public void StreamsShouldProcessOpaque()
         {
@@ -342,7 +342,7 @@ namespace cc.isr.XDR.MSTest
         }
 
 
-        /// <summary>   Assert codec should process Short. </summary>
+        /// <summary>   Assert codecs should encode and decode Short. </summary>
         /// <param name="value">    parameter of type <see cref="short"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( short value )
         {
@@ -356,7 +356,7 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Short. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Short. </summary>
         [TestMethod]
         public void StreamsShouldProcessShort()
         {
@@ -365,7 +365,7 @@ namespace cc.isr.XDR.MSTest
             AssertStreamsShouldProcess( ( short ) 0 );
         }
 
-        /// <summary>   Assert codec should process <see cref="short"/>s. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="short"/>s. </summary>
         /// <param name="value">    parameter of type <see cref="short[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( short[] value )
         {
@@ -379,7 +379,7 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="short"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="short"/>s. </summary>
         [TestMethod]
         public void StreamsShouldProcessShorts()
         {
@@ -387,7 +387,7 @@ namespace cc.isr.XDR.MSTest
         }
 
 
-        /// <summary>   Assert codec should process string. </summary>
+        /// <summary>   Assert codecs should encode and decode string. </summary>
         /// <param name="value">    parameter of type <see cref="string"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( string value )
         {
@@ -401,14 +401,14 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( value, actual );
         }
 
-        /// <summary>   (Unit Test Method) codec should process string. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode string. </summary>
         [TestMethod]
         public void StreamsShouldProcessString()
         {
             AssertStreamsShouldProcess( "XDR serialized string" );
         }
 
-        /// <summary>   Assert codec should process <see cref="string"/>s. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="string"/>s. </summary>
         /// <param name="value">    parameter of type <see cref="string[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( string[] value )
         {
@@ -422,7 +422,7 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( value, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="string"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="string"/>s. </summary>
         [TestMethod]
         public void StreamsShouldProcessStrings()
         {

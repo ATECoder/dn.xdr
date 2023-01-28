@@ -1,4 +1,7 @@
+using System.Net;
 using System.Text;
+
+using Newtonsoft.Json.Linq;
 
 namespace cc.isr.XDR.MSTest
 {
@@ -7,9 +10,9 @@ namespace cc.isr.XDR.MSTest
     {
 
 
-        /// <summary>   Assert codec should process <see cref="bool"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="bool"/>. </summary>
         /// <param name="value">    parameter of type <see cref="bool"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessBoolean( bool value )
+        private static void AssertShouldDecode( bool value )
         {
             BooleanXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -24,17 +27,17 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Boolean. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Boolean. </summary>
         [TestMethod]
-        public void CodecShouldProcessBoolean()
+        public void ShouldDecodeBoolean()
         {
-            AssertCodecShouldProcessBoolean( true );
-            AssertCodecShouldProcessBoolean( false );
+            AssertShouldDecode( true );
+            AssertShouldDecode( false );
         }
 
-        /// <summary>   Assert codec should process <see cref="byte"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="byte"/>. </summary>
         /// <param name="value">    parameter of type <see cref="byte"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessByte( byte value )
+        private static void AssertShouldDecode( byte value )
         {
             ByteXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -49,18 +52,18 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="byte"/>. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="byte"/>. </summary>
         [TestMethod]
-        public void CodecShouldProcessByte()
+        public void ShouldDecodeByte()
         {
-            AssertCodecShouldProcessByte( byte.MinValue );
-            AssertCodecShouldProcessByte( byte.MaxValue );
-            AssertCodecShouldProcessByte( ( byte ) 0 );
+            AssertShouldDecode( byte.MinValue );
+            AssertShouldDecode( byte.MaxValue );
+            AssertShouldDecode( ( byte ) 0 );
         }
 
-        /// <summary>   Assert codec should process <see cref="byte"/>s. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="byte"/>s. </summary>
         /// <param name="value">    parameter of type <see cref="byte[]"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessBytes( byte[] value )
+        private static void AssertShouldDecode( byte[] value )
         {
             BytesXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -75,16 +78,16 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( request.GetValue(), result.GetValue() ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process <see cref="byte"/>s. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode <see cref="byte"/>s. </summary>
         [TestMethod]
-        public void CodecShouldProcessBytes()
+        public void ShouldDecodeBytes()
         {
-            AssertCodecShouldProcessBytes( new byte[] { byte.MinValue, 0, byte.MaxValue } );
+            AssertShouldDecode( new byte[] { byte.MinValue, 0, byte.MaxValue } );
         }
 
-        /// <summary>   Assert codec should process Character. </summary>
+        /// <summary>   Assert codecs should encode and decode Character. </summary>
         /// <param name="value">    parameter of type <see cref="char"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessCharacter( char value )
+        private static void AssertShouldDecode( char value )
         {
             CharXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -99,19 +102,19 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Character. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Character. </summary>
         [TestMethod]
-        public void CodecShouldProcessCharacter()
+        public void ShouldDecodeCharacter()
         {
             for ( int i = 0; i < byte.MaxValue; i++ )
             {
-                AssertCodecShouldProcessCharacter( Encoding.ASCII.GetString( new byte[] { ( byte ) i } )[0] );
+                AssertShouldDecode( Encoding.ASCII.GetString( new byte[] { ( byte ) i } )[0] );
             }
         }
 
-        /// <summary>   Assert codec should process Double. </summary>
+        /// <summary>   Assert codecs should encode and decode Double. </summary>
         /// <param name="value">    parameter of type <see cref="double"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessDouble( double value )
+        private static void AssertShouldDecode( double value )
         {
             DoubleXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -126,18 +129,18 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Double. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Double. </summary>
         [TestMethod]
-        public void CodecShouldProcessDouble()
+        public void ShouldDecodeDouble()
         {
-            AssertCodecShouldProcessDouble( double.MinValue );
-            AssertCodecShouldProcessDouble( double.MaxValue );
-            AssertCodecShouldProcessDouble( ( double ) 0 );
+            AssertShouldDecode( double.MinValue );
+            AssertShouldDecode( double.MaxValue );
+            AssertShouldDecode( ( double ) 0 );
         }
 
-        /// <summary>   Assert codec should process DynamicOpaque. </summary>
+        /// <summary>   Assert codecs should encode and decode DynamicOpaque. </summary>
         /// <param name="value">    parameter of type <see cref="byte[]"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessDynamicOpaque( byte[] value )
+        private static void AssertShouldDecodeDynamicOpaque( byte[] value )
         {
             DynamicOpaqueXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -152,16 +155,16 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( request.GetValue(), result.GetValue() ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process DynamicOpaque. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode DynamicOpaque. </summary>
         [TestMethod]
-        public void CodecShouldProcessDynamicOpaque()
+        public void ShouldDecodeDynamicOpaque()
         {
-            AssertCodecShouldProcessDynamicOpaque( new byte[] { byte.MinValue, 0, byte.MaxValue } );
+            AssertShouldDecodeDynamicOpaque( new byte[] { byte.MinValue, 0, byte.MaxValue } );
         }
 
-        /// <summary>   Assert codec should process <see cref="float"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="float"/>. </summary>
         /// <param name="value">    parameter of type <see cref="float"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessFloat( float value )
+        private static void AssertShouldDecode( float value )
         {
             FloatXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -176,18 +179,18 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Float. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Float. </summary>
         [TestMethod]
-        public void CodecShouldProcessFloat()
+        public void ShouldDecodeFloat()
         {
-            AssertCodecShouldProcessFloat( float.MinValue );
-            AssertCodecShouldProcessFloat( float.MaxValue );
-            AssertCodecShouldProcessFloat( ( float ) 0 );
+            AssertShouldDecode( float.MinValue );
+            AssertShouldDecode( float.MaxValue );
+            AssertShouldDecode( ( float ) 0 );
         }
 
-        /// <summary>   Assert codec should process <see cref="int"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="int"/>. </summary>
         /// <param name="value">    parameter of type <see cref="int"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessInteger( int value )
+        private static void AssertShouldDecode( int value )
         {
             IntXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -202,18 +205,18 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Integer. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Integer. </summary>
         [TestMethod]
-        public void CodecShouldProcessInteger()
+        public void ShouldDecodeInteger()
         {
-            AssertCodecShouldProcessInteger( int.MinValue );
-            AssertCodecShouldProcessInteger( int.MaxValue );
-            AssertCodecShouldProcessInteger( ( int ) 0 );
+            AssertShouldDecode( int.MinValue );
+            AssertShouldDecode( int.MaxValue );
+            AssertShouldDecode( ( int ) 0 );
         }
 
-        /// <summary>   Assert codec should process <see cref="uint"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="uint"/>. </summary>
         /// <param name="value">    parameter of type <see cref="uint"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcess( uint value )
+        private static void AssertShouldDecode( uint value )
         {
             UIntXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -228,19 +231,19 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process unsigned integer. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode unsigned integer. </summary>
         [TestMethod]
-        public void CodecShouldProcessUnsignedInteger()
+        public void ShouldDecodeUnsignedInteger()
         {
-            AssertCodecShouldProcess( uint.MinValue );
-            AssertCodecShouldProcess( uint.MaxValue );
-            AssertCodecShouldProcess( ( uint ) 0 );
-            AssertCodecShouldProcess( unchecked ( ( uint ) ( int ) -24 ) );
+            AssertShouldDecode( uint.MinValue );
+            AssertShouldDecode( uint.MaxValue );
+            AssertShouldDecode( ( uint ) 0 );
+            AssertShouldDecode( unchecked ( ( uint ) ( int ) -24 ) );
         }
 
-        /// <summary>   Assert codec should process <see cref="long"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="long"/>. </summary>
         /// <param name="value">    parameter of type <see cref="long"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessLong( long value )
+        private static void AssertShouldDecode( long value )
         {
             LongXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -255,19 +258,19 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Long. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Long. </summary>
         [TestMethod]
-        public void CodecShouldProcessLong()
+        public void ShouldDecodeLong()
         {
-            AssertCodecShouldProcessLong( long.MinValue );
-            AssertCodecShouldProcessLong( long.MaxValue );
-            AssertCodecShouldProcessLong( ( long ) 0 );
+            AssertShouldDecode( long.MinValue );
+            AssertShouldDecode( long.MaxValue );
+            AssertShouldDecode( ( long ) 0 );
         }
 
-        /// <summary>   Assert codec should process Opaque. </summary>
+        /// <summary>   Assert codecs should encode and decode Opaque. </summary>
         /// <remarks>   2023-01-26. </remarks>
         /// <param name="values">   parameter of type <see cref="byte[]"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessOpaque( byte[] values )
+        private static void AssertShouldDecodeOpaque( byte[] values )
         {
             OpaqueXdrCodec request = new( values );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -286,17 +289,17 @@ namespace cc.isr.XDR.MSTest
             Assert.IsTrue( Enumerable.SequenceEqual( expected, actual ) );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Opaque. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Opaque. </summary>
         [TestMethod]
-        public void CodecShouldProcessOpaque()
+        public void ShouldDecodeOpaque()
         {
-            AssertCodecShouldProcessOpaque( new byte[] { byte.MinValue, 0, byte.MaxValue } );
+            AssertShouldDecodeOpaque( new byte[] { byte.MinValue, 0, byte.MaxValue } );
         }
 
 
-        /// <summary>   Assert codec should process <see cref="short"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="short"/>. </summary>
         /// <param name="value">    parameter of type <see cref="short"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessShort( short value )
+        private static void AssertShouldDecode( short value )
         {
             ShortXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -311,19 +314,19 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process Short. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode Short. </summary>
         [TestMethod]
-        public void CodecShouldProcessShort()
+        public void ShouldDecodeShort()
         {
-            AssertCodecShouldProcessShort( short.MinValue );
-            AssertCodecShouldProcessShort( short.MaxValue );
-            AssertCodecShouldProcessShort( ( short ) 0 );
+            AssertShouldDecode( short.MinValue );
+            AssertShouldDecode( short.MaxValue );
+            AssertShouldDecode( ( short ) 0 );
         }
 
 
-        /// <summary>   Assert codec should process <see cref="string"/>. </summary>
+        /// <summary>   Assert codecs should encode and decode <see cref="string"/>. </summary>
         /// <param name="value">    parameter of type <see cref="string"/> to encode and decode. </param>
-        private static void AssertCodecShouldProcessString( string value )
+        private static void AssertShouldDecode( string value )
         {
             StringXdrCodec request = new( value );
             XdrBufferEncodingStream encoder = new( 1024 );
@@ -338,14 +341,14 @@ namespace cc.isr.XDR.MSTest
             Assert.AreEqual( request.Value, result.Value );
         }
 
-        /// <summary>   (Unit Test Method) codec should process string. </summary>
+        /// <summary>   (Unit Test Method) codecs should encode and decode string. </summary>
         [TestMethod]
-        public void CodecShouldProcessString()
+        public void ShouldDecodeString()
         {
-            AssertCodecShouldProcessString( "XDR serialized string" );
+            AssertShouldDecode( "XDR serialized string" );
         }
 
-        private static void AssertShouldEncodeEnum( System.Diagnostics.TraceEventType value )
+        private static void AssertShouldEncode( System.Diagnostics.TraceEventType value )
         {
             XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
@@ -362,9 +365,31 @@ namespace cc.isr.XDR.MSTest
         [TestMethod]
         public void ShouldEncodeEnum()
         {
-            AssertShouldEncodeEnum( System.Diagnostics.TraceEventType.Warning );
-            AssertShouldEncodeEnum( System.Diagnostics.TraceEventType.Error );
+            AssertShouldEncode( System.Diagnostics.TraceEventType.Warning );
+            AssertShouldEncode( System.Diagnostics.TraceEventType.Error );
         }
+
+        private static void AsserShouldEncode( IPAddress expected )
+        {
+            XdrBufferEncodingStream encoder = new( 1024 );
+            expected.Encode( encoder );
+
+            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            decoder.BeginDecoding();
+            IPAddress actual = decoder.DecodeIPAddress();
+            decoder.EndDecoding();
+            Assert.AreEqual( expected.ToString(), actual.ToString(), $"{nameof( IPAddress )}.{expected} should decode" );
+        }
+
+        [TestMethod]
+        public void ShouldEncodeIPAddress()
+        {
+            AsserShouldEncode( IPAddress.Parse( "255.255.255.255" ) );
+            AsserShouldEncode( IPAddress.Parse( "1.1.1.1" ) );
+            AsserShouldEncode( IPAddress.Parse( "192.160.0.1" ) );
+            AsserShouldEncode( IPAddress.Parse( "127.0.0.1" ) );
+        }
+
 
     }
 }

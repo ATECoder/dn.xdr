@@ -3,6 +3,14 @@ namespace cc.isr.XDR.EncodingExtensions;
 public static class EncodingStreamExtensions
 {
 
+    /// <summary>   Encodes (aka "serializes") an <see cref="IPAddress"/> value into an XDR stream. </summary>
+    /// <param name="value">    The value to be encoded. </param>
+    /// <param name="encoder">  The encoder. </param>
+    public static void Encode( this IPAddress value, XdrEncodingStreamBase encoder )
+    {
+        encoder.EncodeIPAddress( value );
+    }
+
     /// <summary>   Encodes (aka "serializes") an <see cref="int"/> value into an XDR stream. </summary>
     /// <typeparam name="T">    Generic type parameter. </typeparam>
     /// <param name="value">    The value to be encoded. </param>
