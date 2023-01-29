@@ -1,4 +1,7 @@
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace cc.isr.XDR;
 
 /// <summary>
@@ -66,17 +69,35 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     }
 
     /// <summary>
-    /// Closes this encoding XDR stream and releases any system resources associated with this stream.
+    /// Releases unmanaged, large objects and (optionally) managed resources used by this class.
     /// </summary>
-    /// <remarks>
-    /// The general contract of <see cref="XdrEncodingStreamBase.Close()"/> is that it closes the encoding 
-    /// XDR stream. A closed XDR stream cannot perform encoding operations and cannot be reopened.
-    /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    public override void Close()
+    /// <exception cref="AggregateException">   Thrown when an Aggregate error condition occurs. </exception>
+    /// <param name="disposing">    True to release large objects and managed and unmanaged resources;
+    ///                             false to release only unmanaged resources and large objects. </param>
+    protected override void Dispose( bool disposing )
     {
-        base.Close();
+        List<Exception> exceptions = new();
+        if ( disposing )
+        {
+        }
+
         this._buffer = Array.Empty<byte>();
+
+        try
+        {
+            base.Dispose( disposing );
+        }
+        catch ( Exception ex )
+        { exceptions.Add( ex ); }
+        finally
+        {
+        }
+
+        if ( exceptions.Any() )
+        {
+            AggregateException aggregateException = new( exceptions );
+            throw aggregateException;
+        }
     }
 
     #endregion

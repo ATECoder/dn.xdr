@@ -11,23 +11,24 @@ namespace cc.isr.XDR;
 /// 
 /// Remote Tea authors: Harald Albrecht, Jay Walters. </para>
 /// </remarks>
-public abstract class XdrDecodingStreamBase : IDisposable
+public abstract class XdrDecodingStreamBase : ICloseable
 {
 
     #region " construction and cleanup "
 
     /// <summary>
-    /// Closes this decoding XDR stream and releases any system resources associated with this stream.
+    /// Closes this XDR stream and releases any system resources associated with this stream.
     /// </summary>
     /// <remarks>
-    /// The general contract of <see cref="Close()"/> is that it closes the decoding XDR stream. A
-    /// closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
+    /// The general contract of <see cref="Close()"/> is that it closes and disposes of the decoding
+    /// XDR stream. A closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
     /// 
     /// The <see cref="XdrDecodingStreamBase.Close()"/> method of <see cref="XdrDecodingStreamBase"/>
-    /// does nothing.</para>
+    /// calls <see cref="Dispose()"/> and is not <see langword="virtual"/>.</para>
     /// </remarks>
-    public virtual void Close()
+    public void Close()
     {
+        (( IDisposable ) this).Dispose();
     }
 
     #region " disposable implementation "
@@ -36,9 +37,9 @@ public abstract class XdrDecodingStreamBase : IDisposable
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged
     /// resources.
     /// </summary>
-    /// <remarks> 
-    /// Takes account of and updates <see cref="IsDisposed"/>.
-    /// Encloses <see cref="Dispose(bool)"/> within a try...finaly block.
+    /// <remarks>
+    /// Takes account of and updates <see cref="IsDisposed"/>. Encloses <see cref="Dispose(bool)"/>
+    /// within a try...finaly block.
     /// </remarks>
     public void Dispose()
     {
@@ -46,36 +47,40 @@ public abstract class XdrDecodingStreamBase : IDisposable
         try
         {
             // Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+
             this.Dispose( true );
 
-            // uncomment the following line if Finalize() is overridden above.
-            GC.SuppressFinalize( this );
         }
-        catch ( Exception ex ) { Logger.Writer.LogMemberError( "Exception disposing", ex ); }
+        catch { throw; }
         finally
         {
+            // uncomment the following line if Finalize() is overridden above.
+
+            GC.SuppressFinalize( this );
+
+            // mark things as disposed.
+
             this.IsDisposed = true;
         }
     }
 
     /// <summary>   Gets or sets a value indicating whether this object is disposed. </summary>
     /// <value> True if this object is disposed, false if not. </value>
-    protected bool IsDisposed { get; private set; }
+    public bool IsDisposed { get; private set; }
 
     /// <summary>
-    /// Releases the unmanaged resources used by the XdrDecodingStreamBase and optionally releases
-    /// the managed resources.
+    /// Releases unmanaged, large objects and (optionally) managed resources used by this class.
     /// </summary>
-    /// <param name="disposing">    True to release both managed and unmanaged resources; false to
-    ///                             release only unmanaged resources. </param>
+    /// <param name="disposing">    True to release large objects and managed and unmanaged resources;
+    ///                             false to release only unmanaged resources and large objects. </param>
     protected virtual void Dispose( bool disposing )
     {
         if ( disposing )
         {
             // dispose managed state (managed objects)
         }
+
         // free unmanaged resources and override finalizer
-        this.Close();
 
         // set large fields to null
     }

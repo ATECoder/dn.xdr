@@ -1,4 +1,7 @@
 
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 namespace cc.isr.XDR;
 
@@ -65,37 +68,78 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
         this._bufferHighmark = -4;
     }
 
-    /// <summary>
-    /// Closes this decoding XDR stream and releases any system resources associated with this stream.
-    /// </summary>
-    /// <remarks>
-    /// A closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
-    /// 
-    /// This implementation frees the allocated buffer but does not close
-    /// the associated datagram socket. It only throws away the reference to this socket. </para>
-    /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    public override void Close()
-    {
-        if ( this._socket is not null )
-        {
-            // Since there is a non-zero chance of getting race conditions,
-            // we now first set the socket instance member to null, before
-            // we close the corresponding socket. This avoids null-pointer
-            // exceptions in the method which waits for connections: it is
-            // possible that this method is awakened because the socket has
-            // been closed before we could set the socket instance member to
-            // null. Many thanks to Michael Smith for tracking down this one.
+    /// <summary>   The input stream used to pull the bytes off the network. </summary>
+    private Stream? _stream;
 
-            // @atecoder: added shutdown
-            Socket socket = this._socket;
-            if ( socket.Connected )
-                socket.Shutdown( SocketShutdown.Both );
-            this._socket = null;
-            socket.Close();
+    /// <summary>
+    /// Releases unmanaged, large objects and (optionally) managed resources used by this class.
+    /// </summary>
+    /// <exception cref="AggregateException">   Thrown when an Aggregate error condition occurs. </exception>
+    /// <param name="disposing">    True to release large objects and managed and unmanaged resources;
+    ///                             false to release only unmanaged resources and large objects. </param>
+    protected override void Dispose( bool disposing )
+    {
+        List<Exception> exceptions = new();
+        if ( disposing )
+        {
+            IDisposable? networkStream = this._stream;
+            if ( networkStream is not null )
+            {
+                try
+                {
+                    networkStream.Dispose();
+                }
+                catch ( Exception ex )
+                { exceptions.Add( ex ); }
+                finally
+                {
+                    this._stream = null;
+                }
+            }
+            else
+            {
+                //
+                // if the NetworkStream wasn't created, the Socket might
+                // still be there and needs to be closed. In the case in which
+                // we are bound to a local IPEndPoint this will remove the
+                // binding and free up the IPEndPoint for later uses.
+
+                Socket? socket = this._socket;
+                if ( socket is not null )
+                {
+                    try
+                    {
+                        if ( socket.Connected )
+                            socket.Shutdown( SocketShutdown.Both );
+                    }
+                    catch ( Exception ex )
+                    { exceptions.Add( ex ); }
+                    finally
+                    {
+                        socket.Close();
+                        this._socket = null;
+                    }
+                }
+            }
         }
+
         this._buffer = Array.Empty<byte>();
-        base.Close();
+
+        try
+        {
+            base.Dispose( disposing );
+        }
+        catch ( Exception ex )
+        { exceptions.Add( ex ); }
+        finally
+        {
+        }
+
+        if ( exceptions.Any() )
+        {
+            AggregateException aggregateException = new( exceptions );
+            throw aggregateException;
+        }
     }
 
     #endregion

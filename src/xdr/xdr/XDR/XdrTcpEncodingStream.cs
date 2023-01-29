@@ -1,6 +1,9 @@
 
 using System.Net.Sockets;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace cc.isr.XDR;
 
 /// <summary>
@@ -23,7 +26,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     private Socket? _socket;
 
     /// <summary>   The output stream used to get rid of bytes going off to the network. </summary>
-    private Stream _stream;
+    private Stream? _stream;
 
     /// <summary>
     /// The buffer which will be filled from the datagram socket and then
@@ -74,38 +77,76 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     }
 
     /// <summary>
-    /// Closes this encoding XDR stream and releases any system resources associated with this stream.
+    /// Releases unmanaged, large objects and (optionally) managed resources used by this class.
     /// </summary>
-    /// <remarks>
-    /// The general contract of <see cref="XdrEncodingStreamBase.Close()"/> is that it closes the encoding XDR stream. 
-    /// A closed XDR stream cannot perform encoding operations and cannot be reopened.
-    /// </remarks>
-    /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    public override void Close()
+    /// <exception cref="AggregateException">   Thrown when an Aggregate error condition occurs. </exception>
+    /// <param name="disposing">    True to release large objects and managed and unmanaged resources;
+    ///                             false to release only unmanaged resources and large objects. </param>
+    protected override void Dispose( bool disposing )
     {
-        if ( this._socket is not null )
+        List<Exception> exceptions = new();
+        if ( disposing )
         {
-            // Since there is a non-zero chance of getting race conditions,
-            // we now first set the socket instance member to null, before
-            // we close the corresponding socket. This avoids null-pointer
-            // exceptions in the method which waits for connections: it is
-            // possible that this method is awakened because the socket has
-            // been closed before we could set the socket instance member to
-            // null. Many thanks to Michael Smith for tracking down this one.
-            // @atecoder: I am assuming that this also releases the stream 
-            // resources.
+            IDisposable? networkStream = this._stream;
+            if ( networkStream is not null )
+            {
+                try
+                {
+                    networkStream.Dispose();
+                }
+                catch ( Exception ex )
+                { exceptions.Add( ex ); }
+                finally
+                {
+                    this._stream = null;
+                }
+            }
+            else
+            {
+                //
+                // if the NetworkStream wasn't created, the Socket might
+                // still be there and needs to be closed. In the case in which
+                // we are bound to a local IPEndPoint this will remove the
+                // binding and free up the IPEndPoint for later uses.
 
-            // @atecoder: added shutdown
-            Socket socket = this._socket;
-            if ( socket.Connected )
-                socket.Shutdown( SocketShutdown.Both );
-            this._socket = null;
-            socket.Close();
+                Socket? socket = this._socket;
+                if ( socket is not null )
+                {
+                    try
+                    {
+                        if ( socket.Connected )
+                            socket.Shutdown( SocketShutdown.Both );
+                    }
+                    catch ( Exception ex )
+                    { exceptions.Add( ex ); }
+                    finally
+                    {
+                        socket.Close();
+                        this._socket = null;
+                    }
+                }
+            }
         }
+
         this._buffer = Array.Empty<byte>();
-        this._stream = Stream.Null;
-        base.Close();
+
+        try
+        {
+            base.Dispose( disposing );
+        }
+        catch ( Exception ex )
+        { exceptions.Add( ex ); }
+        finally
+        {
+        }
+
+        if ( exceptions.Any() )
+        {
+            AggregateException aggregateException = new( exceptions );
+            throw aggregateException;
+        }
     }
+
 
     #endregion
 
