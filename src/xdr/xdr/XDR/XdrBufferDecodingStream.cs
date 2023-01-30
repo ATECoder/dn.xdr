@@ -80,7 +80,12 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
         List<Exception> exceptions = new();
         if ( disposing )
         {
+            // dispose managed state (managed objects)
         }
+
+        // free unmanaged resources and override finalizer
+
+        // set large fields to null
 
         this._buffer = Array.Empty<byte>();
 
@@ -99,6 +104,13 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
             AggregateException aggregateException = new( exceptions );
             throw aggregateException;
         }
+    }
+
+    /// <summary>   Finalizer. </summary>
+    ~XdrBufferDecodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
     }
 
     #endregion

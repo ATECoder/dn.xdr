@@ -87,6 +87,9 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         List<Exception> exceptions = new();
         if ( disposing )
         {
+
+            // dispose managed state (managed objects)
+
             IDisposable? networkStream = this._stream;
             if ( networkStream is not null )
             {
@@ -128,6 +131,10 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
             }
         }
 
+        // free unmanaged resources and override finalizer
+
+        // set large fields to null
+
         this._buffer = Array.Empty<byte>();
 
         try
@@ -147,6 +154,12 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         }
     }
 
+    /// <summary>   Finalizer. </summary>
+    ~XdrTcpEncodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
+    }
 
     #endregion
 
@@ -196,6 +209,10 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         this.Flush( true, !flush );
     }
 
+    /// <summary>   Flushes this object. </summary>
+    /// <remarks>   2023-01-30. </remarks>
+    /// <param name="lastFragment"> True to last fragment. </param>
+    /// <param name="batch">        True to batch. </param>
     private void Flush( bool lastFragment, bool batch )
     {
 
@@ -226,8 +243,8 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
             // the buffer for the fragment header and at least a single
             // int.
 
-            this._stream.Write( this._buffer, 0, this._bufferIndex );
-            this._stream.Flush();
+            this._stream!.Write( this._buffer, 0, this._bufferIndex );
+            this._stream!.Flush();
 
             // Reset write pointer after the fragment header int within
             // buffer, so the next bunch of data can be encoded.

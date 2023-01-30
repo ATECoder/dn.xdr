@@ -78,6 +78,8 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
         List<Exception> exceptions = new();
         if ( disposing )
         {
+            // dispose managed state (managed objects)
+
             IDisposable? networkStream = this._stream;
             if ( networkStream is not null )
             {
@@ -119,6 +121,10 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
             }
         }
 
+        // free unmanaged resources and override finalizer
+
+        // set large fields to null
+
         this._buffer = Array.Empty<byte>();
 
         try
@@ -136,6 +142,14 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
             AggregateException aggregateException = new( exceptions );
             throw aggregateException;
         }
+    }
+
+
+    /// <summary>   Finalizer. </summary>
+    ~XdrUdpEncodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
     }
 
     #endregion

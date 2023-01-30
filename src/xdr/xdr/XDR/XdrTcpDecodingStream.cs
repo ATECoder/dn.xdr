@@ -26,7 +26,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     private Socket? _socket;
 
     /// <summary>   The input stream used to pull the bytes off the network. </summary>
-    private Stream? _stream;
+    private Stream? _networkStream;
 
     /// <summary>
     /// The buffer which will be filled from the datagram socket and then
@@ -61,7 +61,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     public XdrTcpDecodingStream( Socket socket, int bufferSize )
     {
         this._socket = socket;
-        this._stream = new NetworkStream( socket );
+        this._networkStream = new NetworkStream( socket );
 
         // If the given buffer size is too small, start with a more sensible
         // size. Next, if bufferSize is not a multiple of four, round it up to
@@ -94,7 +94,10 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         List<Exception> exceptions = new();
         if ( disposing )
         {
-            IDisposable? networkStream = this._stream;
+
+            // dispose managed state (managed objects)
+
+            IDisposable? networkStream = this._networkStream;
             if ( networkStream is not null )
             {
                 try
@@ -105,7 +108,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
                 { exceptions.Add( ex ); }
                 finally
                 {
-                    this._stream = null;
+                    this._networkStream = null;
                 }
             }
             else
@@ -136,6 +139,10 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
         }
 
+        // free unmanaged resources and override finalizer
+
+        // set large fields to null
+
         this._buffer = Array.Empty<byte>();
 
         try
@@ -153,6 +160,13 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             AggregateException aggregateException = new( exceptions );
             throw aggregateException;
         }
+    }
+
+    /// <summary>   Finalizer. </summary>
+    ~XdrTcpDecodingStream()
+    {
+        if ( this.IsDisposed ) { return; }
+        this.Dispose( false );
     }
 
     #endregion
@@ -247,7 +261,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             // First read in the header of the next fragment.
 
             byte[] bytes = new byte[4];
-            this.ReadBuffer( this._stream, bytes, 4 );
+            this.ReadBuffer( this._networkStream!, bytes, 4 );
 
             // Watch the sign bit!
 
@@ -293,13 +307,13 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         this._bufferIndex = 0;
         if ( this._fragmentLength < this._buffer.Length )
         {
-            this.ReadBuffer( this._stream, this._buffer, this._fragmentLength );
+            this.ReadBuffer( this._networkStream!, this._buffer, this._fragmentLength );
             this._bufferHighmark = this._fragmentLength - 4;
             this._fragmentLength = 0;
         }
         else
         {
-            this.ReadBuffer( this._stream, this._buffer, this._buffer.Length );
+            this.ReadBuffer( this._networkStream!, this._buffer, this._buffer.Length );
             this._bufferHighmark = this._buffer.Length - 4;
             this._fragmentLength -= this._buffer.Length;
         }
