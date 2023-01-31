@@ -586,7 +586,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
 
     /// <summary>   Decodes the IP address. </summary>
     /// <returns>   The IPAddress. </returns>
-    public IPAddress DecodeIPAddress( )
+    public IPAddress DecodeIPAddress()
     {
         byte[] bytes = new byte[4];
         this.DecodeOpaque( bytes );

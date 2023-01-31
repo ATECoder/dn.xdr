@@ -614,7 +614,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
 
     /// <summary>   Encode IP address. </summary>
     /// <param name="address">  The address. </param>
-    public void EncodeIPAddress( IPAddress address)
+    public void EncodeIPAddress( IPAddress address )
     {
         byte[] bytes = address.GetAddressBytes();
 

@@ -236,7 +236,7 @@ namespace cc.isr.XDR.MSTest
             AssertShouldDecode( uint.MinValue );
             AssertShouldDecode( uint.MaxValue );
             AssertShouldDecode( ( uint ) 0 );
-            AssertShouldDecode( unchecked ( ( uint ) ( int ) -24 ) );
+            AssertShouldDecode( unchecked(( uint ) ( int ) -24) );
         }
 
         /// <summary>   Assert codecs should encode and decode <see cref="long"/>. </summary>
@@ -357,7 +357,7 @@ namespace cc.isr.XDR.MSTest
             result = ( System.Diagnostics.TraceEventType ) decoder.DecodeInt();
             decoder.EndDecoding();
 
-            Assert.AreEqual( value, result, $"{nameof(System.Diagnostics.TraceEventType)}.{value}({(int) value }) should decode" );
+            Assert.AreEqual( value, result, $"{nameof( System.Diagnostics.TraceEventType )}.{value}({( int ) value}) should decode" );
         }
 
         [TestMethod]

@@ -17,7 +17,7 @@ public static class EncodingStreamExtensions
     /// <param name="encoder">  The encoder. </param>
     public static void Encode<T>( this T value, XdrEncodingStreamBase encoder ) where T : struct, IConvertible
     {
-        encoder.EncodeInt( Convert.ToInt32 ( value ) );
+        encoder.EncodeInt( Convert.ToInt32( value ) );
     }
 
     /// <summary>

@@ -93,7 +93,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
             base.Dispose( disposing );
         }
         catch ( Exception ex )
-            { exceptions.Add( ex ); }
+        { exceptions.Add( ex ); }
         finally
         {
         }
@@ -254,7 +254,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
             // madness, we have to "and" it with 0xFF, so all unwanted
             // bits are cut off after sign extension. Sigh.
 
-            uint value = ( uint ) ( this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
+            uint value = ( uint ) (this._buffer[this._bufferIndex++] & unchecked(( int ) (0xFF)));
             value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(0xFF)));
             value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(0xFF)));
             value = ( uint ) ((value << 8) + (this._buffer[this._bufferIndex++] & unchecked(0xFF)));
