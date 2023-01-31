@@ -1,6 +1,3 @@
-using System.Net;
-
-using cc.isr.XDR.Logging;
 namespace cc.isr.XDR;
 
 /// <summary>   Defines the abstract base class for all encoding XDR streams. </summary>

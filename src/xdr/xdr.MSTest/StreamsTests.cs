@@ -11,10 +11,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="bool"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( bool value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             bool actual = decoder.DecodeBoolean();
             decoder.EndDecoding();
@@ -33,10 +33,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="byte"/> to encode and decode.
         private static void AssertStreamsShouldProcess( byte value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             byte actual = decoder.DecodeByte();
             decoder.EndDecoding();
@@ -56,10 +56,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="byte[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessBytes( byte[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             byte[] actual = decoder.DecodeByteVector();
             decoder.EndDecoding();
@@ -77,10 +77,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="char"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessCharacter( char value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             char actual = decoder.DecodeChar();
             decoder.EndDecoding();
@@ -99,10 +99,10 @@ namespace cc.isr.XDR.MSTest
 
         private static void AssertStreamsShouldProcess( char[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.EncodeDynamicOpaque( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             char[] actual = decoder.DecodeDynamicOpaqueChar();
             decoder.EndDecoding();
@@ -120,10 +120,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="double"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessDouble( double value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             double actual = decoder.DecodeDouble();
             decoder.EndDecoding();
@@ -143,10 +143,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="double[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( double[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             double[] actual = decoder.DecodeDoubleVector();
             decoder.EndDecoding();
@@ -164,10 +164,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="byte[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessDynamicOpaque( byte[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.EncodeDynamicOpaque( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             byte[] actual = decoder.DecodeDynamicOpaque();
             decoder.EndDecoding();
@@ -186,10 +186,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="float"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( float value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             float actual = decoder.DecodeFloat();
             decoder.EndDecoding();
@@ -210,10 +210,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="float[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( float[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             float[] actual = decoder.DecodeFloatVector();
             decoder.EndDecoding();
@@ -232,10 +232,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="int"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessInteger( int value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             int actual = decoder.DecodeInt();
             decoder.EndDecoding();
@@ -255,10 +255,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="long"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcessLong( long value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             long actual = decoder.DecodeLong();
             decoder.EndDecoding();
@@ -269,10 +269,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="int[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( int[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             int[] actual = decoder.DecodeIntVector();
             decoder.EndDecoding();
@@ -300,10 +300,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="long[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( long[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             long[] actual = decoder.DecodeLongVector();
             decoder.EndDecoding();
@@ -323,10 +323,10 @@ namespace cc.isr.XDR.MSTest
         private static void AssertStreamsShouldProcessOpaque( byte[] value )
         {
 
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.EncodeOpaque( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             byte[] actual = decoder.DecodeOpaque( value.Length );
             decoder.EndDecoding();
@@ -346,10 +346,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="short"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( short value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             short actual = decoder.DecodeShort();
             decoder.EndDecoding();
@@ -369,10 +369,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="short[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( short[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             short[] actual = decoder.DecodeShortVector();
             decoder.EndDecoding();
@@ -391,7 +391,7 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="string"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( string value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
             XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
@@ -412,10 +412,10 @@ namespace cc.isr.XDR.MSTest
         /// <param name="value">    parameter of type <see cref="string[]"/> to encode and decode. </param>
         private static void AssertStreamsShouldProcess( string[] value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 );
             decoder.BeginDecoding();
             string[] actual = decoder.DecodeStringVector();
             decoder.EndDecoding();

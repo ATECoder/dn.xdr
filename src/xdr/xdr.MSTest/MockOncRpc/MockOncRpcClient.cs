@@ -14,14 +14,14 @@ public class MockOncRpcClient
     ///                         the remote procedure call. </param>
     public static void Call( int procedureNumber, int versionNumber, IXdrCodec request, IXdrCodec reply )
     {
-        XdrBufferEncodingStream encoder = new( 1024 );
+        using XdrBufferEncodingStream encoder = new( 1024 );
         request.Encode( encoder );
 
         // the transport will handle the decoding of the data into the encoded information that is sent from the 
         // mock server and will be decoded below.
 
-        XdrBufferEncodingStream transportEncoder = new( 1024 );
-        XdrBufferDecodingStream transportDecoder = new( encoder.GetEncodedData(), 1024 );
+        using XdrBufferEncodingStream transportEncoder = new( 1024 );
+        using XdrBufferDecodingStream transportDecoder = new( encoder.GetEncodedData(), 1024 );
         MockOncRpcTransport transport = new( transportEncoder, transportDecoder );
 
         MockOncRpcServer.DispatchOncRpcCall( new MockOncRpcCallHandler( transport ), versionNumber, procedureNumber );

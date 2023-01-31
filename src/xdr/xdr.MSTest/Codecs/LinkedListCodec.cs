@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
-
 namespace cc.isr.XDR.MSTest.Codecs;
 /// <summary>   (Serializable) linked list  XBR encoder/decoder. </summary>
 [Serializable]

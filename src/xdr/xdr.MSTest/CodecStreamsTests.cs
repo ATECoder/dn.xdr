@@ -1,8 +1,6 @@
 using System.Net;
 using System.Text;
 
-using Newtonsoft.Json.Linq;
-
 namespace cc.isr.XDR.MSTest
 {
     [TestClass]
@@ -15,11 +13,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( bool value )
         {
             BooleanXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             BooleanXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -40,7 +38,7 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( byte value )
         {
             ByteXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             ByteXdrCodec result = new();
@@ -66,11 +64,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( byte[] value )
         {
             BytesXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             BytesXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -90,11 +88,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( char value )
         {
             CharXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             CharXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -117,11 +115,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( double value )
         {
             DoubleXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             DoubleXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -143,11 +141,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecodeDynamicOpaque( byte[] value )
         {
             DynamicOpaqueXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             DynamicOpaqueXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -167,11 +165,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( float value )
         {
             FloatXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             FloatXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -193,11 +191,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( int value )
         {
             IntXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             IntXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -219,11 +217,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( uint value )
         {
             UIntXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             UIntXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -246,11 +244,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( long value )
         {
             LongXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             LongXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -273,11 +271,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecodeOpaque( byte[] values )
         {
             OpaqueXdrCodec request = new( values );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             OpaqueXdrCodec result = new( encoder.GetEncodedData() );
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 ); // encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), 1024 ); // encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -302,11 +300,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( short value )
         {
             ShortXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             ShortXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -329,11 +327,11 @@ namespace cc.isr.XDR.MSTest
         private static void AssertShouldDecode( string value )
         {
             StringXdrCodec request = new( value );
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             request.Encode( encoder );
 
             StringXdrCodec result = new();
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result.Decode( decoder );
             decoder.EndDecoding();
@@ -350,11 +348,11 @@ namespace cc.isr.XDR.MSTest
 
         private static void AssertShouldEncode( System.Diagnostics.TraceEventType value )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             value.Encode( encoder );
 
             System.Diagnostics.TraceEventType result;
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             result = ( System.Diagnostics.TraceEventType ) decoder.DecodeInt();
             decoder.EndDecoding();
@@ -371,10 +369,10 @@ namespace cc.isr.XDR.MSTest
 
         private static void AsserShouldEncode( IPAddress expected )
         {
-            XdrBufferEncodingStream encoder = new( 1024 );
+            using XdrBufferEncodingStream encoder = new( 1024 );
             expected.Encode( encoder );
 
-            XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
+            using XdrDecodingStreamBase decoder = new XdrBufferDecodingStream( encoder.GetEncodedData(), encoder.GetEncodedDataLength() );
             decoder.BeginDecoding();
             IPAddress actual = decoder.DecodeIPAddress();
             decoder.EndDecoding();
