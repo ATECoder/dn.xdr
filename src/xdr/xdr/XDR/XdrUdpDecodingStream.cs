@@ -160,7 +160,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
 
     #region " members "
 
-    private IPEndPoint _remoteEndPoint = new IPEndPoint( IPAddress.None, 0 );
+    private IPEndPoint _remoteEndPoint = new ( IPAddress.None, 0 );
     /// <summary>
     /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
     /// </summary>
