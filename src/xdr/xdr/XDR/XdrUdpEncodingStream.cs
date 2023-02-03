@@ -163,10 +163,10 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// This value is valid only after <see cref="BeginEncoding"/>, otherwise it might return stale information.
     /// </remarks>
     /// <value> The remote endpoint. </value>
-    public IPEndPoint RemoteEndpoint { get; private set; } = new IPEndPoint( IPAddress.None, 0 );
+    public IPEndPoint RemoteEndpoint { get; private set; } = new IPEndPoint( IPAddress.Any, 0 );
 
     /// <summary>   Gets the local <see cref="IPEndPoint"/> that the <see cref="Socket"/> is using for communications.. </summary>
-    public IPEndPoint LocalEndpoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.LocalEndPoint;
+    public IPEndPoint LocalEndpoint => this._socket == null ? new IPEndPoint( IPAddress.Any, 0 ) : ( IPEndPoint ) this._socket.LocalEndPoint;
 
     #endregion
 

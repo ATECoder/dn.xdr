@@ -128,7 +128,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// With UDP decoding, this value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
     /// </remarks>
     /// <value> The remote endpoint. </value>
-    public virtual IPEndPoint RemoteEndPoint => new( IPAddress.None, 0 );
+    public virtual IPEndPoint RemoteEndPoint => new( IPAddress.Any, 0 );
 
     /// <summary>
     /// Gets or sets the character encoding for deserializing strings. 

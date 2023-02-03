@@ -46,10 +46,17 @@ public class MockOncRpcClientTests
     {
         Logger.Writer.LogInformation( "About to ping: " );
         client.CallRemoteProcedureNull();
-        Logger.Writer.LogInformation( "    okay" );
+        Logger.Writer.LogInformation( "okay" );
     }
 
     /// <summary>   Assert client should ping. </summary>
+    /// <remarks>
+    /// <code>
+    /// Standard Output: 
+    /// 2023-02-02 09:45:52.054,About to ping:
+    /// 2023-02-02 09:45:52.054,okay
+    /// </code>
+    /// </remarks>
     [TestMethod]
     public void ClientShouldPing()
     {
@@ -58,6 +65,13 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should ping version 2. </summary>
+    /// <remarks>
+    /// <code>
+    /// Standard Output: 
+    /// 2023-02-02 09:45:52.059,About to ping:
+    /// 2023-02-02 09:45:52.059,okay
+    /// </code>
+    /// </remarks>
     [TestMethod]
     public void ClientShouldPingVersion2()
     {
@@ -73,14 +87,28 @@ public class MockOncRpcClientTests
     {
         foreach ( string message in messages )
         {
-            System.Console.Out.Write( $"checking echo of {message}: " );
+            System.Console.Out.Write( $"checking echo of '{message}': " );
             string echoed = client.CallRemoteProcedureEcho( message );
             Assert.AreEqual( message, echoed, $"answer '{echoed}' does not match '{message}' call" );
-            Logger.Writer.LogInformation( $"    Okay: echoed {echoed}" );
+            System.Console.Out.WriteLine( $"Okay; echoed: '{echoed}'" );
         }
     }
 
     /// <summary>   (Unit Test Method) client should echo messages. </summary>
+    /// <remarks>
+    /// <code>
+    /// Standard Output: 
+    /// checking echo of 'UNIX': Okay; echoed: 'UNIX'
+    /// checking echo of 'AUTH': Okay; echoed: 'AUTH'
+    /// checking echo of 'is like': Okay; echoed: 'is like'
+    /// checking echo of '*NO* authentication': Okay; echoed: '* NO* authentication'
+    /// checking echo of '--': Okay; echoed: '--'
+    /// checking echo of 'it': Okay; echoed: 'it'
+    /// checking echo of 'uses': Okay; echoed: 'uses'
+    /// checking echo of '*NO CRYPTOGRAPHY*': Okay; echoed: '* NO CRYPTOGRAPHY*'
+    /// checking echo of 'for securing': Okay; echoed: 'for securing'
+    /// checking echo of 'ONC/RPC messages': Okay; echoed: 'ONC/RPC messages'
+    /// </code></remarks>
     [TestMethod]
     public void ClientShouldEchoMessages()
     {
@@ -97,11 +125,17 @@ public class MockOncRpcClientTests
         string expected = "Hello, Remote Tea!";
         string actual = client.CallRemoteProcedureEcho( expected );
         Assert.AreEqual( expected, actual );
-        Logger.Writer.LogInformation( $"    Okay. Echo: '{actual}'" );
+        Logger.Writer.LogInformation( $"Okay; echoed: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should echo. </summary>
-    /// <remarks>   2023-01-21. </remarks>
+    /// <remarks>   
+    /// <code>
+    /// Standard Output: 
+    /// 2023-02-02 09:45:52.052,About to echo:
+    /// 2023-02-02 09:45:52.052,Okay; echoed: 'Hello, Remote Tea!'
+    /// </code>
+    /// </remarks>
     [TestMethod]
     public void ClientShouldEcho()
     {
@@ -119,11 +153,17 @@ public class MockOncRpcClientTests
         string expected = "Hello, Remote Tea!";
         string actual = client.CallRemoteProcedureConcatenateInputParameters( strings );
         Assert.AreEqual( expected, actual );
-        Logger.Writer.LogInformation( $"    Okay. Echo: '{actual}'" );
+        Logger.Writer.LogInformation( $"Okay; echoed: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should concatenate. </summary>
-    /// <remarks>   2023-01-21. </remarks>
+    /// <remarks>   
+    /// <code>
+    /// Standard Output: 
+    /// 2023-02-02 09:45:52.050,About to concatenate:
+    /// 2023-02-02 09:45:52.051,Okay; echoed: 'Hello, Remote Tea!'
+    /// </code>
+    /// </remarks>
     [TestMethod]
     public void ClientShouldConcatenate()
     {
@@ -143,7 +183,13 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should concatenate exactly. </summary>
-    /// <remarks>   2023-01-21. </remarks>
+    /// <remarks>   
+    /// <code>
+    /// Standard Output: 
+    /// 2023-02-02 09:45:52.051,About to concatenating exactly three strings:
+    /// 2023-02-02 09:45:52.052, The three arguments concatenated: '(1:Hello )(2:Remote )(3:Tea!)'
+    /// </code>
+    /// </remarks>
     [TestMethod]
     public void ClientShouldConcatenateExactly()
     {
@@ -176,6 +222,11 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should get foo. </summary>
+    /// <remarks>
+    /// <code>
+    /// Standard Output: 
+    /// 2023-02-02 09:45:52.053,About to get a foo:
+    /// </code></remarks>
     [TestMethod]
     public void ClientShouldGetFoo()
     {
@@ -194,6 +245,12 @@ public class MockOncRpcClientTests
         Assert.AreEqual( expected, echo, $"oops: should echo '{expected}'" );
     }
 
+    /// <summary>   (Unit Test Method) client should get numbered foo. </summary>
+    /// <remarks>   
+    /// <code>
+    /// 2023-02-02 09:45:52.053,About to get a numbered foo string:
+    /// </code>
+    /// </remarks>
     [TestMethod]
     public void ClientShouldGetNumberedFoo()
     {
@@ -236,6 +293,13 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should prepend linked list. </summary>
+    /// <remarks>
+    /// <code>
+    /// Standard Output: 
+    /// 2023-02-02 09:45:52.060,Linked List test:
+    /// 2023-02-02 09:45:52.060,built list 42, 0, 8, 15,
+    /// </code>
+    /// </remarks>
     [TestMethod]
     public void ClientShouldPrependLinkedList()
     {
@@ -280,6 +344,13 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should link linked list. </summary>
+    /// <remarks>
+    /// <code>
+    /// Standard Output: 
+    /// 2023-02-02 09:45:52.054,Linking Linked Lists test:
+    /// 2023-02-02 09:45:52.054, built list 8, 0,
+    /// </code>
+    /// </remarks>
     [TestMethod]
     public void ClientShouldLinkLinkedList()
     {

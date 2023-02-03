@@ -169,10 +169,10 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
     /// </summary>
     /// <value> The remote endpoint. </value>
-    public IPEndPoint RemoteEndpoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.RemoteEndPoint;
+    public IPEndPoint RemoteEndpoint => this._socket == null ? new IPEndPoint( IPAddress.Any, 0 ) : ( IPEndPoint ) this._socket.RemoteEndPoint;
 
     /// <summary>   Gets the local <see cref="IPEndPoint"/> that the <see cref="Socket"/> is using for communications.. </summary>
-    public IPEndPoint? LocalEndpoint => this._socket == null ? new IPEndPoint( IPAddress.None, 0 ) : ( IPEndPoint ) this._socket.LocalEndPoint;
+    public IPEndPoint? LocalEndpoint => this._socket == null ? new IPEndPoint( IPAddress.Any, 0 ) : ( IPEndPoint ) this._socket.LocalEndPoint;
 
     #endregion
 
