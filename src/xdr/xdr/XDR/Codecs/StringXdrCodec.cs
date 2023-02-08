@@ -26,7 +26,7 @@ public class StringXdrCodec : IXdrCodec
     }
 
     /// <summary>   Gets or sets the value of this <see cref="StringXdrCodec"/> object as a <see cref="string"/> primitive. </summary>
-    /// <value> The primitive <see cref="string"/> value of this object.. </value>
+    /// <value> The primitive <see cref="string"/> value of this object. </value>
     public string Value { get; private set; }
 
     /// <summary>

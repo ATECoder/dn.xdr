@@ -27,7 +27,7 @@ public class DoubleXdrCodec : IXdrCodec
         this.Value = 0;
     }
 
-    /// <summary>   Gets or sets the value of this <see cref="DoubleXdrCodec"/> object as a <see cref="double"/> primitive.. </summary>
+    /// <summary>   Gets or sets the value of this <see cref="DoubleXdrCodec"/> object as a <see cref="double"/> primitive. </summary>
     /// <value> The primitive <see cref="double"/> value of this object. </value>
     public double Value { get; private set; }
 
