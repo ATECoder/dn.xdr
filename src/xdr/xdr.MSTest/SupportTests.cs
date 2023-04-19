@@ -8,7 +8,7 @@ namespace cc.isr.XDR.MSTest;
 public class SupportTests
 {
 
-    #region " fixture construction and cleanup "
+    #region " fixture Construction and Cleanup "
 
     /// <summary>   Initializes the fixture. </summary>
     /// <param name="context">  The context. </param>

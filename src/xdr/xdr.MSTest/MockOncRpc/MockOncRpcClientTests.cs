@@ -9,7 +9,7 @@ namespace cc.isr.XDR.MSTest.MockOncRpc;
 public class MockOncRpcClientTests
 {
 
-    #region " fixture construction and cleanup "
+    #region " fixture Construction and Cleanup "
 
     /// <summary>   Initializes the fixture. </summary>
     /// <param name="context">  The context. </param>

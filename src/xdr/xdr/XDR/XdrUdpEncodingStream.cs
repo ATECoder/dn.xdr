@@ -16,7 +16,7 @@ namespace cc.isr.XDR;
 public class XdrUdpEncodingStream : XdrEncodingStreamBase
 {
 
-    #region " construction and cleanup "
+    #region " Construction and Cleanup "
 
     /// <summary>
     /// The datagram socket to be used when sending this XDR stream's

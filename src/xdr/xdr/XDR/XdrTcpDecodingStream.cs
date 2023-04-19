@@ -17,7 +17,7 @@ namespace cc.isr.XDR;
 public class XdrTcpDecodingStream : XdrDecodingStreamBase
 {
 
-    #region " construction and cleanup "
+    #region " Construction and Cleanup "
 
     /// <summary>
     /// The streaming socket to be used when receiving this XDR stream's

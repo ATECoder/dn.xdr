@@ -13,7 +13,7 @@ namespace cc.isr.XDR;
 public abstract class XdrEncodingStreamBase : ICloseable
 {
 
-    #region " construction and cleanup "
+    #region " Construction and Cleanup "
 
     /// <summary>
     /// Closes this XDR stream and releases any system resources associated with this stream.

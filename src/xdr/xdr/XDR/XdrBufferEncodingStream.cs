@@ -14,7 +14,7 @@ namespace cc.isr.XDR;
 public class XdrBufferEncodingStream : XdrEncodingStreamBase
 {
 
-    #region " construction and cleanup "
+    #region " Construction and Cleanup "
 
     /// <summary>
     /// The buffer which will receive the encoded information, before it
