@@ -1,4 +1,4 @@
-# eXternal Data Representation (XDR)
+### eXternal Data Representation (XDR)
 
 External Data Representation ([XDR]) is a standard data serialization format for uses such as computer network protocols. It allows data to be transferred between different kinds of computer systems. Converting from the local representation to XDR is called encoding. Converting from XDR to the local representation is called decoding. XDR is implemented as a software library of functions which is portable between different operating systems and is also independent of the transport layer.
 
@@ -91,6 +91,6 @@ The constant n is the static number of bytes necessary to contain the opaque dat
 Figure 1. Fixed-Length Opaque. This diagram contains 4 lines of information. The second line of the diagram is the main line, listing bytes as follows: byte 0, byte 1, dots signifying the bytes between byte 1 and byte n-1. The next byte is labeled: byte n-1, and is followed by residual byte 0. Dots signify more residual bytes that end in a final byte 0. The remaining lines of the diagram describe this main line of bytes. The first line assigns numbers to the bytes as follows: number 0 for byte 0, number 1 for byte 1, and dots signifying a continuing sequence. The third line assigns byte values to the bytes in the main line as follows: byte 0 through byte n-1 yield n bytes. All the residual bytes together equal r bytes. The fourth line, which spans the entire diagram, shows the following equation:n+r (where (n+r) mod 4 = 0).
 
 
-## References
+#### References
 
 [XDR]: https://www.rfc-editor.org/rfc/rfc4506#section-4.7
