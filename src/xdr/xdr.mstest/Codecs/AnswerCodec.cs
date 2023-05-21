@@ -1,7 +1,8 @@
 namespace cc.isr.XDR.MSTest.Codecs;
-/// <summary>   (Serializable) linked list  XBR encoder/decoder. </summary>
+
+/// <summary>   (Serializable) an answer codec. </summary>
 [Serializable]
-public class LinkedListCodec : IXdrCodec
+public class AnswerCodec : IXdrCodec
 {
 
     /* Remote Tea leftover:
@@ -11,41 +12,34 @@ public class LinkedListCodec : IXdrCodec
      for the object that has a different serialVersionUID than that of the corresponding sender's class, then deserialization 
      will result in an InvalidClassException. A serializable class can declare its own serialVersionUID explicitly by declaring 
      a field named serialVersionUID that must be static, final, and of type 
-     private long serialVersionUID = -9187504517170663946L;
+     private long serialVersionUID = 5165359675382683141L;
     */
 
     /// <summary>   Default constructor. </summary>
-    public LinkedListCodec()
-    {
-    }
-
-    /// <summary>   Copy constructor. </summary>
-    /// <param name="linkedListCodec">  The linked list codec. </param>
-    public LinkedListCodec( LinkedListCodec linkedListCodec )
-    {
-        LinkedListCodec? expected = linkedListCodec;
-        while ( expected != null )
-        {
-            this.Foo = expected.Foo;
-            this.Next = expected.Next;
-            expected = expected.Next;
-        }
-    }
-
+    public AnswerCodec()
+    { }
     /// <summary>   Constructor. </summary>
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
-    public LinkedListCodec( XdrDecodingStreamBase decoder ) : this()
+    public AnswerCodec( XdrDecodingStreamBase decoder )
     {
         this.Decode( decoder );
     }
 
-    /// <summary>   Gets or sets the foo. </summary>
-    /// <value> The foo. </value>
-    public virtual int Foo { get; set; }
+    /// <summary>   Gets or sets the value. </summary>
+    /// <value> The value. </value>
+    public int Value { get; set; }
 
-    /// <summary>   Gets or sets the next. </summary>
-    /// <value> The next. </value>
-    public virtual LinkedListCodec? Next { get; set; }
+    /// <summary>   Gets or sets the wrong. </summary>
+    /// <value> The wrong. </value> 
+    public int Wrong { get; set; }
+
+    /// <summary>   Gets or sets the answer. </summary>
+    /// <value> the answer. </value>
+    public int TheAnswer { get; set; }
+
+    /// <summary>   Gets or sets the check hash. </summary>
+    /// <value> The check hash. </value>
+    public int CheckHash { get; set; }
 
     /// <summary>
     /// Encodes -- that is: serializes -- an object into a XDR stream in compliance to RFC 1832.
@@ -56,13 +50,20 @@ public class LinkedListCodec : IXdrCodec
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     public virtual void Encode( XdrEncodingStreamBase encoder )
     {
-        LinkedListCodec? current = this;
-        do
+        encoder.EncodeInt( this.Value );
+        switch ( this.Value )
         {
-            encoder.EncodeInt( current.Foo );
-            current = current.Next;
-            encoder.EncodeBoolean( current is not null );
-        } while ( current is not null );
+            case 40:
+            case 41:
+                encoder.EncodeInt( this.Wrong );
+                break;
+            case 42:
+                encoder.EncodeInt( this.TheAnswer );
+                break;
+            default:
+                encoder.EncodeInt( this.CheckHash );
+                break;
+        }
     }
 
     /// <summary>
@@ -74,15 +75,20 @@ public class LinkedListCodec : IXdrCodec
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
     public virtual void Decode( XdrDecodingStreamBase decoder )
     {
-        LinkedListCodec? current = this;
-        LinkedListCodec? nextItem;
-        do
+        this.Value = decoder.DecodeInt();
+        switch ( this.Value )
         {
-            current.Foo = decoder.DecodeInt();
-            nextItem = decoder.DecodeBoolean() ? new LinkedListCodec() : null;
-            current.Next = nextItem;
-            current = nextItem;
-        } while ( current is not null );
+            case 40:
+            case 41:
+                this.Wrong = decoder.DecodeInt();
+                break;
+            case 42:
+                this.TheAnswer = decoder.DecodeInt();
+                break;
+            default:
+                this.CheckHash = decoder.DecodeInt();
+                break;
+        }
     }
 
 }

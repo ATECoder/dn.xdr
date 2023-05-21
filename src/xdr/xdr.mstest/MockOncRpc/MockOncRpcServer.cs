@@ -288,9 +288,7 @@ public partial class MockOncRpcServer
     /// <param name="d">    An int to process. </param>
     [System.Diagnostics.CodeAnalysis.SuppressMessage( "Style", "IDE0060:Remove unused parameter", Justification = "<Pending>" )]
     public static void ProcessFourArguments( string a, int b, int c, int d )
-    {
-    }
-
+    { }
     #endregion
 
 }

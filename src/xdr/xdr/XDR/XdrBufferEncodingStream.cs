@@ -163,9 +163,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EndEncoding()
-    {
-    }
-
+    { }
     #endregion
 
     #region " encode actions "

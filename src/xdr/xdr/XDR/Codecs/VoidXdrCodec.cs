@@ -19,18 +19,14 @@ public class VoidXdrCodec : IXdrCodec
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     public virtual void Encode( XdrEncodingStreamBase encoder )
-    {
-    }
-
+    { }
     /// <summary>
     /// Decodes -- that is: deserializes -- a void from an XDR stream in compliance to RFC 1832.
     /// </summary>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
     public virtual void Decode( XdrDecodingStreamBase decoder )
-    {
-    }
-
+    { }
     /// <summary>
     /// (Immutable)
     /// Static <see cref="VoidXdrCodec"/> instance, which can be used in cases where no data is to be

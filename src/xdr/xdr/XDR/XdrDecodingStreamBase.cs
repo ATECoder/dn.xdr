@@ -159,9 +159,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// does nothing. </para>
     /// </remarks>
     public virtual void EndDecoding()
-    {
-    }
-
+    { }
     #endregion
 
     #region " decoding "

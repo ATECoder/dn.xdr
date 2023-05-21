@@ -65,9 +65,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// <exception cref="ArgumentException">    if the size of the buffer is not a multiple of
     ///                                         four. </exception>
     public XdrBufferDecodingStream( byte[] buffer ) : this( buffer, buffer.Length )
-    {
-    }
-
+    { }
     /// <summary>
     /// Releases unmanaged, large objects and (optionally) managed resources used by this class.
     /// </summary>

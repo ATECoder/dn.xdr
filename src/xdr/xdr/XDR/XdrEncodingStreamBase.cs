@@ -137,9 +137,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     ///                                 connected permanently to a receiver (like in case of TCP/IP
     ///                                 based XDR streams). </param>
     public virtual void BeginEncoding( IPEndPoint remoteEndPoint )
-    {
-    }
-
+    { }
     /// <summary>
     /// Flushes this encoding XDR stream and forces any buffered output <see cref="byte"/>s to be written out.
     /// </summary>
@@ -152,9 +150,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     /// does nothing.</para>
     /// </remarks>
     public virtual void EndEncoding()
-    {
-    }
-
+    { }
     #endregion
 
     #region " encode actions "
