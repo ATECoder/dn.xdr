@@ -7,7 +7,7 @@ namespace cc.isr.XDR.MSTest.MockOncRpc;
 public partial class MockOncRpcServer
 {
 
-    #region " Handle Procedure calls "
+    #region " handle procedure calls "
 
     /// <summary>   Dispatch (handle) an ONC/RPC request from a client. </summary>
     /// <remarks>
@@ -169,7 +169,7 @@ public partial class MockOncRpcServer
 
     #endregion
 
-    #region " Remote Procedures "
+    #region " remote procedures "
 
     /// <summary>   No operation. </summary>
     public static void Nop()

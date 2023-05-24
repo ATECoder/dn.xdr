@@ -13,7 +13,7 @@ namespace cc.isr.XDR;
 /// </remarks>
 public class XdrBufferDecodingStream : XdrDecodingStreamBase
 {
-    #region " Construction and Cleanup "
+    #region " construction and cleanup "
 
     /// <summary>
     /// The buffer which will be filled from the datagram socket and then
