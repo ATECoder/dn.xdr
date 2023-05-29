@@ -23,8 +23,21 @@
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\xdr\cc.isr.XDR.csproj" />
-  </ItemGroup>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);MYPROJREF;</DefineConstants>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="$(DefineConstants.Contains(';PROJREF;')) OR $(DefineConstants.Contains(';MYPROJREF;'))">
+	  <ItemGroup>
+		<ProjectReference Include="..\xdr\cc.isr.XDR.csproj" />
+	  </ItemGroup>
+    </When>
+    <Otherwise>
+	    <ItemGroup>
+        <PackageReference Include="cc.isr.Xdr" Version="1.0.0" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
 </Project>
