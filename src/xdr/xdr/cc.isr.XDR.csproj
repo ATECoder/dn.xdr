@@ -8,7 +8,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-
     <!-- Assembly Info -->
     <RootNamespace>cc.isr</RootNamespace>
     <AssemblyName>cc.isr.XDR</AssemblyName>
@@ -43,6 +42,11 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Compile Include="..\..\items\ProductKey.cs" Link="Properties\ProductKey.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\items\readme.md" Pack="true" PackagePath="" />

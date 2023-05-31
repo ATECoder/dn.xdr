@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "~items", "~items", "{C57D9B99-54FD-4AB0-9DCC-DBCD77951BB9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "`docs", "`docs", "{C57D9B99-54FD-4AB0-9DCC-DBCD77951BB9}"
 	ProjectSection(SolutionItems) = preProject
 		..\CHANGELOG.md = ..\CHANGELOG.md
 		items\readme.md = items\readme.md
@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "~items", "~items", "{C57D9B
 		..\xdr.md = ..\xdr.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "~build", "~build", "{A761A44D-A202-4141-A0D1-309729FA5516}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "`build", "`build", "{A761A44D-A202-4141-A0D1-309729FA5516}"
 	ProjectSection(SolutionItems) = preProject
 		directory.build.props = directory.build.props
 		items\version.build.bat = items\version.build.bat

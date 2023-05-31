@@ -1,5 +1,7 @@
 namespace cc.isr.XDR.EncodingExtensions;
 
+/// <summary>   An encoding stream extensions. </summary>
+/// <remarks>   2023-05-31. </remarks>
 public static class EncodingStreamExtensions
 {
 

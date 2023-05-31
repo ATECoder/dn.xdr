@@ -19,8 +19,20 @@ public interface ILogWriter
 
 /// <summary>   Values that represent log writer levels. </summary>
 /// <remarks>   2023-03-23. </remarks>
+/// <summary>   Values that represent log writer levels. </summary>
+/// <remarks>   2023-05-31. </remarks>
 public enum LogWriterLevel
-{ None, Error, Warning, Information, Verbose }
+{
+    /// <summary>   An enum constant representing the none option. </summary>
+    None,
+    /// <summary>   An enum constant representing the error option. </summary>
+    Error,
+    /// <summary>   An enum constant representing the warning option. </summary>
+    Warning,
+    /// <summary>   An enum constant representing the information option. </summary>
+    Information,
+    /// <summary>   An enum constant representing the verbose option. </summary>
+    Verbose }
 
 /// <summary>   A logging extensions. </summary>
 public static class LogWriterExtensions

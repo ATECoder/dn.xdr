@@ -12,6 +12,11 @@
     <RootNamespace>cc.isr.XDR.MSTest</RootNamespace>
     <AssemblyName>cc.isr.XDR.MSTest</AssemblyName>
 
+    <!-- Signature -->
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\items\keyPair.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+
     <IsPackable>false</IsPackable>
 
   </PropertyGroup>

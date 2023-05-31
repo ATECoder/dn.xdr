@@ -41,6 +41,8 @@ public class ConsoleLogWriter : ILogWriter
 /// <summary>   A logger. </summary>
 public static class Logger
 {
+    /// <summary>   Gets or sets the writer. </summary>
+    /// <value> The writer. </value>
     public static ILogWriter Writer { get; set; } = new ConsoleLogWriter( LogWriterLevel.Verbose );
 }
 
