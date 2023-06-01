@@ -2,6 +2,15 @@
 All notable changes to these libraries will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+##### [1.1.8552] - 2023-06-01 Preview 202304
+* Add assembly info, produce key and key pair. 
+* Add XML documentation. 
+* Update packages.
+* Reorganize folders. 
+* Implement nullable. 
+* Update tests logger. 
+* Update revision to 8552.
+
 ##### [1.1.8535] - 2023-05-15 Preview 202304
 * Use cc.isr.Json.AppSettings.ViewModels project for settings I/O.
 
@@ -15,4 +24,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 &copy;  2023 Integrated Scientific Resources, Inc. All rights reserved.
 
-[1.1.8518]: https://github.com/ATECoder/dn.xdr
+[1.1.8552]: https://github.com/ATECoder/dn.xdr

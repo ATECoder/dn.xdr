@@ -1,4 +1,3 @@
-using cc.isr.XDR.Logging;
 using cc.isr.XDR.EnumExtensions;
 
 namespace cc.isr.XDR.MSTest;
@@ -10,22 +9,61 @@ public class SupportTests
 
     #region " fixture construction and cleanup "
 
-    /// <summary>   Initializes the fixture. </summary>
-    /// <param name="testContext"> Gets or sets the test context which provides information about
-    /// and functionality for the current test run. </param>
-    [ClassInitialize]
-    public static void InitializeFixture( TestContext testContext )
+        /// <summary> Initializes the test class before running the first test. </summary>
+        /// <param name="testContext"> Gets or sets the test context which provides information about
+        /// and functionality for the current test run. </param>
+        /// <remarks>Use ClassInitialize to run code before running the first test in the class</remarks>
+        [ClassInitialize()]
+        public static void InitializeTestClass( TestContext testContext )
     {
         try
         {
-            _classTestContext = context;
-            Logger.Writer.LogInformation( $"{_classTestContext.FullyQualifiedTestClassName}.{System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name}" );
+            string methodFullName =  $"{testContext.FullyQualifiedTestClassName}.{System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name}";
+            if ( Logger is null )
+                Console.WriteLine( methodFullName );
+            else
+                Logger?.LogMemberInfo( methodFullName );
         }
         catch ( Exception ex )
         {
-            Logger.Writer.LogMemberError( $"Failed initializing fixture:", ex );
-            CleanupFixture();
+            if ( Logger is null )
+                Console.WriteLine( $"Failed initializing the test class: {ex}" );
+            else
+                Logger.LogMemberError( "Failed initializing the test class:", ex );
+
+            // cleanup to meet strong guarantees
+
+            try
+            {
+                CleanupTestClass();
+            }
+            finally
+            {
+            }
         }
+    }
+
+    /// <summary> Cleans up the test class after all tests in the class have run. </summary>
+    /// <remarks> Use <see cref="CleanupTestClass"/> to run code after all tests in the class have run. </remarks>
+    [ClassCleanup()]
+    public static void CleanupTestClass()
+    { }
+
+    private IDisposable? _loggerScope;
+
+    /// <summary> Initializes the test class instance before each test runs. </summary>
+    [TestInitialize()]
+    public void InitializeBeforeEachTest()
+    {
+        this._loggerScope = Logger?.BeginScope( this.TestContext?.TestName ?? string.Empty );
+
+    }
+
+    /// <summary> Cleans up the test class instance after each test has run. </summary>
+    [TestCleanup()]
+    public void CleanupAfterEachTest()
+    {
+        this._loggerScope?.Dispose();
     }
 
     /// <summary>
@@ -35,12 +73,10 @@ public class SupportTests
     /// <value> The test context. </value>
     public TestContext? TestContext { get; set; }
 
-    private static TestContext? _classTestContext;
+    /// <summary>   Gets a logger instance for this category. </summary>
+    /// <value> The logger. </value>
+    public static ILogger<SupportTests>? Logger { get; } = LoggerProvider.InitLogger<SupportTests>();
 
-    /// <summary>   Cleanup fixture. </summary>
-    [ClassCleanup]
-    public static void CleanupFixture()
-    { }
     #endregion
 
     #region " enum extensions "

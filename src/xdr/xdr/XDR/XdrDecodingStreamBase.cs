@@ -160,6 +160,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// </remarks>
     public virtual void EndDecoding()
     { }
+
     #endregion
 
     #region " decoding "

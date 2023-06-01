@@ -151,6 +151,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     /// </remarks>
     public virtual void EndEncoding()
     { }
+
     #endregion
 
     #region " encode actions "

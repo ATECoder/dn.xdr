@@ -2,13 +2,6 @@
 
 #### Updates
 
-* Update packages.
-* Reorganize folders. 
-* Implement nullable. 
-* Add trace log projects. 
-* Use simplified test settings and test logging.
-* Update revisions
-
 #### MVVM
 * Support MVVM in relevant libraries.
 * Support MVVM in Windows forms project.

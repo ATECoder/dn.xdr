@@ -1,32 +1,71 @@
 using System.Text;
-
-using cc.isr.XDR.Logging;
 using cc.isr.XDR.MSTest.Codecs;
 
 namespace cc.isr.XDR.MSTest.MockOncRpc;
 
+/// <summary>   (Unit Test Class) a mock onc RPC client tests. </summary>
+/// <remarks>   2023-06-01. </remarks>
 [TestClass]
 public class MockOncRpcClientTests
 {
 
     #region " fixture construction and cleanup "
 
-    /// <summary>   Initializes the fixture. </summary>
+    /// <summary> Initializes the test class before running the first test. </summary>
     /// <param name="testContext"> Gets or sets the test context which provides information about
     /// and functionality for the current test run. </param>
-    [ClassInitialize]
-    public static void InitializeFixture( TestContext testContext )
+    /// <remarks>Use ClassInitialize to run code before running the first test in the class</remarks>
+    [ClassInitialize()]
+    public static void InitializeTestClass( TestContext testContext )
     {
         try
         {
-            _classTestContext = context;
-            Logger.Writer.LogInformation( $"{_classTestContext.FullyQualifiedTestClassName}.{System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name}" );
+            string methodFullName =  $"{testContext.FullyQualifiedTestClassName}.{System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name}";
+            if ( Logger is null )
+                Console.WriteLine( methodFullName );
+            else
+                Logger?.LogMemberInfo( methodFullName );
         }
         catch ( Exception ex )
         {
-            Logger.Writer.LogMemberError( $"Failed initializing fixture:", ex );
-            CleanupFixture();
+            if ( Logger is null )
+                Console.WriteLine( $"Failed initializing the test class: {ex}" );
+            else
+                Logger.LogMemberError( "Failed initializing the test class:", ex );
+
+            // cleanup to meet strong guarantees
+
+            try
+            {
+                CleanupTestClass();
+            }
+            finally
+            {
+            }
         }
+    }
+
+    /// <summary> Cleans up the test class after all tests in the class have run. </summary>
+    /// <remarks> Use <see cref="CleanupTestClass"/> to run code after all tests in the class have run. </remarks>
+    [ClassCleanup()]
+    public static void CleanupTestClass()
+    { }
+
+    private IDisposable? _loggerScope;
+
+    /// <summary> Initializes the test class instance before each test runs. </summary>
+    [TestInitialize()]
+    public void InitializeBeforeEachTest()
+    {
+        this._loggerScope = Logger?.BeginScope( this.TestContext?.TestName ?? string.Empty );
+
+    }
+
+    /// <summary> Cleans up the test class instance after each test has run. </summary>
+    [TestCleanup()]
+    public void CleanupAfterEachTest()
+    {
+        this._loggerScope?.Dispose();
     }
 
     /// <summary>
@@ -36,21 +75,19 @@ public class MockOncRpcClientTests
     /// <value> The test context. </value>
     public TestContext? TestContext { get; set; }
 
-    private static TestContext? _classTestContext;
+    /// <summary>   Gets a logger instance for this category. </summary>
+    /// <value> The logger. </value>
+    public static ILogger<CodecStreamsTests>? Logger { get; } = LoggerProvider.InitLogger<CodecStreamsTests>();
 
-    /// <summary>   Cleanup fixture. </summary>
-    [ClassCleanup]
-    public static void CleanupFixture()
-    { }
     #endregion
 
     /// <summary>   Assert client should ping. </summary>
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldPing( MockOncRpcClient client )
     {
-        Logger.Writer.LogInformation( "About to ping: " );
+        Logger?.LogInformation( "About to ping: " );
         client.CallRemoteProcedureNull();
-        Logger.Writer.LogInformation( "okay" );
+        Logger?.LogInformation( "okay" );
     }
 
     /// <summary>   Assert client should ping. </summary>
@@ -125,11 +162,11 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldEcho( MockOncRpcClient client )
     {
-        Logger.Writer.LogInformation( "About to echo: " );
+        Logger?.LogInformation( "About to echo: " );
         string expected = "Hello, Remote Tea!";
         string actual = client.CallRemoteProcedureEcho( expected );
         Assert.AreEqual( expected, actual );
-        Logger.Writer.LogInformation( $"Okay; echoed: '{actual}'" );
+        Logger?.LogInformation( $"Okay; echoed: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should echo. </summary>
@@ -151,13 +188,13 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldConcatenate( MockOncRpcClient client )
     {
-        Logger.Writer.LogInformation( "About to concatenate: " );
+        Logger?.LogInformation( "About to concatenate: " );
         StringVectorCodec strings = new();
         strings.SetValues( new StringCodec[] { new StringCodec( "Hello, " ), new StringCodec( "Remote " ), new StringCodec( "Tea!" ) } );
         string expected = "Hello, Remote Tea!";
         string actual = client.CallRemoteProcedureConcatenateInputParameters( strings );
         Assert.AreEqual( expected, actual );
-        Logger.Writer.LogInformation( $"Okay; echoed: '{actual}'" );
+        Logger?.LogInformation( $"Okay; echoed: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should concatenate. </summary>
@@ -179,11 +216,11 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldConcatenateExactly( MockOncRpcClient client )
     {
-        Logger.Writer.LogInformation( "About to concatenating exactly three strings: " );
+        Logger?.LogInformation( "About to concatenating exactly three strings: " );
         string expected = "(1:Hello )(2:Remote )(3:Tea!)";
         string actual = client.CallRemoteProcedureConcatenatedThreeItems( "(1:Hello )", "(2:Remote )", "(3:Tea!)" );
         Assert.AreEqual( expected, actual );
-        Logger.Writer.LogInformation( $"The three arguments concatenated: '{actual}'" );
+        Logger?.LogInformation( $"The three arguments concatenated: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should concatenate exactly. </summary>
@@ -221,7 +258,7 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldGetFoo( MockOncRpcClient client )
     {
-        Logger.Writer.LogInformation( "About to get a foo: " );
+        Logger?.LogInformation( "About to get a foo: " );
         Assert.AreEqual( client.CallRemoteProcedureReturnEnumFooValue(), ( int ) EnumFoo.FOO, $"oops: got a {EnumFoo.BAR} instead of a {EnumFoo.FOO}!" );
     }
 
@@ -242,7 +279,7 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldGetNumberedFoo( MockOncRpcClient client )
     {
-        Logger.Writer.LogInformation( "About to get a numbered foo string: " );
+        Logger?.LogInformation( "About to get a numbered foo string: " );
         EnumFoo expectedValue = EnumFoo.FOO;
         string expected = MockOncRpcServer.ReturnYouAreFooValue( ( int ) expectedValue );
         string echo = client.CallRemoteProcedureReturnYouAreFooValue( expectedValue );
@@ -266,7 +303,7 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldPrependLinkedList( MockOncRpcClient client )
     {
-        Logger.Writer.LogInformation( "Linked List test: " );
+        Logger?.LogInformation( "Linked List test: " );
         LinkedListCodec node1 = new() {
             Foo = 0
         };
@@ -293,7 +330,7 @@ public class MockOncRpcClientTests
             actual = actual.Next;
             expected = expected.Next;
         }
-        Logger.Writer.LogInformation( $"built list {builder}" );
+        Logger?.LogInformation( $"built list {builder}" );
     }
 
     /// <summary>   (Unit Test Method) client should prepend linked list. </summary>
@@ -316,7 +353,7 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldLinkLinkedList( MockOncRpcClient client )
     {
-        Logger.Writer.LogInformation( "Linking Linked Lists test: " );
+        Logger?.LogInformation( "Linking Linked Lists test: " );
         LinkedListCodec node1 = new() {
             Foo = 0
         };
@@ -344,7 +381,7 @@ public class MockOncRpcClientTests
             actual = actual.Next;
             expected = expected.Next;
         }
-        Logger.Writer.LogInformation( $"built list {builder}" );
+        Logger?.LogInformation( $"built list {builder}" );
     }
 
     /// <summary>   (Unit Test Method) client should link linked list. </summary>

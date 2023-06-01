@@ -1,7 +1,3 @@
-
-using System.Collections.Generic;
-using System.Linq;
-
 namespace cc.isr.XDR;
 
 /// <summary>
@@ -164,6 +160,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EndEncoding()
     { }
+
     #endregion
 
     #region " encode actions "

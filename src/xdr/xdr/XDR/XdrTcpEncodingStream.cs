@@ -1,8 +1,4 @@
-
 using System.Net.Sockets;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace cc.isr.XDR;
 
@@ -294,6 +290,12 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         this._buffer[this._bufferIndex++] = ( byte ) value;
     }
 
+    /// <summary>   Encodes (aka "serializes") an <see cref="uint"/> value into an XDR stream. </summary>
+    /// <remarks>
+    /// An XDR <see cref="uint"/> encapsulates a 32 bits <see cref="uint"/>
+    /// in 4 bytes in big endian order.
+    /// </remarks>
+    /// <param name="value">    The value. </param>
     public override void EncodeUInt( uint value )
     {
         if ( this._bufferIndex > this._bufferHighmark )
