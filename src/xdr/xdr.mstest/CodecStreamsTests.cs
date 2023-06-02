@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 
@@ -18,7 +19,7 @@ public class CodecStreamsTests
     {
         try
         {
-            string methodFullName =  $"{testContext.FullyQualifiedTestClassName}.{System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name}";
+            string methodFullName = $"{testContext.FullyQualifiedTestClassName}.{System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name}";
             if ( Logger is null )
                 Console.WriteLine( methodFullName );
             else
@@ -51,19 +52,29 @@ public class CodecStreamsTests
 
     private IDisposable? _loggerScope;
 
+    private LoggerTraceListener<CodecStreamsTests>? _traceListener;
+
     /// <summary> Initializes the test class instance before each test runs. </summary>
     [TestInitialize()]
     public void InitializeBeforeEachTest()
     {
-        this._loggerScope = Logger?.BeginScope( this.TestContext?.TestName ?? string.Empty );
-
+        if ( Logger is not null )
+        {
+            this._loggerScope = Logger.BeginScope( this.TestContext?.TestName ?? string.Empty );
+            this._traceListener = new LoggerTraceListener<CodecStreamsTests>( Logger );
+            _ = Trace.Listeners.Add( this._traceListener );
+        }
     }
 
     /// <summary> Cleans up the test class instance after each test has run. </summary>
     [TestCleanup()]
     public void CleanupAfterEachTest()
     {
+        Assert.IsFalse( this._traceListener?.Any( TraceEventType.Error ),
+            $"{nameof( this._traceListener )} should have no {TraceEventType.Error} messages" );
         this._loggerScope?.Dispose();
+        this._traceListener?.Dispose();
+        Trace.Listeners.Clear();
     }
 
     /// <summary>
@@ -89,6 +100,21 @@ public class CodecStreamsTests
         Assert.IsNotNull( Logger, $"{nameof( Logger )} should initialize" );
         Assert.IsTrue( Logger.IsEnabled( LogLevel.Information ),
             $"{nameof( Logger )} should be enabled for the {LogLevel.Information} {nameof( LogLevel )}" );
+    }
+
+    /// <summary>   (Unit Test Method) 01 logger trace listener should have messages. </summary>
+    /// <remarks>   2023-06-01. </remarks>
+    [TestMethod]
+    public void A01LoggerTraceListenerShouldHaveMessages()
+    {
+        Assert.IsNotNull( this._traceListener, $"{nameof( this._traceListener )} should initialize" );
+        Assert.IsTrue( Trace.Listeners.Count > 0, $"{nameof( Trace )} should have non-zero {nameof( Trace.Listeners )}" );
+        Trace.TraceError( "Testing tracing an error" ); Trace.Flush();
+        Assert.IsTrue( this._traceListener?.Any( TraceEventType.Error ), $"{nameof( this._traceListener )} should have {TraceEventType.Error} messages" );
+
+        // no need to report errors for this test.
+
+        this._traceListener?.Clear();
     }
 
     #endregion
