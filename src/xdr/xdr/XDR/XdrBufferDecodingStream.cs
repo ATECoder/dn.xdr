@@ -62,6 +62,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     ///                                         four. </exception>
     public XdrBufferDecodingStream( byte[] buffer ) : this( buffer, buffer.Length )
     { }
+
     /// <summary>
     /// Releases unmanaged, large objects and (optionally) managed resources used by this class.
     /// </summary>

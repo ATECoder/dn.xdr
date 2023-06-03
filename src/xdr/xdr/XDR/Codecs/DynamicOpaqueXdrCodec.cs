@@ -17,6 +17,7 @@ public class DynamicOpaqueXdrCodec : IXdrCodec
     /// <summary>   Constructs and initializes a new <see cref="DynamicOpaqueXdrCodec"/> object. </summary>
     public DynamicOpaqueXdrCodec() : this( Array.Empty<byte>() )
     { }
+
     /// <summary>   Constructs and initializes a new <see cref="DynamicOpaqueXdrCodec"/> object. </summary>
     /// <param name="value">    The encapsulated opaque value itself. </param>
     public DynamicOpaqueXdrCodec( byte[] value )

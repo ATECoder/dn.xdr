@@ -17,6 +17,7 @@ public class LinkedListCodec : IXdrCodec
     /// <summary>   Default constructor. </summary>
     public LinkedListCodec()
     { }
+
     /// <summary>   Copy constructor. </summary>
     /// <param name="linkedListCodec">  The linked list codec. </param>
     public LinkedListCodec( LinkedListCodec linkedListCodec )

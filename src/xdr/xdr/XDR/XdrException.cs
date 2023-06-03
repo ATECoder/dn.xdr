@@ -15,6 +15,7 @@ public class XdrException : Exception
     /// </summary>
     public XdrException() : this( XdrExceptionReason.XdrFailed )
     { }
+
     /// <summary>
     /// Constructs an <see cref="XdrException"/> with the specified detail message.
     /// </summary>

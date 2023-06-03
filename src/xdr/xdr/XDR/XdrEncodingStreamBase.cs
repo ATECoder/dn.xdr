@@ -138,6 +138,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     ///                                 based XDR streams). </param>
     public virtual void BeginEncoding( IPEndPoint remoteEndPoint )
     { }
+
     /// <summary>
     /// Flushes this encoding XDR stream and forces any buffered output <see cref="byte"/>s to be written out.
     /// </summary>
