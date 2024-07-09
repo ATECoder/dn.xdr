@@ -7,7 +7,6 @@ namespace cc.isr.XDR.MSTest;
 [TestClass]
 public class CodecStreamsTests
 {
-
     #region " construction and cleanup "
 
     /// <summary>   Initializes the test class before running the first test. </summary>

@@ -10,7 +10,6 @@ namespace cc.isr.XDR.MSTest.MockOncRpc;
 [TestClass]
 public class MockOncRpcClientTests
 {
-
     #region " construction and cleanup "
 
     /// <summary>   Initializes the test class before running the first test. </summary>

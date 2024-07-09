@@ -9,9 +9,6 @@ namespace cc.isr.XDR;
 /// </remarks>
 public class XdrBufferEncodingStream : XdrEncodingStreamBase
 {
-
-    #region " construction and cleanup "
-
     /// <summary>
     /// The buffer which will receive the encoded information, before it
     /// is sent via a datagram socket.

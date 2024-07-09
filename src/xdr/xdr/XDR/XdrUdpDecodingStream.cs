@@ -11,9 +11,6 @@ namespace cc.isr.XDR;
 /// Remote Tea authors: Harald Albrecht, Jay Walters. </para></remarks>
 public class XdrUdpDecodingStream : XdrDecodingStreamBase
 {
-
-    #region " construction and cleanup "
-
     /// <summary>
     /// The datagram socket to be used when receiving this XDR stream's
     /// buffer contents.

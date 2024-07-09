@@ -6,7 +6,6 @@ namespace cc.isr.XDR.MSTest;
 [TestClass]
 public class StreamsTests
 {
-
     #region " construction and cleanup "
 
     /// <summary>   Initializes the test class before running the first test. </summary>
