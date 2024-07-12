@@ -2,7 +2,6 @@ namespace cc.isr.XDR.MSTest.MockOncRpc;
 
 public class MockOncRpcTransport
 {
-
     #region " construction "
 
     /// <summary>   Constructor. </summary>
@@ -77,5 +76,4 @@ public class MockOncRpcTransport
     }
 
     #endregion
-
 }

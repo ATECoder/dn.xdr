@@ -595,5 +595,4 @@ public abstract class XdrDecodingStreamBase : ICloseable
     }
 
     #endregion
-
 }

@@ -105,7 +105,6 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
         this.Dispose( false );
     }
 
-
     #endregion
 
     #region " members "
@@ -263,5 +262,4 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     }
 
     #endregion
-
 }

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-
 using cc.isr.XDR.EnumExtensions;
 
 namespace cc.isr.XDR.MSTest;
@@ -164,5 +163,4 @@ public class SupportTests
     }
 
     #endregion
-
 }

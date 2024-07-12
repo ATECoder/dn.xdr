@@ -4,7 +4,6 @@ namespace cc.isr.XDR.MSTest.MockOncRpc;
 
 public class MockOncRpcClient
 {
-
     #region " encoding and decoding "
 
     /// <summary>   Emulates a remote procedure call. </summary>
@@ -212,5 +211,4 @@ public class MockOncRpcClient
     }
 
     #endregion
-
 }

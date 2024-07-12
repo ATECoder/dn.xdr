@@ -504,5 +504,4 @@ public class CodecStreamsTests
     }
 
     #endregion
-
 }

@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Text;
-
 using cc.isr.XDR.MSTest.Codecs;
 
 namespace cc.isr.XDR.MSTest.MockOncRpc;

@@ -1,12 +1,10 @@
 using System.Text;
-
 using cc.isr.XDR.MSTest.Codecs;
 
 namespace cc.isr.XDR.MSTest.MockOncRpc;
 
 public partial class MockOncRpcServer
 {
-
     #region " handle procedure calls "
 
     /// <summary>   Dispatch (handle) an ONC/RPC request from a client. </summary>
@@ -291,5 +289,4 @@ public partial class MockOncRpcServer
     { }
 
     #endregion
-
 }
