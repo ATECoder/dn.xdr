@@ -366,7 +366,7 @@ public class MockOncRpcClientTests
         LinkedListCodec? actual = list;
         int i = 0;
         StringBuilder builder = new();
-        while ( expected != null )
+        while ( expected is not null )
         {
             i++;
             Assert.IsNotNull( actual, $"node{i} actual list should have the same number of nodes as expected" ); ;
@@ -417,7 +417,7 @@ public class MockOncRpcClientTests
         LinkedListCodec? actual = list;
         int i = 0;
         StringBuilder builder = new();
-        while ( expected != null )
+        while ( expected is not null )
         {
             i++;
             Assert.IsNotNull( actual, $"node{i} actual list should have the same number of nodes as expected" ); ;

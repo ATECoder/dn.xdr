@@ -23,7 +23,7 @@ public class LinkedListCodec : IXdrCodec
     public LinkedListCodec( LinkedListCodec linkedListCodec )
     {
         LinkedListCodec? expected = linkedListCodec;
-        while ( expected != null )
+        while ( expected is not null )
         {
             this.Foo = expected.Foo;
             this.Next = expected.Next;
