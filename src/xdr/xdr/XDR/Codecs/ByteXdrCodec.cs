@@ -1,5 +1,4 @@
 namespace cc.isr.XDR.Codecs;
-
 /// <summary>
 /// Instances of the class <see cref="ByteXdrCodec"/> represent a serializable <see cref="byte"/>,
 /// which are especially useful in cases where a result with only a single <see cref="byte"/> is

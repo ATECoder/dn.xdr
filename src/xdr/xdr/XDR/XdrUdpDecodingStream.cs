@@ -1,6 +1,5 @@
 using System.Net.Sockets;
 namespace cc.isr.XDR;
-
 /// <summary>
 /// The <see cref="XdrUdpDecodingStream"/> class provides the necessary functionality to
 /// <see cref="XdrDecodingStreamBase"/> to receive XDR packets from the network using the

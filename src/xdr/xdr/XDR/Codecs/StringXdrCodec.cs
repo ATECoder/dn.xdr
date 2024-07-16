@@ -1,5 +1,4 @@
 namespace cc.isr.XDR.Codecs;
-
 /// <summary>
 /// Instances of the class <see cref="StringXdrCodec"/> represent serializable <see cref="string"/>s, which are
 /// especially useful in cases where a result with only a single <see cref="string"/> is expected from a remote

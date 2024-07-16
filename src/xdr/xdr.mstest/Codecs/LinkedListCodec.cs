@@ -1,4 +1,5 @@
 namespace cc.isr.XDR.MSTest.Codecs;
+
 /// <summary>   (Serializable) linked list  XBR encoder/decoder. </summary>
 [Serializable]
 public class LinkedListCodec : IXdrCodec

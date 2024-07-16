@@ -1,7 +1,6 @@
 using System.ComponentModel;
 
 namespace cc.isr.XDR;
-
 /// <summary>
 /// The class <see cref="XdrException"/> indicates XDR conditions that a reasonable
 /// application might want to catch.
@@ -9,7 +8,6 @@ namespace cc.isr.XDR;
 [Serializable]
 public class XdrException : Exception
 {
-
     /// <summary>
     /// Constructs an <see cref="XdrException"/> with a reason of <see cref="XdrExceptionReason.XdrFailed"/>.
     /// </summary>
@@ -111,7 +109,6 @@ public class XdrException : Exception
     public override string Message => this._message;
 
 }
-
 /// <summary>   Values that represent reasons for <see cref="XdrException"/>. </summary>
 public enum XdrExceptionReason
 {

@@ -1,6 +1,5 @@
 
 namespace cc.isr.XDR;
-
 /// <summary>
 /// Defines the interface for all classes serialize and deserialize value(s)
 /// into and from XDR streams.

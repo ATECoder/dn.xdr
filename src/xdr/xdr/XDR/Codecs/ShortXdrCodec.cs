@@ -1,5 +1,4 @@
 namespace cc.isr.XDR.Codecs;
-
 /// <summary>
 /// Instances of the class <see cref="ShortXdrCodec"/> represent serializable <see cref="short"/>s, which are
 /// especially useful in cases where a result with only a single <see cref="short"/> is expected from a remote

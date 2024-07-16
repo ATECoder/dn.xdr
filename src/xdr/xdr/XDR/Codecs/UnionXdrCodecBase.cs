@@ -1,5 +1,4 @@
 namespace cc.isr.XDR.Codecs;
-
 /// <summary>
 /// The abstract base class <see cref="UnionXdrCodecBase"/> <see cref="UnionXdrCodecBase"/> for
 /// the serialization of polymorphic classes.
@@ -37,7 +36,6 @@ namespace cc.isr.XDR.Codecs;
 /// </remarks>
 public abstract class UnionXdrCodecBase : IXdrCodec
 {
-
     /// <summary>   Specialized constructor for use only by derived class. </summary>
     /// <param name="xdrTypeCode">  Type code identifying an object's class when encoding or decoding
     ///                             the object into or from a XDR stream. </param>

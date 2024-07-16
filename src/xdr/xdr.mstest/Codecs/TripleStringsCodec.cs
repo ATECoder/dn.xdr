@@ -3,7 +3,6 @@ namespace cc.isr.XDR.MSTest.Codecs;
 /// <summary>   (Serializable) a triple strings XBR encoder/decoder. </summary>
 internal class TripleStringsCodec : IXdrCodec
 {
-
     /// <summary>   Default constructor. </summary>
     public TripleStringsCodec()
     {

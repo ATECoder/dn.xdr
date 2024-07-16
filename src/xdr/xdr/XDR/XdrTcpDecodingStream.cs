@@ -2,7 +2,6 @@
 using System.Net.Sockets;
 
 namespace cc.isr.XDR;
-
 /// <summary>
 /// The <see cref="XdrTcpDecodingStream"/> class provides the necessary functionality to
 /// <see cref="XdrDecodingStreamBase"/> to receive XDR records from the network using the stream-

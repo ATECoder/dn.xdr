@@ -9,8 +9,6 @@ public static class RpcProgramConstants
     /// <summary>   (Immutable) the RPC program version two. </summary>
     public const int Version2 = 2;
 }
-
-
 /// <summary>
 /// A collection of remote procedures for ONC/RPC program version 1.
 /// </summary>
@@ -45,7 +43,6 @@ public enum RemoteProceduresVersion1
     RemoteProcedureReadSomeResult = 42,
 
 }
-
 /// <summary>   A class that enumerates the remote procedures for ONC/RPC program version 2. </summary>
 public enum RemoteProceduresVersion2
 {
@@ -74,7 +71,6 @@ public enum RemoteProceduresVersion2
     ProcessFourArguments = 100,
 
 }
-
 /// <summary>   Enumeration (collection of constants). </summary>
 public enum EnumFoo
 {

@@ -1,5 +1,4 @@
 namespace cc.isr.XDR.Codecs;
-
 /// <summary>
 /// Instances of the class <see cref="OpaqueXdrCodec"/> represent serializable fixed-size opaque
 /// values, which are especially useful in cases where a result with only a single opaque value

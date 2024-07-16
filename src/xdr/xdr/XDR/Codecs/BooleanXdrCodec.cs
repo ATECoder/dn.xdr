@@ -1,5 +1,4 @@
 namespace cc.isr.XDR.Codecs;
-
 /// <summary>
 /// Instances of the class <see cref="BooleanXdrCodec"/> represent a <see cref="bool"/> <see cref="IXdrCodec"/>
 /// , which are especially useful in cases where a result with only a single <see cref="bool"/>

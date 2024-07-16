@@ -4,7 +4,6 @@ namespace cc.isr.XDR.MSTest.Codecs;
 [Serializable]
 internal class DualStringsCodec : IXdrCodec
 {
-
     /// <summary>   Gets or sets the first value. </summary>
     /// <value> The first value. </value>
     public string FirstValue { get; set; } = string.Empty;

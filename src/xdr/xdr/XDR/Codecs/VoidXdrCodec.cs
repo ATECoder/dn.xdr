@@ -1,5 +1,4 @@
 namespace cc.isr.XDR.Codecs;
-
 /// <summary>
 /// Instances of the class <see cref="VoidXdrCodec"/> represent serializable voids, which are
 /// especially useful in cases where no result is expected from a remote function call or no

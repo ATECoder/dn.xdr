@@ -1,5 +1,4 @@
 namespace cc.isr.XDR;
-
 /// <summary>
 /// The <see cref="XdrBufferDecodingStream"/> class provides the necessary functionality to retrieve XDR
 /// packets from a byte buffer.

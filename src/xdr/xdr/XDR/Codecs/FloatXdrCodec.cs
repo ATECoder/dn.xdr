@@ -1,5 +1,4 @@
 namespace cc.isr.XDR.Codecs;
-
 /// <summary>
 /// Instances of the class <see cref="FloatXdrCodec"/> represent serializable <see cref="float"/>s, which are
 /// especially useful in cases where a result with only a single <see cref="float"/> is expected from a remote

@@ -1,5 +1,4 @@
 namespace cc.isr.XDR;
-
 /// <summary>
 /// The <see cref="XdrBufferEncodingStream"/> class provides a buffer-based XDR stream.
 /// </summary>

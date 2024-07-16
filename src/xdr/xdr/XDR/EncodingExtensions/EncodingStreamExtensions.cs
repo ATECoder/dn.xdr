@@ -4,7 +4,6 @@ namespace cc.isr.XDR.EncodingExtensions;
 /// <remarks>   2023-05-31. </remarks>
 public static class EncodingStreamExtensions
 {
-
     /// <summary>   Encodes (aka "serializes") an <see cref="IPAddress"/> value into an XDR stream. </summary>
     /// <param name="value">    The value to be encoded. </param>
     /// <param name="encoder">  The encoder. </param>

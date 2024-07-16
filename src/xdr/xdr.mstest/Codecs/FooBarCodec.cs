@@ -3,7 +3,6 @@ namespace cc.isr.XDR.MSTest.Codecs;
 /// <summary>   A foo bar codec. </summary>
 internal class FooBarCodec : FooCodecBase
 {
-
     /// <summary>   Default constructor. </summary>
     public FooBarCodec()
     {
