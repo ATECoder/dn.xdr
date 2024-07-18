@@ -14,7 +14,6 @@
     <ApplicationTitle>cc.isr.XDR</ApplicationTitle>
     <ApplicationId>cc.isr.xdr</ApplicationId>
 
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
