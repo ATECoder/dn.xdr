@@ -72,8 +72,8 @@ public class CodecStreamsTests
     [TestCleanup()]
     public void CleanupAfterEachTest()
     {
-        Assert.IsFalse( this._traceListener?.Any( TraceEventType.Error ),
-            $"{nameof( this._traceListener )} should have no {TraceEventType.Error} messages" );
+        Assert.IsNotNull( this._traceListener, nameof( TraceListener ) );
+        Assert.IsFalse( this._traceListener.Any( TraceEventType.Error ), $"{nameof( this._traceListener )} should have no {TraceEventType.Error} messages" );
         this._loggerScope?.Dispose();
         this._traceListener?.Dispose();
         Trace.Listeners.Clear();
