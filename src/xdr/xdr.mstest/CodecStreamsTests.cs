@@ -25,7 +25,7 @@ public class CodecStreamsTests
             if ( Logger is null )
                 Console.WriteLine( methodFullName );
             else
-                Logger?.LogMemberInfo( methodFullName );
+                Logger?.LogInformationMultiLineMessage( methodFullName );
         }
         catch ( Exception ex )
         {
@@ -88,7 +88,7 @@ public class CodecStreamsTests
 
     /// <summary>   Gets a logger instance for this category. </summary>
     /// <value> The logger. </value>
-    public static ILogger<CodecStreamsTests>? Logger { get; } = LoggerProvider.InitLogger<CodecStreamsTests>();
+    public static ILogger<CodecStreamsTests>? Logger { get; } = LoggerProvider.CreateLogger<CodecStreamsTests>();
 
     #endregion
 

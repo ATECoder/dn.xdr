@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text;
 using cc.isr.XDR.MSTest.Codecs;
+using cc.isr.MSTest.Exceptions;
 
 namespace cc.isr.XDR.MSTest.MockOncRpc;
 
@@ -27,7 +28,7 @@ public class MockOncRpcClientTests
             if ( Logger is null )
                 Console.WriteLine( methodFullName );
             else
-                Logger?.LogMemberInfo( methodFullName );
+                Logger?.LogInformationMultiLineMessage( methodFullName );
         }
         catch ( Exception ex )
         {
@@ -90,7 +91,7 @@ public class MockOncRpcClientTests
 
     /// <summary>   Gets a logger instance for this category. </summary>
     /// <value> The logger. </value>
-    public static ILogger<MockOncRpcClientTests>? Logger { get; } = LoggerProvider.InitLogger<MockOncRpcClientTests>();
+    public static ILogger<MockOncRpcClientTests>? Logger { get; } = LoggerProvider.CreateLogger<MockOncRpcClientTests>();
 
     #endregion
 
@@ -129,9 +130,9 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldPing( MockOncRpcClient client )
     {
-        Logger?.LogInformation( "About to ping: " );
+        Logger?.LogInformationMessage( "About to ping: " );
         client.CallRemoteProcedureNull();
-        Logger?.LogInformation( "okay" );
+        Logger?.LogInformationMessage( "okay" );
     }
 
     /// <summary>   Assert client should ping. </summary>
@@ -206,11 +207,11 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldEcho( MockOncRpcClient client )
     {
-        Logger?.LogInformation( "About to echo: " );
+        Logger?.LogInformationMessage( "About to echo: " );
         string expected = "Hello, Remote Tea!";
         string actual = client.CallRemoteProcedureEcho( expected );
         Assert.AreEqual( expected, actual );
-        Logger?.LogInformation( $"Okay; echoed: '{actual}'" );
+        Logger?.LogInformationMessage( $"Okay; echoed: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should echo. </summary>
@@ -232,13 +233,13 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldConcatenate( MockOncRpcClient client )
     {
-        Logger?.LogInformation( "About to concatenate: " );
+        Logger?.LogInformationMessage( "About to concatenate: " );
         StringVectorCodec strings = new();
         strings.SetValues( new StringCodec[] { new StringCodec( "Hello, " ), new StringCodec( "Remote " ), new StringCodec( "Tea!" ) } );
         string expected = "Hello, Remote Tea!";
         string actual = client.CallRemoteProcedureConcatenateInputParameters( strings );
         Assert.AreEqual( expected, actual );
-        Logger?.LogInformation( $"Okay; echoed: '{actual}'" );
+        Logger?.LogInformationMessage( $"Okay; echoed: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should concatenate. </summary>
@@ -260,11 +261,11 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldConcatenateExactly( MockOncRpcClient client )
     {
-        Logger?.LogInformation( "About to concatenating exactly three strings: " );
+        Logger?.LogInformationMessage( "About to concatenating exactly three strings: " );
         string expected = "(1:Hello )(2:Remote )(3:Tea!)";
         string actual = client.CallRemoteProcedureConcatenatedThreeItems( "(1:Hello )", "(2:Remote )", "(3:Tea!)" );
         Assert.AreEqual( expected, actual );
-        Logger?.LogInformation( $"The three arguments concatenated: '{actual}'" );
+        Logger?.LogInformationMessage( $"The three arguments concatenated: '{actual}'" );
     }
 
     /// <summary>   (Unit Test Method) client should concatenate exactly. </summary>
@@ -302,7 +303,7 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldGetFoo( MockOncRpcClient client )
     {
-        Logger?.LogInformation( "About to get a foo: " );
+        Logger?.LogInformationMessage( "About to get a foo: " );
         Assert.AreEqual( client.CallRemoteProcedureReturnEnumFooValue(), ( int ) EnumFoo.FOO, $"oops: got a {EnumFoo.BAR} instead of a {EnumFoo.FOO}!" );
     }
 
@@ -323,7 +324,7 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldGetNumberedFoo( MockOncRpcClient client )
     {
-        Logger?.LogInformation( "About to get a numbered foo string: " );
+        Logger?.LogInformationMessage( "About to get a numbered foo string: " );
         EnumFoo expectedValue = EnumFoo.FOO;
         string expected = MockOncRpcServer.ReturnYouAreFooValue( ( int ) expectedValue );
         string echo = client.CallRemoteProcedureReturnYouAreFooValue( expectedValue );
@@ -347,7 +348,7 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldPrependLinkedList( MockOncRpcClient client )
     {
-        Logger?.LogInformation( "Linked List test: " );
+        Logger?.LogInformationMessage( "Linked List test: " );
         LinkedListCodec node1 = new() {
             Foo = 0
         };
@@ -374,7 +375,7 @@ public class MockOncRpcClientTests
             actual = actual.Next;
             expected = expected.Next;
         }
-        Logger?.LogInformation( $"built list {builder}" );
+        Logger?.LogInformationMessage( $"built list {builder}" );
     }
 
     /// <summary>   (Unit Test Method) client should prepend linked list. </summary>
@@ -397,7 +398,7 @@ public class MockOncRpcClientTests
     /// <param name="client">   The client. </param>
     private static void AssertClientShouldLinkLinkedList( MockOncRpcClient client )
     {
-        Logger?.LogInformation( "Linking Linked Lists test: " );
+        Logger?.LogInformationMessage( "Linking Linked Lists test: " );
         LinkedListCodec node1 = new() {
             Foo = 0
         };
@@ -425,7 +426,7 @@ public class MockOncRpcClientTests
             actual = actual.Next;
             expected = expected.Next;
         }
-        Logger?.LogInformation( $"built list {builder}" );
+        Logger?.LogInformationMessage( $"built list {builder}" );
     }
 
     /// <summary>   (Unit Test Method) client should link linked list. </summary>
