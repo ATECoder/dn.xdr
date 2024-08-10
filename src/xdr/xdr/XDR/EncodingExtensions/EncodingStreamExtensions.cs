@@ -173,7 +173,6 @@ public static class EncodingStreamExtensions
         encoder.EncodeDynamicOpaqueChar( value );
     }
 
-
     /// <summary>
     /// Encodes (aka "serializes") an array of <see cref="byte"/> values into an XDR stream each
     /// packed into its very own 4 bytes XDR int value.
@@ -404,7 +403,6 @@ public static class EncodingStreamExtensions
     {
         encoder.EncodeDoubleVector( value, offset, length );
     }
-
 
     /// <summary>
     /// Encodes (aka "serializes") a vector of <see cref="bool"/> integers into this XDR stream.

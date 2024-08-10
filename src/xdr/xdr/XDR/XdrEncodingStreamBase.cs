@@ -301,7 +301,6 @@ public abstract class XdrEncodingStreamBase : ICloseable
         this.EncodeOpaque( value, 0, value.Length );
     }
 
-
     /// <summary>
     /// Encodes (aka "serializes") an array of <see cref="byte"/> values into an XDR stream
     /// each packed into its very own 4 <see cref="byte"/>s XDR int value.

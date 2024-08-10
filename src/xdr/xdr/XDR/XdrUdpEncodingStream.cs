@@ -137,7 +137,6 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
         }
     }
 
-
     /// <summary>   Finalizer. </summary>
     ~XdrUdpEncodingStream()
     {

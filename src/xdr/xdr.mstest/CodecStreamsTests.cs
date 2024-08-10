@@ -409,7 +409,6 @@ public class CodecStreamsTests
         AssertShouldDecodeOpaque( new byte[] { byte.MinValue, 0, byte.MaxValue } );
     }
 
-
     /// <summary>   Assert codecs should encode and decode <see cref="short"/>. </summary>
     /// <param name="value">    parameter of type <see cref="short"/> to encode and decode. </param>
     private static void AssertShouldDecode( short value )
@@ -435,7 +434,6 @@ public class CodecStreamsTests
         AssertShouldDecode( short.MaxValue );
         AssertShouldDecode( ( short ) 0 );
     }
-
 
     /// <summary>   Assert codecs should encode and decode <see cref="string"/>. </summary>
     /// <param name="value">    parameter of type <see cref="string"/> to encode and decode. </param>

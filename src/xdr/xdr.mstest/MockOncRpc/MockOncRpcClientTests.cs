@@ -165,7 +165,6 @@ public class MockOncRpcClientTests
         AssertClientShouldPing( client );
     }
 
-
     /// <summary>   Assert client should echo messages. </summary>
     /// <param name="client">   The client. </param>
     /// <param name="messages"> The messages. </param>
@@ -392,7 +391,6 @@ public class MockOncRpcClientTests
         MockOncRpcClient client = new();
         AssertClientShouldPrependLinkedList( client );
     }
-
 
     /// <summary>   Assert client should link linked list. </summary>
     /// <param name="client">   The client. </param>

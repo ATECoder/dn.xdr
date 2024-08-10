@@ -291,7 +291,6 @@ public class StreamsTests
         AssertStreamsShouldProcess( ( float ) 0 );
     }
 
-
     /// <summary>   Assert codecs should encode and decode <see cref="float"/>s. </summary>
     /// <param name="value">    parameter of type <see cref="float[]"/> to encode and decode. </param>
     private static void AssertStreamsShouldProcess( float[] value )
@@ -312,7 +311,6 @@ public class StreamsTests
     {
         AssertStreamsShouldProcess( new float[] { float.MinValue, 0, float.MaxValue } );
     }
-
 
     /// <summary>   Assert codecs should encode and decode Integer. </summary>
     /// <param name="value">    parameter of type <see cref="int"/> to encode and decode. </param>
@@ -372,7 +370,6 @@ public class StreamsTests
         AssertStreamsShouldProcess( new int[] { int.MinValue, 0, int.MaxValue } );
     }
 
-
     /// <summary>   (Unit Test Method) codecs should encode and decode Long. </summary>
     [TestMethod]
     public void StreamsShouldProcessLong()
@@ -403,7 +400,6 @@ public class StreamsTests
         AssertStreamsShouldProcess( new long[] { long.MinValue, 0, long.MaxValue } );
     }
 
-
     /// <summary>   Assert codecs should encode and decode Opaque. </summary>
     /// <param name="value">    parameter of type <see cref="[]byte"/> to encode and decode. </param>
     private static void AssertStreamsShouldProcessOpaque( byte[] value )
@@ -426,7 +422,6 @@ public class StreamsTests
     {
         AssertStreamsShouldProcessOpaque( new byte[] { byte.MinValue, 0, byte.MaxValue } );
     }
-
 
     /// <summary>   Assert codecs should encode and decode Short. </summary>
     /// <param name="value">    parameter of type <see cref="short"/> to encode and decode. </param>
@@ -471,7 +466,6 @@ public class StreamsTests
     {
         AssertStreamsShouldProcess( new short[] { short.MinValue, 0, short.MaxValue } );
     }
-
 
     /// <summary>   Assert codecs should encode and decode string. </summary>
     /// <param name="value">    parameter of type <see cref="string"/> to encode and decode. </param>

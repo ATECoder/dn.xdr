@@ -35,6 +35,7 @@ public class SillyStructCodec : IXdrCodec
     }
 
     private byte[] _fixedBuffer;
+
     /// <summary>   Gets the buffer for fixed data. </summary>
     /// <value> A buffer for fixed data. </value>
     public virtual byte[] GetFixedbuffer()
@@ -65,6 +66,7 @@ public class SillyStructCodec : IXdrCodec
     }
 
     private byte[] _buffer;
+
     /// <summary>   Sets a buffer. </summary>
     /// <param name="x">    The x coordinate. </param>
     public virtual void SetBuffer( byte[] x )
@@ -92,6 +94,7 @@ public class SillyStructCodec : IXdrCodec
     }
 
     private byte[] _fixedBytes;
+
     /// <summary>   Sets fixed bytes. </summary>
     /// <param name="x">    The x coordinate. </param>
     public virtual void SetFixedBytes( byte[] x )
@@ -118,6 +121,7 @@ public class SillyStructCodec : IXdrCodec
     }
 
     private byte[] _bytes;
+
     /// <summary>   Sets the bytes. </summary>
     /// <param name="x">    The x coordinate. </param>
     public virtual void SetBytes( byte[] x )
@@ -134,6 +138,7 @@ public class SillyStructCodec : IXdrCodec
     /// <summary>   Gets the bytes. </summary>
     /// <value> The bytes. </value>
     public virtual byte[] Bytes => this._bytes;
+
     /// <summary>   Gets the bytes. </summary>
     /// <param name="index">    Zero-based index of the. </param>
     /// <returns>   The bytes. </returns>

@@ -153,6 +153,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     #region " members "
 
     private IPEndPoint _remoteEndPoint = new( IPAddress.Any, 0 );
+
     /// <summary>
     /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
     /// </summary>
