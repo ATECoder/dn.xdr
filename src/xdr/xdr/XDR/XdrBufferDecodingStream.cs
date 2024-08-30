@@ -146,7 +146,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// <param name="encodedLength">    Length of encoded XDR data within the buffer. </param>
     public virtual void SetEncodedData( byte[] buffer, int encodedLength )
     {
-
         // Make sure that the buffer size is a multiple of four, otherwise
         // throw an exception.
 
@@ -206,7 +205,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     {
         if ( this._bufferIndex <= this._bufferHighmark )
         {
-
             // There's enough space in the buffer to hold at least one
             // XDR int. So let's retrieve it now.
             // Note: buffer[...] gives a byte, which is signed. So if we
@@ -239,7 +237,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     {
         if ( this._bufferIndex <= this._bufferHighmark )
         {
-
             // There's enough space in the buffer to hold at least one
             // XDR unsigned int. So let's retrieve it now.
             // Note: buffer[...] gives a byte, which is signed. So if we
@@ -275,7 +272,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// <returns>   Opaque data as a byte vector. </returns>
     public override byte[] DecodeOpaque( int length )
     {
-
         // First make sure that the length is always a multiple of four.
 
         int alignedLength = length;
@@ -318,7 +314,6 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// <param name="length">   the number of bytes to decode. </param>
     public override void DecodeOpaque( byte[] opaque, int offset, int length )
     {
-
         // First make sure that the length is always a multiple of four.
 
         int alignedLength = length;

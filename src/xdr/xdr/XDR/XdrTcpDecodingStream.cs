@@ -87,7 +87,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         List<Exception> exceptions = new();
         if ( disposing )
         {
-
             // dispose managed state (managed objects)
 
             IDisposable? networkStream = this._networkStream;
@@ -211,7 +210,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             bytesRead = stream.Read( bytes, byteOffset, bytesToRead );
             if ( bytesRead <= 0 )
             {
-
                 // Stream is at EOF -- note that bytesRead is not allowed
                 // to be zero here, as we asked for at least one byte...
 
@@ -227,7 +225,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <exception cref="IOException">  Thrown when an I/O failure occurred. </exception>
     private void Fill()
     {
-
         // If the buffer is empty but there are still bytes left to read,
         // refill the buffer. We have also to take care of the record marking
         // within the stream.
@@ -244,7 +241,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         {
             if ( this._lastFragment )
             {
-
                 // In case there is no more data in the current XDR record
                 // (as we already saw the last fragment), throw an exception.
 
@@ -326,7 +322,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     {
         try
         {
-
             // Drain the stream until we reach the end of the current record.
 
             while ( !this._lastFragment || (this._fragmentLength != 0) )
@@ -336,7 +331,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
         }
         finally
         {
-
             // Try to reach a sane state, although this is rather questionable
             // in case of timeouts in the middle of a record.
 
@@ -359,7 +353,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override int DecodeInt()
     {
-
         // This might look funny in the first place, but this way we can
         // properly handle trailing empty XDR record fragments. In this
         // case fill() will return without any now data the first time
@@ -394,7 +387,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <returns>   The decoded <see cref="uint"/> value. </returns>
     public override uint DecodeUInt()
     {
-
         // This might look funny in the first place, but this way we can
         // properly handle trailing empty XDR record fragments. In this
         // case fill() will return without any now data the first time
@@ -456,7 +448,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             toCopy = this._bufferHighmark - this._bufferIndex + 4;
             if ( toCopy >= length )
             {
-
                 // The buffer holds more data than we need. So copy the bytes
                 // and leave the stage.
 
@@ -467,7 +458,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             }
             else
             {
-
                 // We need to copy more data than currently available from our
                 // buffer, so we copy all we can get our hands on, then fill
                 // the buffer again and repeat this until we got all we want.
@@ -513,7 +503,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             toCopy = this._bufferHighmark - this._bufferIndex + 4;
             if ( toCopy >= length )
             {
-
                 // The buffer holds more data than we need. So copy the bytes
                 // and leave the stage.
 
@@ -524,7 +513,6 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
             }
             else
             {
-
                 // We need to copy more data than currently available from our
                 // buffer, so we copy all we can get our hands on, then fill
                 // the buffer again and repeat this until we got all we want.

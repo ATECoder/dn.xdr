@@ -4,7 +4,6 @@ namespace cc.isr.XDR.MSTest.Codecs;
 [Serializable]
 internal class StringTripleIntegerCodec : IXdrCodec
 {
-
     public StringTripleIntegerCodec()
     {
         this.A = string.Empty;

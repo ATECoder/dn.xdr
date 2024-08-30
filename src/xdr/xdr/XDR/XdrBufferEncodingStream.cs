@@ -47,7 +47,6 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// <param name="buffer">   Buffer to store encoded information in. </param>
     public XdrBufferEncodingStream( byte[] buffer )
     {
-
         // Make sure that the buffer size is a multiple of four, otherwise
         // throw an exception.
 
@@ -173,7 +172,6 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     {
         if ( this._bufferIndex <= this._bufferHighmark )
         {
-
             // There's enough space in the buffer, so encode this int as
             // four bytes (French octets) in big endian order (that is, the
             // most significant byte comes first.
@@ -200,7 +198,6 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     {
         if ( this._bufferIndex <= this._bufferHighmark )
         {
-
             // There's enough space in the buffer, so encode this unsigned int as
             // four bytes (French octets) in big endian order (that is, the
             // most significant byte comes first.
@@ -235,7 +232,6 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// <param name="length">   the number of bytes to encode. </param>
     public override void EncodeOpaque( byte[] value, int offset, int length )
     {
-
         // First calculate the number of bytes needed for padding.
 
         int padding = (4 - (length & 3)) & 3;
@@ -245,7 +241,6 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
             this._bufferIndex += length;
             if ( padding != 0 )
             {
-
                 // If the length of the opaque data was not a multiple of 4 bytes, then
                 // pad with zeros, so the next write pointer points to a byte, which index
                 // is a multiple of four.

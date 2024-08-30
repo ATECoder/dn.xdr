@@ -404,7 +404,6 @@ public class StreamsTests
     /// <param name="value">    parameter of type <see cref="[]byte"/> to encode and decode. </param>
     private static void AssertStreamsShouldProcessOpaque( byte[] value )
     {
-
         using XdrBufferEncodingStream encoder = new( 1024 );
         value.EncodeOpaque( encoder );
 

@@ -79,7 +79,6 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         List<Exception> exceptions = new();
         if ( disposing )
         {
-
             // dispose managed state (managed objects)
 
             IDisposable? networkStream = this._stream;
@@ -207,7 +206,6 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// <param name="batch">        True to batch. </param>
     private void Flush( bool lastFragment, bool batch )
     {
-
         // Encode the fragment header. We have to take batching/pipelining
         // into account, so multiple complete fragments may be waiting in
         // the same write buffer. The variable bufferFragmentHeaderIndex
@@ -246,7 +244,6 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
         }
         else
         {
-
             // Batch/pipeline several consecutive XDR records. So do not
             // flush the buffer yet to the network but instead wait for more
             // data.
@@ -335,7 +332,6 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
             toCopy = this._bufferHighmark - this._bufferIndex + 4;
             if ( toCopy >= length )
             {
-
                 // The buffer has more free space than we need. So copy the
                 // bytes and leave the stage.
 
@@ -346,7 +342,6 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
             }
             else
             {
-
                 // We need to copy more data than currently available from our
                 // buffer, so we copy all we can get our hands on, then fill
                 // the buffer again and repeat this until we got all we want.

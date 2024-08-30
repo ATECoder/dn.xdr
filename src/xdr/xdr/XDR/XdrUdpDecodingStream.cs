@@ -74,7 +74,6 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
         List<Exception> exceptions = new();
         if ( disposing )
         {
-
             // dispose managed state (managed objects)
 
             IDisposable? networkStream = this._stream;
@@ -222,7 +221,6 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     {
         if ( this._bufferIndex <= this._bufferHighmark )
         {
-
             // There's enough space in the buffer to hold at least one
             // XDR int. So let's retrieve it now.
             // Note: buffer[...] gives a byte, which is signed. So if we
@@ -255,7 +253,6 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     {
         if ( this._bufferIndex <= this._bufferHighmark )
         {
-
             // There's enough space in the buffer to hold at least one
             // XDR unsigned int. So let's retrieve it now.
             // Note: buffer[...] gives a byte, which is signed. So if we
@@ -290,7 +287,6 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// <returns>   Opaque data as a byte vector. </returns>
     public override byte[] DecodeOpaque( int length )
     {
-
         // First make sure that the length is always a multiple of four.
 
         int alignedLength = length;
@@ -331,7 +327,6 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// <param name="length">   the number of bytes to decode. </param>
     public override void DecodeOpaque( byte[] opaque, int offset, int length )
     {
-
         // First make sure that the length is always a multiple of four.
 
         int alignedLength = length;

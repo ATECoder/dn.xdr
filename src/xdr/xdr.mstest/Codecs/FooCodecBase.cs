@@ -12,7 +12,6 @@ namespace cc.isr.XDR.MSTest.Codecs;
 /// </remarks>
 internal abstract class FooCodecBase : IXdrCodec
 {
-
     // discriminant values
     public const int FooBarClass = 1;
     public const int FooBazClass = 2;

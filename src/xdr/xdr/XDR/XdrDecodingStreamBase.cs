@@ -351,7 +351,6 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public long DecodeLong()
     {
-
         // Similar to xdrEncodeLong: just read in two <see cref="int"/>'s in network order.  We
         // OR the int's together rather than adding them...
 

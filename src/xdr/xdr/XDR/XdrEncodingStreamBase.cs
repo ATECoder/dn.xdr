@@ -369,7 +369,6 @@ public abstract class XdrEncodingStreamBase : ICloseable
     /// <param name="value">    <see cref="long"/> value to encode. </param>
     public void EncodeLong( long value )
     {
-
         // Just encode the long (which is called a "hyper" in XDR babble) as
         // two integers in network order, that is: big endian with the high int
         // coming first.

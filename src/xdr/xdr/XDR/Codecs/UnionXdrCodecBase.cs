@@ -66,7 +66,6 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <param name="encoder">  XDR stream to which information is sent for encoding. </param>
     public virtual void Encode( XdrEncodingStreamBase encoder )
     {
-
         // For historical reasons (read: "for dumb and pure idiotic reasons")
         // and compatibility with the ACPLT/KS C++ Communication Library we
         // encode/decode the variant part *first* before encoding/decoding
@@ -84,7 +83,6 @@ public abstract class UnionXdrCodecBase : IXdrCodec
     /// <param name="decoder">  XDR stream from which decoded information is retrieved. </param>
     public virtual void Decode( XdrDecodingStreamBase decoder )
     {
-
         // Make sure that when deserializing this object's state that
         // the stream provides state information indeed intended for this
         // particular class.
