@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text;
 using cc.isr.XDR.MSTest.Codecs;
-using cc.isr.MSTest.Exceptions;
+using cc.isr.Std.MSTest.Exceptions;
 
 namespace cc.isr.XDR.MSTest.MockOncRpc;
 
@@ -63,6 +63,7 @@ public class MockOncRpcClientTests
     [TestInitialize()]
     public void InitializeBeforeEachTest()
     {
+        Console.WriteLine( $"{this.TestContext?.FullyQualifiedTestClassName}: {DateTime.Now} {System.TimeZoneInfo.Local}" );
         if ( Logger is not null )
         {
             this._loggerScope = Logger.BeginScope( this.TestContext?.TestName ?? string.Empty );

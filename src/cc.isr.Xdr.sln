@@ -5,10 +5,10 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "`docs", "`docs", "{C57D9B99-54FD-4AB0-9DCC-DBCD77951BB9}"
 	ProjectSection(SolutionItems) = preProject
-		..\CHANGELOG.md = ..\CHANGELOG.md
+		..\changelog.md = ..\changelog.md
 		items\readme.md = items\readme.md
-		..\README.md = ..\README.md
-		..\TODO.md = ..\TODO.md
+		..\readme.md = ..\readme.md
+		..\todo.md = ..\todo.md
 		..\xdr.md = ..\xdr.md
 	EndProjectSection
 EndProject
