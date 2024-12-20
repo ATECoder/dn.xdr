@@ -1,4 +1,4 @@
-### XDR
+# XDR
 
 Implementation of the eXternal Data Representation (XDR) serialization.
 
@@ -20,11 +20,11 @@ Implementation of the eXternal Data Representation (XDR) serialization.
 * [Repository Owner](#Repository-Owner)
 * [Security](security.md)
 	
-#### Description
+## Description
 
 [ISR's XDR] is a C# implementation of the [XDR: External Data Representation Standard (May 2006)] as implemented in [Java ONC RPC] implementation called Remote Tea.
 
-#### History
+## History
 
 [ISR's XDR] and [ISR's ONC RPC] were forked from [GB1.RemoteTea.Net], which was forked from [Wes Day's RemoteTea.Net], which is a fork of [Jay Walter's SourceForge repository], which is a port of [Java ONC RPC] as documented in [org.acplt.oncrpc package].
 
@@ -34,20 +34,20 @@ Implementation of the eXternal Data Representation (XDR) serialization.
 
 [ISR's XDR] and [ISR's ONC RPC] are used in [ISR's VXI-11], which is a partial C# implementation of the [VXI Bus Specification]. [ISR's VXI-11] is a fork of [VXI11.CSharp].
 
-##### Standards
+### Standards
 
 * [XDR: External Data Representation Standard (May 2006)]
 
 <a name="Repository-Owner"></a>
-#### Repository Owner
+## Repository Owner
 [ATE Coder]
 
 <a name="Authors"></a>
-#### Authors
+## Authors
 * [ATE Coder]  
 
 <a name="legal-notices"></a>
-#### Legal Notices
+## Legal Notices
 
 Integrated Scientific Resources, Inc., and any contributors grant you a license to the documentation and other content in this repository under the [Creative Commons Attribution 4.0 International Public License], see the [LICENSE](./LICENSE) file, and grant you a license to any code in the repository under the [MIT License], see the [LICENSE-CODE](./LICENSE-CODE) file.
 
