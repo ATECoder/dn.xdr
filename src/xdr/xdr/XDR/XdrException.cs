@@ -93,7 +93,7 @@ public class XdrException : Exception
     /// <see cref="XdrExceptionReason.XdrFailed"/> if it was <see cref="XdrException()">created</see>
     /// without specifying a reason (using the default constructor).
     /// </value>
-    /// 
+    ///
     public XdrExceptionReason Reason { get; private set; }
 
     /// <summary>
@@ -113,25 +113,25 @@ public class XdrException : Exception
 public enum XdrExceptionReason
 {
     /// <summary>   The remote procedure call was carried out successfully. <para>
-    /// 
+    ///
     /// Renamed from RPC_SUCCESS (=0), which maps to VXI-11 Visa32.VISA.VI_SUCCESS </para></summary>
     [Description( "The remote procedure call was carried out successfully." )]
     XdrSuccess = 0,
 
     /// <summary>   Encoded information cannot be sent. <para>
-    /// 
+    ///
     /// Renamed from RPC_CANTSEMD (=3)  </para></summary>
     [Description( "Encoded information cannot be sent." )]
     XdrCannotSend = 1,
 
     /// <summary>   Information to be decoded cannot be received. <para>
-    ///  
+    ///
     /// Renamed from RPC_CANTRECV (=4) </para></summary>
     [Description( "Information to be decoded cannot be received." )]
     XdrCannotReceive = 2,
 
     /// <summary>   A generic XDR exception occurred. <para>
-    /// 
+    ///
     /// Renamed from RPC_FAILED (=16)  </para></summary>
     [Description( "A generic XDR exception occurred." )]
     XdrFailed = 3,
@@ -140,7 +140,7 @@ public enum XdrExceptionReason
     /// A buffer overflow occurred with an encoding XDR stream. This happens if you use
     /// UDP-based (datagram-based) XDR streams and you try to encode more data than can fit into the
     /// sending buffers. <para>
-    /// 
+    ///
     /// Renamed from RPC_BUFFEROVERFLOW (=42)  </para></summary>
     [Description( "A buffer overflow occurred with an encoding XDR stream." )]
     XdrBufferOverflow = 4,
@@ -148,7 +148,7 @@ public enum XdrExceptionReason
     /// <summary>
     /// A buffer underflow occurred with an decoding XDR stream. This happens if you try
     /// to decode more data than was sent by the other communication partner. <para>
-    /// 
+    ///
     /// Renamed from RPC_BUFFERUNDERFLOW (=43)  </para></summary>
     [Description( "A buffer underflow occurred with an decoding XDR stream." )]
     XdrBufferUnderflow = 5,

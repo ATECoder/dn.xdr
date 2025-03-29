@@ -215,7 +215,7 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should echo. </summary>
-    /// <remarks>   
+    /// <remarks>
     /// <code>
     /// Standard Output: 
     /// 2023-02-02 09:45:52.052,About to echo:
@@ -243,7 +243,7 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should concatenate. </summary>
-    /// <remarks>   
+    /// <remarks>
     /// <code>
     /// Standard Output: 
     /// 2023-02-02 09:45:52.050,About to concatenate:
@@ -269,7 +269,7 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should concatenate exactly. </summary>
-    /// <remarks>   
+    /// <remarks>
     /// <code>
     /// Standard Output: 
     /// 2023-02-02 09:45:52.051,About to concatenating exactly three strings:
@@ -332,7 +332,7 @@ public class MockOncRpcClientTests
     }
 
     /// <summary>   (Unit Test Method) client should get numbered foo. </summary>
-    /// <remarks>   
+    /// <remarks>
     /// <code>
     /// 2023-02-02 09:45:52.053,About to get a numbered foo string:
     /// </code>

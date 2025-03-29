@@ -149,7 +149,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     #region " members "
 
     /// <summary>
-    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating.
     /// </summary>
     /// <remarks>
     /// This value is valid only after <see cref="BeginEncoding"/>, otherwise it might return stale information.
@@ -178,8 +178,8 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     /// Flushes this encoding XDR stream and forces any buffered output bytes to be written out.
     /// </summary>
     /// <remarks>
-    /// The general contract of <see cref="XdrEncodingStreamBase.EndEncoding()"/> is that calling it 
-    /// is an indication that the current record is finished and any bytes previously encoded should 
+    /// The general contract of <see cref="XdrEncodingStreamBase.EndEncoding()"/> is that calling it
+    /// is an indication that the current record is finished and any bytes previously encoded should
     /// immediately be written to their intended destination.
     /// </remarks>
     public override void EndEncoding()
@@ -246,16 +246,16 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
-    /// array of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a 
+    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an
+    /// array of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a
     /// length of <paramref name="length"/> into an XDR stream.
     /// </summary>
     /// <remarks>
     /// <paramref name="length"/> array elements starting at <paramref name="offset"/> are
     /// copied into the XDR stream. <para>
-    /// 
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    ///
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
     /// If the given length is not a multiple of four, zero bytes are used for padding. </para>
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
@@ -274,7 +274,7 @@ public class XdrUdpEncodingStream : XdrEncodingStreamBase
             if ( padding != 0 )
             {
                 // If the length of the opaque data was not a multiple, then
-                // pad with zeros, so the next write pointer points to 
+                // pad with zeros, so the next write pointer points to
                 // the first byte of the 4-byte core value of the XDR coded.
 
                 System.Array.Copy( _paddingZeros, 0, this._buffer, this._bufferIndex, padding );

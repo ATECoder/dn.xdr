@@ -32,7 +32,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     private int _bufferHighmark;
 
     /// <summary>
-    /// Constructs a new <see cref="XdrUdpDecodingStream"/> object and associate it with the given 
+    /// Constructs a new <see cref="XdrUdpDecodingStream"/> object and associate it with the given
     /// <paramref name="datagramSocket"/> for UDP/IP-based communication.
     /// </summary>
     /// <remarks>
@@ -154,7 +154,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     private IPEndPoint _remoteEndPoint = new( IPAddress.Any, 0 );
 
     /// <summary>
-    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating.
     /// </summary>
     /// <remarks>
     /// This value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
@@ -194,7 +194,7 @@ public class XdrUdpDecodingStream : XdrDecodingStreamBase
     /// The general contract of <see cref="XdrDecodingStreamBase.EndDecoding"/> is that calling it is
     /// an indication that the current record is no more interesting to the caller and any allocated
     /// data for this record can be freed. <para>
-    /// 
+    ///
     /// This method overrides
     /// <see cref="XdrDecodingStreamBase.EndDecoding()"/>.
     /// It does nothing more than resetting the buffer pointer back to the beginning of an empty

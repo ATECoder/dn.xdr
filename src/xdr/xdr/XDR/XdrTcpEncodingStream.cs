@@ -39,7 +39,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     private static readonly byte[] _paddingZeros = new byte[] { 0, 0, 0, 0 };
 
     /// <summary>
-    /// Constructs a new <see cref="XdrTcpEncodingStream"/> object and associate it with the given 
+    /// Constructs a new <see cref="XdrTcpEncodingStream"/> object and associate it with the given
     /// <see cref="NetworkStream"/> <see cref="Socket"/> for TCP/IP-based communication.
     /// </summary>
     /// <param name="socket">       Socket to which XDR data is sent. </param>
@@ -157,7 +157,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     #region " members "
 
     /// <summary>
-    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating.
     /// </summary>
     /// <value> The remote endpoint. </value>
     public IPEndPoint RemoteEndpoint => this._socket == null ? new IPEndPoint( IPAddress.Any, 0 ) : ( IPEndPoint ) this._socket.RemoteEndPoint;
@@ -173,9 +173,9 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     /// Flushes this encoding XDR stream and forces any buffered output bytes to be written out.
     /// </summary>
     /// <remarks>
-    /// The general contract of <see cref="XdrEncodingStreamBase.EndEncoding()"/> is that calling 
-    /// it is an indication that the current record is finished and any bytes previously encoded 
-    /// should immediately be written to their intended destination. 
+    /// The general contract of <see cref="XdrEncodingStreamBase.EndEncoding()"/> is that calling
+    /// it is an indication that the current record is finished and any bytes previously encoded
+    /// should immediately be written to their intended destination.
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
     public override void EndEncoding()
@@ -185,7 +185,7 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
 
     /// <summary>   Ends the current record for this encoding XDR stream. </summary>
     /// <remarks>
-    /// If the <paramref name="flush"/> is <see langword="true"/> any buffered output bytes 
+    /// If the <paramref name="flush"/> is <see langword="true"/> any buffered output bytes
     /// are immediately written to their intended destination. If <paramref name="flush"/>
     /// is <see langword="false"/>, then more than one record can be pipelined, for
     /// instance, to batch several ONC/RPC calls. In this case the ONC/RPC
@@ -307,16 +307,16 @@ public class XdrTcpEncodingStream : XdrEncodingStreamBase
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
-    /// array of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a 
+    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an
+    /// array of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a
     /// length of <paramref name="length"/> into an XDR stream.
     /// </summary>
     /// <remarks>
     /// <paramref name="length"/> array elements starting at <paramref name="offset"/> are
     /// copied into the XDR stream. <para>
-    /// 
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    ///
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
     /// If the given length is not a multiple of four, zero bytes are used for padding. </para>
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>

@@ -46,7 +46,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     private bool _lastFragment;
 
     /// <summary>
-    /// Constructs a new <see cref="XdrTcpDecodingStream"/> object and associate it with the given 
+    /// Constructs a new <see cref="XdrTcpDecodingStream"/> object and associate it with the given
     /// <see cref="NetworkStream"/> for TCP/IP-based communication.
     /// </summary>
     /// <param name="socket">       Socket from which XDR data is received. </param>
@@ -166,7 +166,7 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     #region " members "
 
     /// <summary>
-    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating.
     /// </summary>
     /// <value> The remote endpoint. </value>
     public override IPEndPoint RemoteEndPoint => this._socket == null ? new IPEndPoint( IPAddress.Any, 0 ) : ( IPEndPoint ) this._socket.RemoteEndPoint;
@@ -180,10 +180,10 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
 
     /// <summary>   Initiates decoding of the next XDR record. </summary>
     /// <remarks>
-    /// For TCP-based XDR decoding streams this reads in the next chunk of data from the network 
-    /// socket (a chunk of data is not necessary the same as a fragment, just enough to fill the 
+    /// For TCP-based XDR decoding streams this reads in the next chunk of data from the network
+    /// socket (a chunk of data is not necessary the same as a fragment, just enough to fill the
     /// internal buffer or receive the remaining part of a fragment). <para>
-    /// 
+    ///
     /// Read in the next bunch of bytes. This can be either a complete fragment,
     /// or if the fragments sent by the communication partner are too large for our buffer, only
     /// parts of fragments. In every case, this method ensures that there will be more data available
@@ -311,9 +311,9 @@ public class XdrTcpDecodingStream : XdrDecodingStreamBase
     /// <summary>   End decoding of the current XDR record. </summary>
     /// <remarks>
     /// The general contract of <see cref="XdrDecodingStreamBase.EndDecoding"/> is that calling it is an indication that
-    /// the current record is no more interesting to the caller and any allocated data for this 
+    /// the current record is no more interesting to the caller and any allocated data for this
     /// record can be freed. <para>
-    /// 
+    ///
     /// This method overrides <see cref="XdrDecodingStreamBase.EndDecoding()"/>.
     /// It reads in and throws away fragments until it reaches the last fragment. </para>
     /// </remarks>

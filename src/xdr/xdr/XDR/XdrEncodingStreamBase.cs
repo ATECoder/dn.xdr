@@ -2,12 +2,12 @@ namespace cc.isr.XDR;
 
 /// <summary>   Defines the abstract base class for all encoding XDR streams. </summary>
 /// <remarks>
-/// An encoding XDR stream receives data consisting of primitive data types and writes it to a 
+/// An encoding XDR stream receives data consisting of primitive data types and writes it to a
 /// data sink (for instance, network or memory buffer) in the platform-independent XDR format. <para>
-/// 
+///
 /// Derived classes need to implement the <see cref="EncodeInt(int)"/>,
 /// <see cref="EncodeOpaque(byte[])"/> and <see cref="EncodeOpaque(byte[], int, int)"/>. </para><para>
-/// 
+///
 /// Remote Tea authors: Harald Albrecht, Jay Walters.</para>
 /// </remarks>
 public abstract class XdrEncodingStreamBase : ICloseable
@@ -18,7 +18,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     /// <remarks>
     /// The general contract of <see cref="Close()"/> is that it closes and disposes of the encoding
     /// XDR stream. A closed XDR stream cannot perform encoding operations and cannot be reopened. <para>
-    /// 
+    ///
     /// The <see cref="XdrEncodingStreamBase.Close()"/> method of <see cref="XdrEncodingStreamBase"/>
     /// calls <see cref="Dispose()"/> and is not <see langword="virtual"/>.</para>
     /// </remarks>
@@ -42,7 +42,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     /// include a user-defined finalizer. This is necessary to ensure proper semantics for derived
     /// types that add a user-defined finalizer but only override the protected <see cref="Dispose(bool)"/>
     /// method. </para> <para>
-    /// 
+    ///
     /// To this end, call <see cref="GC.SuppressFinalize(object)"/>, where <see langword="Object"/> = <see langword="this"/> in the <see langword="Finally"/> segment of
     /// the <see langword="try"/>...<see langword="catch"/> clause. </para><para>
     ///
@@ -116,7 +116,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     #region " members "
 
     /// <summary>
-    /// Gets or sets the encoding to use when serializing strings. 
+    /// Gets or sets the encoding to use when serializing strings.
     /// </summary>
     /// <value> The character encoding. </value>
     public Encoding CharacterEncoding { get; set; } = XdrDecodingStreamBase.EncodingDefault;
@@ -143,7 +143,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     /// The general contract of <see cref="EndEncoding"/> is that calling it is an indication that the
     /// current record is finished and any <see cref="byte"/>s previously encoded should immediately be written to
     /// their intended destination. <para>
-    /// 
+    ///
     /// The <see cref="XdrEncodingStreamBase.EndEncoding"/> method of <see cref="XdrEncodingStreamBase"/>
     /// does nothing.</para>
     /// </remarks>
@@ -176,15 +176,15 @@ public abstract class XdrEncodingStreamBase : ICloseable
     public abstract void EncodeUInt( uint value );
 
     /// <summary>
-    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
-    /// array of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a 
+    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an
+    /// array of <see cref="byte"/> values, and starts at <paramref name="offset"/> with a
     /// length of <paramref name="length"/> into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
     /// If the given length is not a multiple of four, zero <see cref="byte"/>s are used for padding. <para>
-    /// 
+    ///
     /// Derived classes must ensure that the proper semantic is maintained.</para>
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
@@ -194,12 +194,12 @@ public abstract class XdrEncodingStreamBase : ICloseable
     public abstract void EncodeOpaque( byte[] value, int offset, int length );
 
     /// <summary>
-    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
+    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an
     /// array of <see cref="byte"/> values into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
     /// If the given length is not a multiple of four, zero <see cref="byte"/>s are used for padding.
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
@@ -210,12 +210,12 @@ public abstract class XdrEncodingStreamBase : ICloseable
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
+    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an
     /// array of <see cref="byte"/> values with a length of <paramref name="length"/> into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
     /// If the given length is not a multiple of four, zero <see cref="byte"/>s are used for padding.
     /// </remarks>
     /// <exception cref="ArgumentException">    Thrown when one or more arguments have unsupported or
@@ -234,11 +234,11 @@ public abstract class XdrEncodingStreamBase : ICloseable
     /// </summary>
     /// <remarks>
     /// The length of the opaque data is written to the XDR stream, so the receiver does not need to
-    /// know the exact length in advance. The length is rounded up to a multiple of 4 and the encoded 
+    /// know the exact length in advance. The length is rounded up to a multiple of 4 and the encoded
     /// is always padded to be a multiple of four to maintain XDR alignment.
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque data to be encoded in the form of a series 
+    /// <param name="value">    The opaque data to be encoded in the form of a series
     ///                         of <see cref="byte"/>s. </param>
     public void EncodeDynamicOpaque( byte[] value )
     {
@@ -263,19 +263,19 @@ public abstract class XdrEncodingStreamBase : ICloseable
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
-    /// array of <see cref="char"/> values, and starts at <paramref name="offset"/> with a 
+    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an
+    /// array of <see cref="char"/> values, and starts at <paramref name="offset"/> with a
     /// length of <paramref name="length"/> into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
     /// If the given length is not a multiple of four, zero <see cref="byte"/>s are used for padding. <para>
-    /// 
+    ///
     /// Derived classes must ensure that the proper semantic is maintained.</para>
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque value to be encoded in the form of 
+    /// <param name="value">    The opaque value to be encoded in the form of
     ///                         a series of <see cref="char"/>s. </param>
     /// <param name="offset">   Start offset in the data. </param>
     /// <param name="length">   the number of <see cref="byte"/>s to encode. </param>
@@ -285,16 +285,16 @@ public abstract class XdrEncodingStreamBase : ICloseable
     }
 
     /// <summary>
-    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an 
+    /// Encodes (aka "serializes") a fixed-length XDR opaque data, which are represented by an
     /// array of <see cref="char"/> values into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
     /// If the given length is not a multiple of four, zero <see cref="byte"/>s are used for padding.
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque value to be encoded in the form of a series 
+    /// <param name="value">    The opaque value to be encoded in the form of a series
     ///                         of <see cref="char"/>s. </param>
     public void EncodeOpaque( char[] value )
     {
@@ -307,7 +307,7 @@ public abstract class XdrEncodingStreamBase : ICloseable
     /// </summary>
     /// <remarks>
     /// Each <see cref="byte"/> value is packed into its very own 4 <see cref="byte"/>s XDR int value. <para>
-    /// 
+    ///
     /// <see cref="byte"/> vectors are encoded together with a preceding length value. This way the receiver
     /// doesn't need to know the length of the vector in advance. </para>
     /// </remarks>

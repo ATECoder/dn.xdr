@@ -3,7 +3,7 @@ namespace cc.isr.XDR;
 /// The <see cref="XdrBufferEncodingStream"/> class provides a buffer-based XDR stream.
 /// </summary>
 /// <remarks> <para>
-/// 
+///
 /// Remote Tea authors: Harald Albrecht, Jay Walters.</para>
 /// </remarks>
 public class XdrBufferEncodingStream : XdrEncodingStreamBase
@@ -148,7 +148,7 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// </summary>
     /// <remarks>
     /// The general contract of <see cref="XdrEncodingStreamBase.EndEncoding()"/> is that calling it is
-    /// an indication that the current record is finished and any bytes previously encoded should 
+    /// an indication that the current record is finished and any bytes previously encoded should
     /// immediately be written to their intended destination.
     /// </remarks>
     /// <exception cref="XdrException">  Thrown when an XDR error condition occurs. </exception>
@@ -219,8 +219,8 @@ public class XdrBufferEncodingStream : XdrEncodingStreamBase
     /// </summary>
     /// <remarks>
     /// This just copies the input values, padded with zeros to a length that is multiple of 4,
-    /// into the internal buffer starting at the current buffer index. <para> 
-    /// 
+    /// into the internal buffer starting at the current buffer index. <para>
+    ///
     /// Only the opaque value is encoded, but no length indication is preceding the opaque value, so the
     /// receiver has to know how long the opaque value will be. The encoded data is always padded to
     /// be a multiple of four. If the given length is not a multiple of four, zero bytes will be used

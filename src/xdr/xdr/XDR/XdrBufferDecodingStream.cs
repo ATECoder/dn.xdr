@@ -179,7 +179,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// The general contract of <see cref="XdrDecodingStreamBase.EndDecoding"/> is that calling it is an indication that
     /// the current record is no more interesting to the caller and any allocated data for this
     /// record can be freed. <para>
-    /// 
+    ///
     /// This method overrides <see cref="XdrDecodingStreamBase.EndDecoding()"/>.
     /// It does nothing more than resetting the buffer pointer back
     /// to the begin of an empty buffer, so attempts to decode data will fail
@@ -262,7 +262,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// </summary>
     /// <remarks>
     /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
-    /// 
+    ///
     /// Because the length of the opaque value is given, we don't need to retrieve it from the XDR
     /// stream. This is different from <see cref="XdrDecodingStreamBase.DecodeDynamicOpaque()"/>
     /// where first the length of the opaque data is retrieved from the XDR stream. </para>
@@ -304,7 +304,7 @@ public class XdrBufferDecodingStream : XdrDecodingStreamBase
     /// </summary>
     /// <remarks>
     /// Allocates sufficient bytes to copy and return a subset of the internal <see cref="Buffer"/> <para>
-    /// 
+    ///
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value will be. The
     /// decoded data is always padded to be a multiple of four (because that's what the sender does). </para>
     /// </remarks>

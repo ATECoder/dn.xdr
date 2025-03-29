@@ -2,12 +2,12 @@ namespace cc.isr.XDR;
 
 /// <summary>   Defines the abstract base class for all decoding XDR streams. </summary>
 /// <remarks>
-/// A decoding XDR stream returns data and primitive data types which it reads from 
+/// A decoding XDR stream returns data and primitive data types which it reads from
 /// a data source (for instance, network or memory buffer) in the platform-independent XDR format. <para>
-/// 
+///
 /// Derived classes need to implement the <see cref="DecodeInt()"/>, <see cref="DecodeOpaque(int)"/> and
 /// <see cref="DecodeOpaque(byte[], int, int)"/>. </para> <para>
-/// 
+///
 /// Remote Tea authors: Harald Albrecht, Jay Walters. </para>
 /// </remarks>
 public abstract class XdrDecodingStreamBase : ICloseable
@@ -18,7 +18,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// <remarks>
     /// The general contract of <see cref="Close()"/> is that it closes and disposes of the decoding
     /// XDR stream. A closed XDR stream cannot perform decoding operations and cannot be reopened. <para>
-    /// 
+    ///
     /// The <see cref="XdrDecodingStreamBase.Close()"/> method of <see cref="XdrDecodingStreamBase"/>
     /// calls <see cref="Dispose()"/> and is not <see langword="virtual"/>.</para>
     /// </remarks>
@@ -42,7 +42,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// include a user-defined finalizer. This is necessary to ensure proper semantics for derived
     /// types that add a user-defined finalizer but only override the protected <see cref="Dispose(bool)"/>
     /// method. </para> <para>
-    /// 
+    ///
     /// To this end, call <see cref="GC.SuppressFinalize(object)"/>, where <see langword="Object"/> = <see langword="this"/> in the <see langword="Finally"/> segment of
     /// the <see langword="try"/>...<see langword="catch"/> clause. </para><para>
     ///
@@ -119,7 +119,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     #region " members "
 
     /// <summary>
-    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating. 
+    /// Gets the remote <see cref="IPEndPoint"/> with which the socket is communicating.
     /// </summary>
     /// <remarks>
     /// With UDP decoding, this value is valid only after <see cref="BeginDecoding()"/>, otherwise it might return stale information.
@@ -128,7 +128,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     public virtual IPEndPoint RemoteEndPoint => new( IPAddress.Any, 0 );
 
     /// <summary>
-    /// Gets or sets the character encoding for deserializing strings. 
+    /// Gets or sets the character encoding for deserializing strings.
     /// </summary>
     /// <value> The character encoding. </value>
     public Encoding CharacterEncoding { get; set; } = XdrDecodingStreamBase.EncodingDefault;
@@ -149,9 +149,9 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// <summary>   End decoding of the current XDR record. </summary>
     /// <remarks>
     /// The general contract of <see cref="EndDecoding"/> is that calling it is
-    /// an indication that the current record is no more interesting to the caller and any allocated 
+    /// an indication that the current record is no more interesting to the caller and any allocated
     /// data for this record can be freed. <para>
-    /// 
+    ///
     /// The <see cref="XdrDecodingStreamBase.EndDecoding"/> method of <see cref="XdrDecodingStreamBase"/>
     /// does nothing. </para>
     /// </remarks>
@@ -186,7 +186,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// </summary>
     /// <remarks>
     /// Allocates sufficient <see cref="byte"/>s to copy and return a subset of the internal <see cref="Buffer"/> <para>
-    /// 
+    ///
     /// Because the length of the opaque value is given, we don't need to retrieve it from the XDR
     /// stream. This is different from <see cref="XdrDecodingStreamBase.DecodeDynamicOpaque()"/>
     /// where first the length of the opaque data is retrieved from the XDR stream. </para>
@@ -203,7 +203,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// </summary>
     /// <remarks>
     /// Allocates sufficient <see cref="byte"/>s to copy and return a subset of the internal <see cref="Buffer"/> <para>
-    /// 
+    ///
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value will
     /// be. The decoded data is always padded to be a multiple of four (because that's what the
     /// sender does). </para>
@@ -220,7 +220,7 @@ public abstract class XdrDecodingStreamBase : ICloseable
     /// </summary>
     /// <remarks>
     /// Allocates sufficient <see cref="byte"/>s to copy and return a subset of the internal <see cref="Buffer"/> <para>
-    /// 
+    ///
     /// Only the opaque value is decoded, so the caller has to know how long the opaque value
     /// will be. The decoded data is always padded to be a multiple of four (because that's what the
     /// sender does). </para>

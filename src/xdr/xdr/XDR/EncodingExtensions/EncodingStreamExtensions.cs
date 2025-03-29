@@ -46,9 +46,9 @@ public static class EncodingStreamExtensions
     /// into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
-    /// If the given length is not a multiple of four, zero bytes are used for padding. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
+    /// If the given length is not a multiple of four, zero bytes are used for padding.
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
     /// <param name="value">    The opaque value to be encoded in the form of a series of bytes. </param>
@@ -65,12 +65,12 @@ public static class EncodingStreamExtensions
     /// of <see cref="byte"/> values into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
-    /// If the given length is not a multiple of four, zero bytes are used for padding. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
+    /// If the given length is not a multiple of four, zero bytes are used for padding.
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque data to be encoded in the form of a series 
+    /// <param name="value">    The opaque data to be encoded in the form of a series
     ///                         of <see cref="byte"/>s. </param>
     /// <param name="encoder">  The encoder. </param>
     public static void EncodeOpaque( this byte[] value, XdrEncodingStreamBase encoder )
@@ -84,12 +84,12 @@ public static class EncodingStreamExtensions
     /// stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
     /// If the given length is not a multiple of four, zero bytes are used for padding.
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque data to be encoded in the form of a series 
+    /// <param name="value">    The opaque data to be encoded in the form of a series
     ///                         of <see cref="byte"/>s. </param>
     /// <param name="length">   the number of bytes to encode. </param>
     /// <param name="encoder">  The encoder. </param>
@@ -108,7 +108,7 @@ public static class EncodingStreamExtensions
     /// is always padded to be a multiple of four to maintain XDR alignment.
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque data to be encoded in the form of a series 
+    /// <param name="value">    The opaque data to be encoded in the form of a series
     ///                         of <see cref="byte"/>s. </param>
     /// <param name="encoder">  The encoder. </param>
     public static void EncodeDynamicOpaque( this byte[] value, XdrEncodingStreamBase encoder )
@@ -122,12 +122,12 @@ public static class EncodingStreamExtensions
     /// into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
-    /// If the given length is not a multiple of four, zero bytes are used for padding. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
+    /// If the given length is not a multiple of four, zero bytes are used for padding.
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque data to be encoded in the form of a series 
+    /// <param name="value">    The opaque data to be encoded in the form of a series
     ///                         of <see cref="byte"/>s. </param>
     /// <param name="offset">   Start offset in the data. </param>
     /// <param name="length">   the number of bytes to encode. </param>
@@ -142,12 +142,12 @@ public static class EncodingStreamExtensions
     /// of <see cref="char"/> values into an XDR stream.
     /// </summary>
     /// <remarks>
-    /// Because the opaque data are encoded without its length information, the receiver has to know 
-    /// how long the opaque data is. The encoded data is always padded to be a multiple of four. 
-    /// If the given length is not a multiple of four, zero bytes are used for padding. 
+    /// Because the opaque data are encoded without its length information, the receiver has to know
+    /// how long the opaque data is. The encoded data is always padded to be a multiple of four.
+    /// If the given length is not a multiple of four, zero bytes are used for padding.
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque data to be encoded in the form of a series 
+    /// <param name="value">    The opaque data to be encoded in the form of a series
     ///                         of <see cref="char"/>s. </param>
     /// <param name="encoder">  The encoder. </param>
     public static void EncodeOpaque( this char[] value, XdrEncodingStreamBase encoder )
@@ -165,7 +165,7 @@ public static class EncodingStreamExtensions
     /// is always padded to be a multiple of four to maintain XDR alignment.
     /// </remarks>
     /// <exception cref="XdrException"> Thrown when an XDR error condition occurs. </exception>
-    /// <param name="value">    The opaque data to be encoded in the form of a series 
+    /// <param name="value">    The opaque data to be encoded in the form of a series
     ///                         of <see cref="char"/>s. </param>
     /// <param name="encoder">  The encoder. </param>
     public static void EncodeDynamicOpaque( this char[] value, XdrEncodingStreamBase encoder )

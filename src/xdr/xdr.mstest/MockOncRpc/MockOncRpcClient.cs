@@ -16,7 +16,7 @@ public class MockOncRpcClient
         using XdrBufferEncodingStream encoder = new( 1024 );
         request.Encode( encoder );
 
-        // the transport will handle the decoding of the data into the encoded information that is sent from the 
+        // the transport will handle the decoding of the data into the encoded information that is sent from the
         // mock server and will be decoded below.
 
         using XdrBufferEncodingStream transportEncoder = new( 1024 );
