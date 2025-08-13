@@ -158,7 +158,7 @@ public class SupportTests
             maxValue = value > maxValue ? value : maxValue;
             AssertIntShouldCastToExceptionReason( value );
         }
-        _ = Assert.ThrowsException<ArgumentException>( () => { AssertIntShouldCastToExceptionReason( maxValue + 1 ); } );
+        _ = Assert.ThrowsExactly<ArgumentException>( () => { AssertIntShouldCastToExceptionReason( maxValue + 1 ); } );
     }
 
     #endregion
